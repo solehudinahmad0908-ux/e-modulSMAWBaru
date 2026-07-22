@@ -1,6 +1,7 @@
-import { Flame } from "lucide-react";
 import { Link } from "wouter";
 import weldingHero from "@/assets/welding-hero.jpg";
+import logoCui from "@/assets/logo-cui.png";
+import logoUpi from "@/assets/logo-upi.png";
 
 export default function Home() {
   return (
@@ -18,8 +19,19 @@ export default function Home() {
         </div>
         
         <div className="relative z-20 flex flex-col items-center text-center max-w-3xl mx-auto gap-6">
-          <div className="w-20 h-20 rounded-2xl bg-primary/20 flex items-center justify-center mb-4 border border-primary/50 shadow-[0_0_30px_rgba(245,124,0,0.3)]">
-            <Flame className="w-10 h-10 text-primary" />
+          {/* Logos */}
+          <div className="flex items-center justify-center gap-6 mb-2">
+            <img
+              src={logoCui}
+              alt="Logo CUI"
+              className="h-20 w-20 object-contain drop-shadow-lg"
+            />
+            <div className="w-px h-14 bg-white/30" />
+            <img
+              src={logoUpi}
+              alt="Logo UPI"
+              className="h-14 object-contain drop-shadow-lg"
+            />
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
             E-Modul Pengelasan <span className="text-primary">SMAW</span>
