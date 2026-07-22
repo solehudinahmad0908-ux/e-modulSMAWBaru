@@ -4,6 +4,7 @@ import logoCui from "@/assets/logo-cui-nobg.png";
 import logoUpi from "@/assets/logo-upi-nobg.png";
 import fotoPenyusun from "@/assets/foto-penyusun.png";
 import fotoPembimbing1 from "@/assets/foto-pembimbing1.png";
+import fotoPembimbing2 from "@/assets/foto-pembimbing2.png";
 
 export default function Home() {
   return (
@@ -81,12 +82,14 @@ export default function Home() {
 
         {/* Pembimbing II */}
         <div className="bg-card border border-border p-6 rounded-xl flex flex-col items-center text-center gap-4 hover:border-primary/50 transition-colors shadow-sm">
-          <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center border border-border">
-            <span className="text-2xl font-bold text-muted-foreground">II</span>
-          </div>
+          <img
+            src={fotoPembimbing2}
+            alt="Asep Hadian Sasmita, S.Pd., M.Pd."
+            className="w-24 h-24 rounded-full object-cover object-top border-2 border-primary/40 shadow-md"
+          />
           <div>
             <h3 className="font-bold text-foreground text-lg">Pembimbing II</h3>
-            <p className="text-primary font-medium mt-1">Nama Pembimbing II</p>
+            <p className="text-primary font-medium mt-1">Asep Hadian Sasmita, S.Pd., M.Pd.</p>
             <p className="text-sm text-muted-foreground">Dosen Pembimbing II</p>
           </div>
         </div>
