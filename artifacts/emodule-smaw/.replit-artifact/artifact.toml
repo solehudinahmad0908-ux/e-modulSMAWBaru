@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "E-Modul Pengelasan SMAW"
+version = "1.0.0"
+id = "artifacts/emodule-smaw"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18317
+
+[services.development]
+run = "pnpm --filter @workspace/emodule-smaw run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/emodule-smaw", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/emodule-smaw/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18317"
+BASE_PATH = "/"
