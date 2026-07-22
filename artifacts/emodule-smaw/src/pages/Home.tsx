@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import weldingHero from "@/assets/welding-hero.jpg";
-import logoCui from "@/assets/logo-cui.png";
-import logoUpi from "@/assets/logo-upi.png";
+import logoCui from "@/assets/logo-cui-nobg.png";
+import logoUpi from "@/assets/logo-upi-nobg.png";
 
 export default function Home() {
   return (
