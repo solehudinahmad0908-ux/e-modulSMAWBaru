@@ -3,6 +3,7 @@ import weldingHero from "@/assets/welding-hero.jpg";
 import logoCui from "@/assets/logo-cui-nobg.png";
 import logoUpi from "@/assets/logo-upi-nobg.png";
 import fotoPenyusun from "@/assets/foto-penyusun.png";
+import fotoPembimbing1 from "@/assets/foto-pembimbing1.png";
 
 export default function Home() {
   return (
@@ -66,12 +67,14 @@ export default function Home() {
 
         {/* Pembimbing I */}
         <div className="bg-card border border-border p-6 rounded-xl flex flex-col items-center text-center gap-4 hover:border-primary/50 transition-colors shadow-sm">
-          <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center border border-border">
-            <span className="text-2xl font-bold text-muted-foreground">I</span>
-          </div>
+          <img
+            src={fotoPembimbing1}
+            alt="Dr. H. Purnawan, S.Pd., M.T."
+            className="w-24 h-24 rounded-full object-cover object-top border-2 border-primary/40 shadow-md"
+          />
           <div>
             <h3 className="font-bold text-foreground text-lg">Pembimbing I</h3>
-            <p className="text-primary font-medium mt-1">Nama Pembimbing I</p>
+            <p className="text-primary font-medium mt-1">Dr. H. Purnawan, S.Pd., M.T.</p>
             <p className="text-sm text-muted-foreground">Dosen Pembimbing I</p>
           </div>
         </div>
