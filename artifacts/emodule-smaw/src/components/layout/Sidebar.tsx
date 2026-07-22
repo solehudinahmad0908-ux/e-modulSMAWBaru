@@ -7,10 +7,10 @@ import {
   CheckSquare, 
   FileText, 
   Library, 
-  Flame,
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
+import logoCui from "@/assets/logo-cui-nobg.png";
 
 export function Sidebar() {
   const { isOpen, toggleSidebar, setIsOpen } = useSidebar();
@@ -42,8 +42,8 @@ export function Sidebar() {
       >
       <div className="flex h-16 items-center justify-between px-4 border-b">
         <Link href="/" className="flex items-center gap-3 overflow-hidden text-sidebar-foreground">
-          <div className="flex items-center justify-center min-w-[32px] h-8 rounded bg-primary text-primary-foreground">
-            <Flame className="w-5 h-5" />
+          <div className="flex items-center justify-center min-w-[32px] h-8">
+            <img src={logoCui} alt="Logo CUI" className="h-8 w-8 object-contain" />
           </div>
           {isOpen && (
             <span className="font-bold text-sm leading-tight text-sidebar-foreground truncate whitespace-nowrap">
