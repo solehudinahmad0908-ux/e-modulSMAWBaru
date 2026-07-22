@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import weldingHero from "@/assets/welding-hero.jpg";
 import logoCui from "@/assets/logo-cui-nobg.png";
 import logoUpi from "@/assets/logo-upi-nobg.png";
+import fotoPenyusun from "@/assets/foto-penyusun.png";
 
 export default function Home() {
   return (
@@ -49,22 +50,43 @@ export default function Home() {
 
       {/* Identity Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-        {[
-          { title: "Identitas Penyusun", name: "Nama Penyusun", role: "Developer" },
-          { title: "Pembimbing I", name: "Nama Pembimbing I", role: "Dosen Pembimbing I" },
-          { title: "Pembimbing II", name: "Nama Pembimbing II", role: "Dosen Pembimbing II" },
-        ].map((card, i) => (
-          <div key={i} className="bg-card border border-border p-6 rounded-xl flex flex-col items-center text-center gap-4 hover:border-primary/50 transition-colors shadow-sm">
-            <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center border border-border">
-              <span className="text-xl font-bold text-muted-foreground">{card.name.charAt(0)}</span>
-            </div>
-            <div>
-              <h3 className="font-bold text-foreground text-lg">{card.title}</h3>
-              <p className="text-primary font-medium mt-1">{card.name}</p>
-              <p className="text-sm text-muted-foreground">{card.role}</p>
-            </div>
+        {/* Penyusun — with real photo */}
+        <div className="bg-card border border-border p-6 rounded-xl flex flex-col items-center text-center gap-4 hover:border-primary/50 transition-colors shadow-sm">
+          <img
+            src={fotoPenyusun}
+            alt="Ahmad Solehudin"
+            className="w-24 h-24 rounded-full object-cover object-top border-2 border-primary/40 shadow-md"
+          />
+          <div>
+            <h3 className="font-bold text-foreground text-lg">Identitas Penyusun</h3>
+            <p className="text-primary font-medium mt-1">Ahmad Solehudin</p>
+            <p className="text-sm text-muted-foreground">NIM 2207939</p>
           </div>
-        ))}
+        </div>
+
+        {/* Pembimbing I */}
+        <div className="bg-card border border-border p-6 rounded-xl flex flex-col items-center text-center gap-4 hover:border-primary/50 transition-colors shadow-sm">
+          <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center border border-border">
+            <span className="text-2xl font-bold text-muted-foreground">I</span>
+          </div>
+          <div>
+            <h3 className="font-bold text-foreground text-lg">Pembimbing I</h3>
+            <p className="text-primary font-medium mt-1">Nama Pembimbing I</p>
+            <p className="text-sm text-muted-foreground">Dosen Pembimbing I</p>
+          </div>
+        </div>
+
+        {/* Pembimbing II */}
+        <div className="bg-card border border-border p-6 rounded-xl flex flex-col items-center text-center gap-4 hover:border-primary/50 transition-colors shadow-sm">
+          <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center border border-border">
+            <span className="text-2xl font-bold text-muted-foreground">II</span>
+          </div>
+          <div>
+            <h3 className="font-bold text-foreground text-lg">Pembimbing II</h3>
+            <p className="text-primary font-medium mt-1">Nama Pembimbing II</p>
+            <p className="text-sm text-muted-foreground">Dosen Pembimbing II</p>
+          </div>
+        </div>
       </div>
     </div>
   );
