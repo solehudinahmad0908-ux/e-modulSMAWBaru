@@ -1,24 +1,27 @@
-// Auto-generated from DOCX — verbatim content with embedded image references
-    // Do not edit manually; regenerate from the source document.
+// Generated from DOCX — verbatim content with embedded image references
 
-    export type ContentItem =
-    | { kind: 'heading'; text: string }
-    | { kind: 'para'; text: string }
-    | { kind: 'bullets'; items: string[] }
-    | { kind: 'image'; file: string; caption: string; source: string }
-    | { kind: 'gallery'; images: Array<{ file: string; caption: string; source: string }> }
-    | { kind: 'table'; caption: string; cols: string[]; rows: string[][] };
+export type ContentItem =
+  | { kind: 'heading'; text: string }
+  | { kind: 'para'; text: string }
+  | { kind: 'bullets'; items: string[] }
+  | { kind: 'image'; file: string; caption: string; source: string }
+  | { kind: 'gallery'; images: Array<{ file: string; caption: string; source: string }> }
+  | { kind: 'table'; caption: string; cols: string[]; rows: string[][] }
+  | { kind: 'infobox'; title: string; text: string }
+  | { kind: 'checklist'; title: string; items: string[]; variant: 'refleksi' | 'pemeriksaan' };
 
-    export interface ModuleRichContent {
-    id: number;
-    items: ContentItem[];
-    }
+export interface ModuleRichContent {
+  id: number;
+  items: ContentItem[];
+}
 
-    export const moduleRichContents: ModuleRichContent[] = [
+export const moduleRichContents: ModuleRichContent[] = [
+  // ══════════════════════════════════════════════════════════
+  // MODUL 1 — Keselamatan dan Kesehatan Kerja (K3)
+  // ══════════════════════════════════════════════════════════
   {
     id: 1,
     items: [
-      // Tujuan Pembelajaran
       { kind: 'heading', text: "Tujuan Pembelajaran" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta Praktik Kerja Lapangan (PKL) diharapkan mampu:" },
       { kind: 'bullets', items: [
@@ -30,13 +33,11 @@
         "Menjelaskan prosedur tanggap darurat di lingkungan kerja.",
       ] },
 
-      // Pengertian K3
       { kind: 'heading', text: "Pengertian Keselamatan dan Kesehatan Kerja (K3)" },
       { kind: 'para', text: "Keselamatan dan Kesehatan Kerja (K3) merupakan serangkaian upaya yang bertujuan menciptakan lingkungan kerja yang aman, sehat, dan bebas dari risiko kecelakaan maupun penyakit akibat kerja. Penerapan K3 bertujuan melindungi pekerja, menjaga kelancaran proses produksi, serta mengurangi kerugian yang dapat ditimbulkan akibat kecelakaan kerja (Tarwaka, 2017)." },
       { kind: 'para', text: "Dalam proses pengelasan SMAW, penerapan K3 menjadi sangat penting karena pekerjaan melibatkan arus listrik, suhu tinggi, radiasi cahaya, percikan logam cair, serta asap hasil pengelasan yang dapat membahayakan pekerja apabila tidak dikendalikan dengan baik." },
       { kind: 'para', text: "Sesuai dengan Undang-Undang Nomor 6 Tahun 2023 tentang Cipta Kerja, setiap perusahaan wajib menerapkan sistem keselamatan dan kesehatan kerja untuk memberikan perlindungan kepada tenaga kerja serta menciptakan lingkungan kerja yang aman dan produktif." },
 
-      // Tujuan Penerapan K3
       { kind: 'heading', text: "Tujuan Penerapan K3" },
       { kind: 'para', text: "Penerapan K3 di lingkungan industri bertujuan untuk:" },
       { kind: 'bullets', items: [
@@ -48,7 +49,6 @@
         "Menciptakan budaya kerja yang aman, disiplin, dan bertanggung jawab.",
       ] },
 
-      // Pentingnya K3
       { kind: 'heading', text: "Pentingnya K3 pada Proses Pengelasan SMAW" },
       { kind: 'para', text: "Pengelasan SMAW merupakan salah satu proses kerja yang memiliki tingkat risiko tinggi. Oleh karena itu, setiap peserta PKL wajib memahami dan menerapkan prinsip-prinsip K3 sebelum memasuki area kerja." },
       { kind: 'para', text: "Beberapa potensi bahaya yang dapat terjadi pada proses pengelasan antara lain:" },
@@ -62,30 +62,34 @@
       ] },
       { kind: 'para', text: "Penerapan K3 secara konsisten dapat mengurangi risiko kecelakaan kerja dan menjaga kualitas hasil pekerjaan." },
 
-      // Potensi Bahaya — Tabel
       { kind: 'heading', text: "Potensi Bahaya di Area Pengelasan" },
-      { kind: 'table', caption: "Tabel 1. Potensi Bahaya pada Area Pengelasan SMAW", cols: ["No", "Potensi Bahaya", "Dampak", "Pengendalian"], rows: [
-        ["1", "Sengatan listrik", "Cedera hingga kematian", "Memeriksa kabel dan peralatan sebelum digunakan"],
-        ["2", "Percikan logam cair", "Luka bakar", "Menggunakan APD lengkap"],
-        ["3", "Radiasi UV dan IR", "Kerusakan mata dan kulit", "Menggunakan helm las"],
-        ["4", "Asap las", "Gangguan pernapasan", "Ventilasi yang baik dan masker"],
-        ["5", "Kebakaran", "Cedera dan kerusakan fasilitas", "Menjauhkan material mudah terbakar dan menyediakan APAR"],
-        ["6", "Material panas", "Luka bakar", "Menggunakan sarung tangan dan tang penjepit"],
-      ] },
+      { kind: 'table', caption: "Tabel 1. Potensi Bahaya pada Area Pengelasan SMAW",
+        cols: ["No", "Potensi Bahaya", "Dampak", "Pengendalian"],
+        rows: [
+          ["1", "Sengatan listrik", "Cedera hingga kematian", "Memeriksa kabel dan peralatan sebelum digunakan"],
+          ["2", "Percikan logam cair", "Luka bakar", "Menggunakan APD lengkap"],
+          ["3", "Radiasi UV dan IR", "Kerusakan mata dan kulit", "Menggunakan helm las"],
+          ["4", "Asap las", "Gangguan pernapasan", "Ventilasi yang baik dan masker"],
+          ["5", "Kebakaran", "Cedera dan kerusakan fasilitas", "Menjauhkan material mudah terbakar dan menyediakan APAR"],
+          ["6", "Material panas", "Luka bakar", "Menggunakan sarung tangan dan tang penjepit"],
+        ],
+      },
       { kind: 'image', file: "image1.png", caption: "Gambar 1. Potensi Bahaya pada Area Pengelasan SMAW", source: "Garuda Systrain Indonesia (2023)" },
 
-      // Upaya Pencegahan
       { kind: 'heading', text: "Upaya Pencegahan Kecelakaan Kerja" },
       { kind: 'para', text: "Upaya pencegahan kecelakaan kerja harus dilakukan sebelum, selama, dan setelah proses pengelasan." },
-      { kind: 'table', caption: "Ringkasan Upaya Pencegahan Kecelakaan Kerja", cols: ["Tahapan", "Upaya Pencegahan"], rows: [
-        ["Sebelum bekerja", "Menggunakan APD, memeriksa mesin dan peralatan, memastikan area kerja aman, serta menyiapkan APAR."],
-        ["Saat bekerja", "Mengikuti SOP, menjaga posisi kerja yang aman, menghindari kontak dengan sumber listrik, dan menjaga kebersihan area kerja."],
-        ["Setelah bekerja", "Mematikan mesin las, membersihkan area kerja, menyimpan peralatan, serta melaporkan kerusakan kepada pembimbing."],
-      ] },
+      { kind: 'table', caption: "Tabel 2. Ringkasan Upaya Pencegahan Kecelakaan Kerja",
+        cols: ["Tahapan", "Upaya Pencegahan"],
+        rows: [
+          ["Sebelum bekerja", "Menggunakan APD, memeriksa mesin dan peralatan, memastikan area kerja aman, serta menyiapkan APAR."],
+          ["Saat bekerja", "Mengikuti SOP, menjaga posisi kerja yang aman, menghindari kontak dengan sumber listrik, dan menjaga kebersihan area kerja."],
+          ["Setelah bekerja", "Mematikan mesin las, membersihkan area kerja, menyimpan peralatan, serta melaporkan kerusakan kepada pembimbing."],
+        ],
+      },
+
       { kind: 'heading', text: "Contoh Penerapan di PT. Coppalt Utama Indomelt" },
       { kind: 'para', text: "Sebelum memasuki area produksi, setiap peserta PKL diwajibkan menggunakan APD lengkap, mengikuti arahan instruktur, serta memastikan area kerja dalam kondisi aman. Peserta juga harus mematuhi prosedur kerja dan menjaga kebersihan area kerja sebagai bagian dari budaya keselamatan di perusahaan." },
 
-      // Rambu-Rambu
       { kind: 'heading', text: "Rambu-Rambu Keselamatan Kerja" },
       { kind: 'para', text: "Rambu keselamatan berfungsi sebagai media komunikasi visual untuk memberikan informasi mengenai bahaya, larangan, perintah, maupun petunjuk keselamatan di lingkungan kerja." },
       { kind: 'para', text: "Jenis rambu keselamatan meliputi:" },
@@ -95,9 +99,8 @@
         "Rambu perintah",
         "Rambu kondisi aman",
       ] },
-      { kind: 'image', file: "image2.jpeg", caption: "Gambar 2. Contoh rambu-rambu keselamatan kerja", source: "PT SHA SOLO. (2023)" },
+      { kind: 'image', file: "image2.jpeg", caption: "Gambar 2. Contoh rambu-rambu keselamatan kerja", source: "PT SHA SOLO. (2023). Contoh Simbol Rambu-Rambu Keselamatan." },
 
-      // Prosedur Tanggap Darurat
       { kind: 'heading', text: "Prosedur Tanggap Darurat" },
       { kind: 'para', text: "Apabila terjadi keadaan darurat, peserta harus:" },
       { kind: 'bullets', items: [
@@ -108,9 +111,8 @@
         "Menggunakan APAR apabila telah mendapatkan pelatihan.",
         "Mengikuti jalur evakuasi menuju titik kumpul.",
       ] },
-      { kind: 'image', file: "image3.jpeg", caption: "Gambar 3. Contoh jalur evakuasi dan titik kumpul di lingkungan kerja", source: "Nimbus9 Technology. (2024)" },
+      { kind: 'image', file: "image3.jpeg", caption: "Gambar 3. Contoh jalur evakuasi dan titik kumpul di lingkungan kerja", source: "Nimbus9 Technology. (2024). Jalur Evakuasi Adalah: Pengertian, Fungsi, Standar, dan Contohnya." },
 
-      // Poin Penting
       { kind: 'heading', text: "Poin Penting" },
       { kind: 'bullets', items: [
         "📌 Keselamatan kerja merupakan tanggung jawab setiap pekerja.",
@@ -119,163 +121,334 @@
         "📌 Ikuti SOP dan instruksi pembimbing.",
         "📌 Laporkan segera apabila menemukan kondisi yang tidak aman.",
       ] },
+
+      { kind: 'checklist',
+        title: "Refleksi Diri",
+        variant: "refleksi",
+        items: [
+          "Saya memahami konsep K3.",
+          "Saya mengetahui potensi bahaya pada pengelasan SMAW.",
+          "Saya memahami fungsi rambu keselamatan.",
+          "Saya mengetahui prosedur tanggap darurat.",
+          "Saya siap menerapkan K3 saat praktik.",
+        ],
+      },
+
+      { kind: 'heading', text: "Ringkasan" },
+      { kind: 'para', text: "Keselamatan dan Kesehatan Kerja (K3) merupakan aspek yang sangat penting dalam setiap kegiatan pengelasan. Penerapan K3 bertujuan melindungi pekerja dari risiko kecelakaan dan penyakit akibat kerja, menjaga keselamatan lingkungan kerja, serta meningkatkan produktivitas. Peserta PKL harus mampu mengenali potensi bahaya, menggunakan APD, mematuhi SOP, memahami rambu keselamatan, dan mengetahui prosedur tanggap darurat sebelum melaksanakan praktik pengelasan di PT. Coppalt Utama Indomelt." },
     ],
   },
+
+  // ══════════════════════════════════════════════════════════
+  // MODUL 2 — Alat Pelindung Diri (APD)
+  // ══════════════════════════════════════════════════════════
   {
     id: 2,
     items: [
+      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
+      { kind: 'bullets', items: [
+        "Menjelaskan pengertian Alat Pelindung Diri (APD).",
+        "Menjelaskan tujuan penggunaan APD pada proses pengelasan SMAW.",
+        "Mengidentifikasi jenis-jenis APD beserta fungsinya.",
+        "Menggunakan APD sesuai prosedur sebelum memasuki area kerja.",
+        "Memeriksa dan merawat APD agar tetap layak digunakan.",
+      ] },
+
       { kind: 'heading', text: "Pengertian Alat Pelindung Diri (APD)" },
-      { kind: 'bullets', items: [
-        "Alat Pelindung Diri (APD) merupakan perlengkapan yang digunakan oleh pekerja untuk melindungi diri dari potensi bahaya yang dapat menyebabkan cedera atau gangguan kesehatan selama melakukan pekerjaan. APD berfungsi sebagai perlindungan terakhir (last line of defense) setelah upaya pengendalian bahaya melalui rekayasa teknik dan prosedur kerja diterapkan. Penggunaan APD tidak menghilangkan sumber bahaya, tetapi dapat mengurangi tingkat risiko apabila terjadi paparan bahaya di tempat kerja (Tarwaka, 2017).",
-        "Dalam proses pengelasan SMAW, penggunaan APD menjadi kewajiban karena pekerja berhadapan langsung dengan berbagai potensi bahaya, seperti radiasi sinar las, percikan logam cair, suhu tinggi, asap las, kebisingan, serta risiko sengatan listrik. Oleh karena itu, setiap peserta PKL wajib menggunakan APD sesuai dengan standar perusahaan sebelum memasuki area kerja.",
-      ] },
+      { kind: 'para', text: "Alat Pelindung Diri (APD) merupakan perlengkapan yang digunakan oleh pekerja untuk melindungi tubuh dari potensi bahaya yang dapat menyebabkan cedera maupun penyakit akibat kerja selama melakukan aktivitas pekerjaan. APD berfungsi sebagai lapisan perlindungan terakhir (last line of defense) setelah dilakukan upaya pengendalian bahaya melalui rekayasa teknik, pengendalian administratif, dan penerapan prosedur kerja yang aman (Tarwaka, 2017)." },
+      { kind: 'para', text: "Pada proses pengelasan Shielded Metal Arc Welding (SMAW), pekerja dihadapkan pada berbagai potensi bahaya seperti radiasi sinar ultraviolet (UV) dan inframerah (IR), percikan logam cair, suhu tinggi, asap hasil pengelasan (welding fumes), kebisingan, serta risiko sengatan listrik. Oleh karena itu, penggunaan APD secara lengkap dan benar merupakan kewajiban bagi setiap pekerja maupun peserta PKL sebelum memasuki area produksi." },
+      { kind: 'para', text: "Di PT. Coppalt Utama Indomelt, penggunaan APD merupakan bagian dari penerapan Keselamatan dan Kesehatan Kerja (K3). Setiap peserta PKL diwajibkan menggunakan APD sesuai dengan jenis pekerjaan yang dilakukan sebagai bentuk kepatuhan terhadap prosedur keselamatan yang berlaku di perusahaan." },
+
       { kind: 'heading', text: "Tujuan Penggunaan APD" },
-      { kind: 'para', text: "Penggunaan APD dalam kegiatan pengelasan bertujuan untuk:" },
+      { kind: 'para', text: "Penggunaan APD pada proses pengelasan bertujuan untuk:" },
       { kind: 'bullets', items: [
-        "Melindungi pekerja dari risiko cedera akibat bahaya di tempat kerja.",
+        "Melindungi pekerja dari risiko cedera akibat potensi bahaya di tempat kerja.",
         "Mengurangi kemungkinan terjadinya penyakit akibat kerja.",
-        "Meminimalkan dampak kecelakaan kerja.",
-        "Mendukung terciptanya lingkungan kerja yang aman dan sehat.",
-        "Meningkatkan disiplin serta kepatuhan terhadap prosedur Keselamatan dan Kesehatan Kerja (k3)",
+        "Meminimalkan dampak kecelakaan kerja selama proses pengelasan.",
+        "Mendukung terciptanya lingkungan kerja yang aman, sehat, dan produktif.",
+        "Meningkatkan disiplin serta kepatuhan terhadap prosedur Keselamatan dan Kesehatan Kerja (K3).",
+        "Memberikan perlindungan tambahan apabila terjadi kondisi kerja yang tidak dapat dihilangkan melalui pengendalian lainnya.",
       ] },
+
+      { kind: 'infobox',
+        title: "Info Industri",
+        text: "Di PT. Coppalt Utama Indomelt, penggunaan APD merupakan syarat wajib sebelum memasuki area produksi. Peserta PKL yang tidak menggunakan APD secara lengkap tidak diperkenankan mengikuti kegiatan praktik hingga seluruh perlengkapan keselamatan digunakan sesuai ketentuan perusahaan.",
+      },
+
       { kind: 'heading', text: "Jenis-Jenis APD pada Proses Pengelasan SMAW" },
-      { kind: 'image', file: "image4.jpeg", caption: "Gambar 4. Jenis-jenis APD pada proses pengelasan SMAW", source: "Welding Safety UK. (2021)" },
-      { kind: 'bullets', items: [
-        "Dalam proses pengelasan SMAW, penggunaan Alat Pelindung Diri (APD) merupakan kewajiban bagi setiap pekerja untuk melindungi diri dari berbagai potensi bahaya, seperti radiasi sinar las, percikan logam cair, panas, asap las, serta benda tajam. Penggunaan APD yang lengkap dapat mengurangi risiko kecelakaan kerja dan penyakit akibat kerja sehingga keselamatan pekerja lebih terjamin (Tarwaka, 2017).",
-        "Berdasarkan Gambar 4, APD yang digunakan pada proses pengelasan SMAW meliputi:",
-      ] },
+      { kind: 'para', text: "Penggunaan APD yang lengkap merupakan salah satu langkah penting dalam mencegah kecelakaan kerja pada proses pengelasan SMAW. Setiap APD memiliki fungsi yang berbeda sesuai dengan potensi bahaya yang dihadapi selama pekerjaan berlangsung." },
+      { kind: 'image', file: "image4.jpeg", caption: "Gambar 4. Jenis-Jenis APD Pengelasan SMAW", source: "Welding Safety UK. (2021)." },
+      { kind: 'para', text: "Berdasarkan Gambar 4, APD yang digunakan pada proses pengelasan SMAW meliputi:" },
+
       { kind: 'heading', text: "Topi Las (Welding Cap)" },
-      { kind: 'para', text: "Topi las digunakan untuk melindungi kepala dan rambut dari percikan api, debu, serta panas yang dihasilkan selama proses pengelasan. Selain itu, topi las juga meningkatkan kenyamanan saat menggunakan helm las." },
+      { kind: 'para', text: "Melindungi kepala dan rambut dari percikan api, panas, serta debu, sekaligus meningkatkan kenyamanan saat menggunakan helm las." },
+
       { kind: 'heading', text: "Kacamata Keselamatan (Safety Glasses)" },
-      { kind: 'para', text: "Kacamata keselamatan digunakan untuk melindungi mata dari debu, serpihan logam, dan percikan saat proses persiapan maupun pembersihan hasil las. Kacamata ini juga digunakan ketika melakukan penggerindaan sebelum atau setelah proses pengelasan." },
+      { kind: 'para', text: "Melindungi mata dari debu, serpihan logam, dan percikan saat proses pemotongan, penggerindaan, maupun pembersihan hasil las." },
+
       { kind: 'heading', text: "Helm Las (Welding Helmet)" },
-      { kind: 'para', text: "Helm las merupakan APD utama dalam proses pengelasan SMAW. Helm ini berfungsi melindungi mata, wajah, dan leher dari radiasi sinar ultraviolet (UV), inframerah (IR), cahaya busur listrik (arc welding), serta percikan logam cair." },
+      { kind: 'para', text: "Melindungi mata, wajah, dan leher dari radiasi sinar UV, IR, cahaya busur listrik, serta percikan logam cair." },
+
       { kind: 'heading', text: "Masker Debu (Dust Mask)" },
-      { kind: 'para', text: "Masker debu digunakan untuk mengurangi paparan debu dan partikel halus yang dihasilkan selama proses persiapan material maupun pembersihan hasil pengelasan. Pada pekerjaan dengan paparan asap las yang tinggi, penggunaan respirator lebih disarankan sesuai hasil identifikasi risiko." },
+      { kind: 'para', text: "Digunakan untuk mengurangi paparan debu dan partikel halus. Pada area dengan konsentrasi asap las tinggi disarankan menggunakan respirator sesuai hasil identifikasi risiko." },
+
       { kind: 'heading', text: "Jaket Las Kulit (Leather Welding Jacket)" },
-      { kind: 'para', text: "Jaket las berbahan kulit berfungsi melindungi tubuh dan lengan dari panas, percikan logam cair, serta radiasi selama proses pengelasan. Bahan kulit dipilih karena memiliki ketahanan yang baik terhadap suhu tinggi." },
-      { kind: 'heading', text: "Sarung Tangan Las Kulit (Gauntlet Type Welding Gloves)" },
-      { kind: 'para', text: "Sarung tangan las melindungi tangan dari panas, percikan logam cair, benda tajam, serta kontak langsung dengan benda kerja yang masih bersuhu tinggi. Model gauntlet memiliki bagian lengan yang lebih panjang sehingga memberikan perlindungan tambahan pada pergelangan tangan." },
+      { kind: 'para', text: "Melindungi tubuh dan lengan dari panas, percikan logam cair, dan radiasi selama proses pengelasan." },
+
+      { kind: 'heading', text: "Sarung Tangan Las (Gauntlet Type Welding Gloves)" },
+      { kind: 'para', text: "Melindungi tangan dari panas, percikan logam cair, benda tajam, dan benda kerja bersuhu tinggi." },
+
       { kind: 'heading', text: "Celemek Kulit (Leather Apron)" },
-      { kind: 'para', text: "Celemek kulit digunakan untuk melindungi bagian depan tubuh dari percikan logam cair dan panas selama proses pengelasan, terutama ketika pekerjaan dilakukan dalam posisi tertentu." },
+      { kind: 'para', text: "Melindungi bagian depan tubuh dari percikan logam cair selama proses pengelasan." },
+
       { kind: 'heading', text: "Celana Panjang (Long Pants)" },
-      { kind: 'para', text: "Celana panjang berfungsi melindungi kaki dari percikan logam cair dan panas. Celana yang digunakan sebaiknya berbahan katun tebal atau bahan tahan api serta tidak memiliki lipatan yang dapat menampung percikan logam." },
+      { kind: 'para', text: "Melindungi kaki dari panas dan percikan logam. Celana sebaiknya berbahan katun tebal atau bahan tahan api." },
+
       { kind: 'heading', text: "Pelindung Kaki (Leather Spats)" },
-      { kind: 'para', text: "Leather spats merupakan pelindung yang dipasang pada bagian bawah kaki hingga menutupi sepatu. APD ini berfungsi mencegah percikan logam cair masuk ke dalam sepatu sehingga mengurangi risiko luka bakar." },
-      { kind: 'heading', text: "Sepatu Keselamatan (Hightop Leather Work Boots)" },
-      { kind: 'para', text: "Sepatu keselamatan digunakan untuk melindungi kaki dari benda berat yang jatuh, benda tajam, logam panas, serta risiko terpeleset di area kerja. Sepatu keselamatan yang digunakan pada pekerjaan pengelasan umumnya memiliki pelindung ujung kaki (steel toe) dan sol tahan panas." },
-      { kind: 'heading', text: "Fungsi APD pada Proses Pengelasan" },
-      { kind: 'heading', text: "Alat pelindung diri" },
-      { kind: 'heading', text: "Fungsi" },
-      { kind: 'heading', text: "Topi Las (Welding Cap)" },
-      { kind: 'para', text: "Melindungi kepala dari panas dan percikan api." },
-      { kind: 'heading', text: "Kacamata Keselamatan (Safety Glasses)" },
-      { kind: 'para', text: "Melindungi mata dari debu dan serpihan logam." },
-      { kind: 'heading', text: "Helm Las (Welding Helmet)" },
-      { kind: 'para', text: "Melindungi mata, wajah, dan leher dari radiasi serta percikan logam." },
-      { kind: 'heading', text: "Masker Debu (Dust Mask)" },
-      { kind: 'para', text: "Mengurangi paparan debu dan partikel halus." },
-      { kind: 'heading', text: "Jaket Las Kulit (Leather Welding Jacket)" },
-      { kind: 'para', text: "Melindungi tubuh dari panas dan percikan logam." },
-      { kind: 'heading', text: "Sarung Tangan Las Kulit (Gauntlet Type Welding Gloves)" },
-      { kind: 'para', text: "Melindungi tangan dari panas dan percikan logam." },
-      { kind: 'heading', text: "Celemek Kulit (Leather Apron)" },
-      { kind: 'para', text: "Melindungi bagian depan tubuh dari percikan logam cair." },
-      { kind: 'heading', text: "Celana Panjang (Long Pants)" },
-      { kind: 'para', text: "Melindungi kaki dari percikan logam dan panas." },
-      { kind: 'heading', text: "Pelindung Kaki (Leather Spats)" },
-      { kind: 'para', text: "Melindungi bagian atas sepatu dari percikan logam cair." },
-      { kind: 'heading', text: "Sepatu Keselamatan (Hightop Leather Work Boots)" },
-      { kind: 'para', text: "Melindungi kaki dari benda berat, benda tajam, dan logam panas." },
+      { kind: 'para', text: "Melindungi bagian atas sepatu agar percikan logam cair tidak masuk ke dalam sepatu." },
+
+      { kind: 'heading', text: "Sepatu Keselamatan (High Top Leather Work Boots)" },
+      { kind: 'para', text: "Melindungi kaki dari benda berat, benda tajam, logam panas, serta mengurangi risiko terpeleset." },
+
+      { kind: 'heading', text: "Fungsi dan Risiko yang Dicegah oleh APD" },
+      { kind: 'table', caption: "Tabel 2. Fungsi APD pada Proses Pengelasan SMAW",
+        cols: ["No", "APD", "Fungsi", "Risiko yang Dicegah"],
+        rows: [
+          ["1",  "Topi Las",              "Melindungi kepala dari panas.",             "Percikan api dan panas."],
+          ["2",  "Safety Glasses",        "Melindungi mata.",                          "Debu dan serpihan logam."],
+          ["3",  "Helm Las",              "Melindungi wajah dan mata.",                "Radiasi UV, IR, dan percikan logam."],
+          ["4",  "Masker Debu",           "Melindungi sistem pernapasan.",             "Debu dan asap las."],
+          ["5",  "Jaket Las Kulit",       "Melindungi tubuh.",                         "Panas dan percikan logam cair."],
+          ["6",  "Sarung Tangan Las",     "Melindungi tangan.",                        "Luka bakar dan benda tajam."],
+          ["7",  "Celemek Kulit",         "Melindungi bagian depan tubuh.",            "Percikan logam cair."],
+          ["8",  "Celana Panjang",        "Melindungi kaki.",                          "Panas dan percikan logam."],
+          ["9",  "Leather Spats",         "Melindungi bagian atas kaki.",              "Percikan logam masuk ke sepatu."],
+          ["10", "Safety Shoes",          "Melindungi kaki.",                          "Benda berat, logam panas, dan benda tajam."],
+        ],
+      },
+
       { kind: 'heading', text: "Tata Cara Penggunaan APD" },
-      { kind: 'para', text: "Sebelum memulai pekerjaan, setiap peserta PKL harus memastikan bahwa APD yang digunakan dalam kondisi baik dan sesuai dengan ukuran tubuh. APD harus dikenakan secara lengkap sesuai jenis pekerjaan yang dilakukan serta tidak boleh dilepas selama proses pengelasan masih berlangsung. Setelah selesai digunakan, APD harus dibersihkan dan disimpan pada tempat yang telah disediakan agar tetap dalam kondisi baik dan siap digunakan kembali." },
-      { kind: 'heading', text: "Pemeriksaan dan Perawatan APD" },
+      { kind: 'para', text: "Sebelum melakukan pekerjaan pengelasan, peserta PKL harus menggunakan APD sesuai prosedur berikut." },
       { kind: 'bullets', items: [
-        "Agar APD dapat memberikan perlindungan secara optimal, perlu dilakukan pemeriksaan dan perawatan secara berkala. Beberapa langkah yang harus dilakukan meliputi:",
-        "Memeriksa kondisi APD sebelum digunakan.",
-        "Membersihkan APD setelah selesai digunakan.",
-        "Mengganti APD yang rusak atau tidak layak pakai.",
-        "Menyimpan APD di tempat yang bersih, kering, dan aman.",
-        "Melaporkan kepada pembimbing apabila ditemukan kerusakan pada APD.",
+        "Memastikan seluruh APD dalam kondisi baik dan layak digunakan.",
+        "Menggunakan pakaian kerja yang sesuai.",
+        "Mengenakan sepatu keselamatan.",
+        "Menggunakan jaket las, celemek, dan sarung tangan.",
+        "Memasang masker atau respirator sesuai kondisi lingkungan kerja.",
+        "Menggunakan kacamata keselamatan apabila diperlukan.",
+        "Mengenakan helm las sebelum proses pengelasan dimulai.",
+        "Memastikan seluruh APD terpasang dengan benar sebelum memasuki area kerja.",
       ] },
-      { kind: 'para', text: "Alat Pelindung Diri (APD) merupakan perlengkapan wajib yang harus digunakan oleh setiap pekerja maupun peserta PKL selama berada di area pengelasan. Penggunaan APD yang lengkap dan sesuai standar dapat mengurangi risiko cedera akibat paparan bahaya, seperti radiasi sinar las, percikan logam cair, asap las, panas, kebisingan, dan benda berat. Oleh karena itu, setiap peserta PKL harus memahami fungsi, cara penggunaan, serta perawatan APD sebagai bagian dari penerapan Keselamatan dan Kesehatan Kerja (K3)." },
+
+      { kind: 'heading', text: "Pemeriksaan dan Perawatan APD" },
+      { kind: 'para', text: "Agar APD dapat memberikan perlindungan secara optimal, setiap pekerja harus melakukan pemeriksaan sebelum digunakan serta perawatan setelah selesai digunakan." },
+
+      { kind: 'checklist',
+        title: "Checklist Pemeriksaan APD",
+        variant: "pemeriksaan",
+        items: [
+          "Helm las tidak retak.",
+          "Kaca helm bersih dan tidak buram.",
+          "Sarung tangan tidak sobek atau rusak.",
+          "Masker masih layak dan tidak rusak.",
+          "Sepatu keselamatan dalam kondisi baik.",
+        ],
+      },
+
+      { kind: 'heading', text: "Perawatan APD" },
+      { kind: 'bullets', items: [
+        "Membersihkan APD setelah selesai digunakan.",
+        "Menyimpan APD di tempat yang bersih dan kering.",
+        "Mengganti APD yang rusak atau tidak layak pakai.",
+        "Melaporkan kerusakan APD kepada pembimbing atau petugas yang bertanggung jawab.",
+        "Tidak menggunakan APD yang telah mengalami kerusakan karena dapat mengurangi efektivitas perlindungan.",
+      ] },
+
+      { kind: 'heading', text: "Kesalahan yang Sering Terjadi dalam Penggunaan APD" },
+      { kind: 'para', text: "Beberapa kesalahan yang masih sering ditemukan saat praktik pengelasan antara lain:" },
+      { kind: 'bullets', items: [
+        "Tidak menggunakan helm las saat proses pengelasan berlangsung.",
+        "Menggunakan sarung tangan yang telah sobek atau rusak.",
+        "Menggunakan sepatu biasa sebagai pengganti sepatu keselamatan.",
+        "Melepas masker ketika masih terdapat paparan asap las.",
+        "Menggunakan APD yang tidak sesuai ukuran sehingga mengurangi kenyamanan dan perlindungan.",
+        "Tidak memeriksa kondisi APD sebelum digunakan.",
+      ] },
+      { kind: 'para', text: "Kesalahan-kesalahan tersebut dapat meningkatkan risiko terjadinya kecelakaan kerja maupun penyakit akibat kerja sehingga harus dihindari oleh setiap peserta PKL." },
+
+      { kind: 'heading', text: "Poin Penting" },
+      { kind: 'bullets', items: [
+        "📌 APD merupakan perlindungan terakhir terhadap bahaya kerja.",
+        "📌 Penggunaan APD tidak dapat menggantikan penerapan prosedur kerja yang aman.",
+        "📌 Seluruh APD harus digunakan secara lengkap sesuai jenis pekerjaan.",
+        "📌 APD harus diperiksa sebelum digunakan dan dirawat setelah selesai digunakan.",
+        "📌 Kepatuhan terhadap penggunaan APD merupakan bagian dari budaya Keselamatan dan Kesehatan Kerja (K3).",
+      ] },
+
+      { kind: 'checklist',
+        title: "Refleksi Diri",
+        variant: "refleksi",
+        items: [
+          "Saya memahami fungsi setiap APD.",
+          "Saya dapat mengidentifikasi APD sesuai jenis pekerjaan.",
+          "Saya mengetahui cara menggunakan APD dengan benar.",
+          "Saya mampu memeriksa kondisi APD sebelum digunakan.",
+          "Saya siap menggunakan APD saat praktik.",
+        ],
+      },
+
+      { kind: 'heading', text: "Ringkasan" },
+      { kind: 'para', text: "Alat Pelindung Diri (APD) merupakan perlengkapan keselamatan yang wajib digunakan oleh setiap pekerja maupun peserta PKL selama berada di area pengelasan. Penggunaan APD yang sesuai standar berfungsi melindungi pekerja dari berbagai potensi bahaya, seperti radiasi sinar las, percikan logam cair, panas, asap las, kebisingan, dan benturan benda kerja. Selain memahami jenis dan fungsi APD, peserta juga harus mampu menggunakan, memeriksa, serta merawat APD dengan benar agar perlindungan yang diberikan tetap optimal. Kepatuhan terhadap penggunaan APD merupakan bagian penting dari penerapan Keselamatan dan Kesehatan Kerja (K3) di PT. Coppalt Utama Indomelt." },
     ],
   },
+
+  // ══════════════════════════════════════════════════════════
+  // MODUL 3 — Pengenalan Peralatan Kerja Pengelasan
+  // ══════════════════════════════════════════════════════════
   {
     id: 3,
     items: [
+      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
+      { kind: 'bullets', items: [
+        "Menjelaskan fungsi peralatan kerja pada proses pengelasan SMAW.",
+        "Mengidentifikasi peralatan utama dan peralatan pendukung pengelasan.",
+        "Menjelaskan cara penggunaan setiap peralatan sesuai prosedur.",
+        "Memeriksa kondisi peralatan sebelum digunakan.",
+        "Merawat dan menyimpan peralatan setelah selesai digunakan.",
+      ] },
+
       { kind: 'heading', text: "Pengertian Peralatan Kerja Pengelasan" },
+      { kind: 'para', text: "Peralatan kerja pengelasan merupakan seluruh alat yang digunakan untuk mendukung proses penyambungan logam menggunakan metode Shielded Metal Arc Welding (SMAW). Peralatan tersebut terdiri atas peralatan utama yang berperan langsung dalam proses pengelasan serta peralatan pendukung yang membantu proses persiapan, pemeriksaan, dan penyelesaian hasil las. Penggunaan peralatan yang sesuai dan dalam kondisi baik akan menghasilkan sambungan las yang berkualitas serta meningkatkan keselamatan kerja (Cary & Helzer, 2020)." },
+
+      { kind: 'heading', text: "Klasifikasi Peralatan Pengelasan" },
+      { kind: 'para', text: "Peralatan pada proses SMAW dapat dikelompokkan menjadi dua kategori." },
+
+      { kind: 'heading', text: "Peralatan Utama" },
       { kind: 'bullets', items: [
-        "Peralatan kerja pengelasan merupakan seluruh alat dan perlengkapan yang digunakan untuk mendukung proses penyambungan logam melalui proses pengelasan. Pada proses Shielded Metal Arc Welding (SMAW), setiap peralatan memiliki fungsi yang berbeda, mulai dari menghasilkan arus listrik, menjepit elektroda, hingga membersihkan hasil pengelasan. Penggunaan peralatan yang tepat serta sesuai prosedur akan menghasilkan sambungan las yang baik sekaligus meningkatkan keselamatan kerja (Jeffus, 2020).",
-        "Sebelum melakukan praktik pengelasan, setiap peserta PKL harus mengenal fungsi, cara penggunaan, serta cara pemeriksaan kondisi peralatan untuk memastikan proses kerja berlangsung secara aman dan efisien.",
+        "Mesin Las SMAW",
+        "Kabel Las",
+        "Holder Elektroda",
+        "Klem Massa",
+        "Elektroda",
       ] },
-      { kind: 'heading', text: "Peralatan Utama Pengelasan SMAW" },
-      { kind: 'para', text: "Berikut merupakan peralatan utama yang digunakan dalam proses pengelasan SMAW." },
-      { kind: 'heading', text: "Mesin Las SMAW" },
-      { kind: 'para', text: "Mesin las merupakan sumber tenaga listrik yang digunakan untuk menghasilkan busur listrik (electric arc) antara elektroda dan benda kerja. Mesin las SMAW memiliki pengaturan arus (current) yang dapat disesuaikan dengan jenis dan diameter elektroda yang digunakan." },
-      { kind: 'image', file: "image5.jpeg", caption: "Gambar 5. Mesin Las SMAW", source: "Miller Electric Mfg. LLC." },
-      { kind: 'heading', text: "Holder Elektroda (Electrode Holder)" },
-      { kind: 'para', text: "Holder elektroda berfungsi sebagai penjepit elektroda sekaligus penghantar arus listrik dari mesin las menuju elektroda selama proses pengelasan. Holder harus memiliki isolasi yang baik agar aman digunakan." },
-      { kind: 'image', file: "image6.jpeg", caption: "Gambar 6. Holder Elektroda (Electrode Holder)", source: "AWS Welding Handbook (2020)" },
-      { kind: 'heading', text: "Kabel Las (Welding Cable)" },
-      { kind: 'para', text: "Kabel las digunakan untuk menghantarkan arus listrik dari mesin las menuju holder elektroda dan penjepit massa (work clamp). Kabel harus dalam kondisi baik dan tidak mengalami kerusakan pada lapisan isolasinya." },
-      { kind: 'image', file: "image7.jpeg", caption: "Gambar 7. Kabel Las (Welding Cable)", source: "AWS Welding Handbook (2020)" },
-      { kind: 'heading', text: "Penjepit Massa (Work Clamp)" },
-      { kind: 'para', text: "Penjepit massa berfungsi menghubungkan benda kerja dengan mesin las sehingga arus listrik dapat mengalir dan membentuk busur listrik secara stabil." },
-      { kind: 'image', file: "image8.jpeg", caption: "Gambar 8. Penjepit Massa (Work Clamp)", source: "AWS Welding Handbook (2020)" },
-      { kind: 'heading', text: "Elektroda Las (Covered Electrode)" },
-      { kind: 'para', text: "Elektroda merupakan logam pengisi yang digunakan pada proses pengelasan SMAW. Elektroda terdiri atas inti kawat (core wire) dan lapisan fluks (flux coating) yang berfungsi melindungi logam las dari kontaminasi udara selama proses pengelasan." },
-      { kind: 'image', file: "image9.jpeg", caption: "Gambar 9. Elektroda Las (Covered Electrode)", source: "AWS Welding Handbook (2020)" },
-      { kind: 'heading', text: "Peralatan Pendukung Pengelasan" },
-      { kind: 'para', text: "Selain peralatan utama, terdapat beberapa peralatan pendukung yang digunakan selama proses pengelasan." },
-      { kind: 'heading', text: "Palu Terak (Chipping Hammer)" },
-      { kind: 'para', text: "Palu terak digunakan untuk memecahkan dan membersihkan terak (slag) yang terbentuk setelah proses pengelasan selesai." },
-      { kind: 'image', file: "image10.jpeg", caption: "Gambar 10. Palu Terak (Chipping Hammer)", source: "AWS Welding Handbook (2020)" },
-      { kind: 'heading', text: "Sikat Baja (Wire Brush)" },
-      { kind: 'para', text: "Sikat baja digunakan untuk membersihkan sisa terak, karat, dan kotoran pada permukaan logam sebelum maupun setelah proses pengelasan." },
-      { kind: 'image', file: "image11.jpeg", caption: "Gambar 11. Sikat Baja (Wire Brush)", source: "AWS Welding Handbook (2020)" },
-      { kind: 'heading', text: "Gerinda Tangan (Angle Grinder)" },
-      { kind: 'para', text: "Gerinda tangan digunakan untuk meratakan hasil las, membersihkan permukaan benda kerja, serta mempersiapkan kampuh sebelum proses pengelasan." },
-      { kind: 'image', file: "image12.jpeg", caption: "Gambar 12. Gerinda Tangan (Angle Grinder)", source: "AWS Welding Handbook (2020)" },
-      { kind: 'heading', text: "Meja Las (Welding Table)" },
-      { kind: 'para', text: "Meja las merupakan tempat kerja yang digunakan untuk menopang benda kerja selama proses pengelasan agar tetap stabil dan aman." },
-      { kind: 'image', file: "image13.jpeg", caption: "Gambar 13. Meja Las (Welding Table)", source: "AWS Welding Handbook (2020)" },
-      { kind: 'heading', text: "Pemeriksaan Peralatan Sebelum Digunakan" },
+
+      { kind: 'heading', text: "Peralatan Pendukung" },
       { kind: 'bullets', items: [
-        "Sebelum memulai pekerjaan, seluruh peralatan harus diperiksa untuk memastikan kondisinya aman dan layak digunakan. Pemeriksaan meliputi:",
-        "Memastikan mesin las berfungsi dengan baik.",
-        "Memeriksa kondisi kabel las dan isolasinya.",
-        "Memastikan holder elektroda tidak retak atau longgar.",
-        "Memastikan penjepit massa terpasang dengan kuat.",
-        "Memeriksa kondisi elektroda agar tidak lembap atau rusak.",
-        "Memastikan palu terak, sikat baja, dan gerinda dalam kondisi baik.",
-        "Pemeriksaan ini bertujuan untuk mengurangi risiko kecelakaan kerja dan menjaga kualitas hasil pengelasan.",
+        "Palu Terak (Chipping Hammer)",
+        "Sikat Baja (Wire Brush)",
+        "Gerinda Tangan (Angle Grinder)",
+        "Meteran Baja",
+        "Mistar Baja",
+        "Ragum (Bench Vice)",
       ] },
+
+      { kind: 'gallery', images: [
+        { file: "image5.jpeg",  caption: "Mesin Las SMAW",              source: "Miller Electric Mfg. LLC." },
+        { file: "image6.jpeg",  caption: "Holder Elektroda",            source: "AWS Welding Handbook (2020)" },
+        { file: "image7.jpeg",  caption: "Kabel Las",                   source: "AWS Welding Handbook (2020)" },
+        { file: "image8.jpeg",  caption: "Klem Massa (Work Clamp)",     source: "AWS Welding Handbook (2020)" },
+        { file: "image9.jpeg",  caption: "Elektroda Las",               source: "AWS Welding Handbook (2020)" },
+      ] },
+      { kind: 'gallery', images: [
+        { file: "image10.jpeg", caption: "Palu Terak (Chipping Hammer)", source: "AWS Welding Handbook (2020)" },
+        { file: "image11.jpeg", caption: "Sikat Baja (Wire Brush)",      source: "AWS Welding Handbook (2020)" },
+        { file: "image12.jpeg", caption: "Gerinda Tangan (Angle Grinder)",source: "AWS Welding Handbook (2020)" },
+        { file: "image13.jpeg", caption: "Meja Las (Welding Table)",     source: "AWS Welding Handbook (2020)" },
+      ] },
+
       { kind: 'heading', text: "Fungsi Peralatan Pengelasan" },
-      { kind: 'heading', text: "Peralatan" },
-      { kind: 'heading', text: "Fungsi" },
-      { kind: 'heading', text: "Mesin Las SMAW" },
-      { kind: 'para', text: "Menghasilkan arus listrik untuk proses pengelasan." },
-      { kind: 'heading', text: "Holder Elektroda" },
-      { kind: 'para', text: "Menjepit elektroda dan menghantarkan arus listrik." },
-      { kind: 'heading', text: "Kabel Las" },
-      { kind: 'para', text: "Mengalirkan arus listrik dari mesin las ke holder dan penjepit massa." },
-      { kind: 'heading', text: "Penjepit Massa" },
-      { kind: 'para', text: "Menghubungkan benda kerja dengan mesin las." },
-      { kind: 'heading', text: "Elektroda" },
-      { kind: 'para', text: "Membentuk logam las dan melindungi kolam las melalui lapisan fluks." },
-      { kind: 'heading', text: "Palu Terak" },
-      { kind: 'para', text: "Membersihkan terak hasil pengelasan." },
-      { kind: 'heading', text: "Sikat Baja" },
-      { kind: 'para', text: "Membersihkan karat, kotoran, dan sisa terak." },
-      { kind: 'heading', text: "Gerinda Tangan" },
-      { kind: 'para', text: "Membersihkan dan meratakan hasil las." },
-      { kind: 'heading', text: "Meja Las" },
-      { kind: 'para', text: "Menopang benda kerja selama proses pengelasan." },
-      { kind: 'heading', text: "RINGKASAN" },
-      { kind: 'para', text: "Peralatan kerja pengelasan terdiri atas peralatan utama dan peralatan pendukung yang memiliki fungsi berbeda dalam proses SMAW. Pemahaman mengenai nama, fungsi, dan cara penggunaan setiap peralatan merupakan kompetensi dasar yang harus dimiliki oleh peserta PKL sebelum melakukan praktik pengelasan. Selain itu, pemeriksaan kondisi peralatan sebelum digunakan merupakan bagian penting dari penerapan Keselamatan dan Kesehatan Kerja (K3) untuk mencegah terjadinya kecelakaan kerja dan memastikan hasil pengelasan sesuai dengan standar yang ditetapkan." },
+      { kind: 'table', caption: "Tabel 3. Fungsi Peralatan Pengelasan SMAW",
+        cols: ["No", "Peralatan", "Fungsi"],
+        rows: [
+          ["1",  "Mesin Las SMAW",    "Menghasilkan arus listrik untuk proses pengelasan."],
+          ["2",  "Holder Elektroda",  "Menjepit dan menghantarkan arus ke elektroda."],
+          ["3",  "Kabel Las",         "Menyalurkan arus listrik dari mesin las."],
+          ["4",  "Klem Massa",        "Menghubungkan benda kerja dengan mesin las."],
+          ["5",  "Elektroda",         "Sebagai logam pengisi sekaligus penghantar arus listrik."],
+          ["6",  "Palu Terak",        "Membersihkan terak hasil pengelasan."],
+          ["7",  "Sikat Baja",        "Membersihkan permukaan logam sebelum dan sesudah pengelasan."],
+          ["8",  "Gerinda Tangan",    "Meratakan dan membersihkan hasil pengelasan."],
+          ["9",  "Meteran Baja",      "Mengukur dimensi benda kerja."],
+          ["10", "Ragum",             "Menjepit benda kerja selama proses persiapan."],
+        ],
+      },
+
+      { kind: 'heading', text: "Cara Penggunaan Peralatan" },
+      { kind: 'para', text: "Sebelum melakukan pengelasan, setiap peserta PKL harus memahami cara penggunaan setiap peralatan. Beberapa ketentuan yang harus diperhatikan antara lain:" },
+      { kind: 'bullets', items: [
+        "Pastikan mesin las dalam kondisi baik sebelum dinyalakan.",
+        "Gunakan elektroda sesuai spesifikasi pekerjaan.",
+        "Pasang kabel las dengan kuat dan pastikan tidak ada isolasi yang rusak.",
+        "Pastikan klem massa terhubung dengan baik pada benda kerja.",
+        "Gunakan gerinda sesuai prosedur keselamatan dan gunakan pelindung.",
+        "Bersihkan terak menggunakan palu terak setelah pengelasan selesai.",
+      ] },
+
+      { kind: 'heading', text: "Pemeriksaan Peralatan Sebelum Digunakan" },
+      { kind: 'para', text: "Sebelum memulai pekerjaan, lakukan pemeriksaan terhadap seluruh peralatan untuk memastikan kondisinya aman dan layak pakai." },
+
+      { kind: 'checklist',
+        title: "Checklist Pemeriksaan Peralatan",
+        variant: "pemeriksaan",
+        items: [
+          "Mesin las berfungsi normal dan arus sesuai kebutuhan.",
+          "Holder elektroda tidak retak atau longgar.",
+          "Kabel las tidak terkelupas atau rusak isolasinya.",
+          "Klem massa terpasang dengan baik pada benda kerja.",
+          "Gerinda tangan dalam kondisi baik dan pelindung terpasang.",
+        ],
+      },
+
+      { kind: 'heading', text: "Perawatan Peralatan" },
+      { kind: 'para', text: "Peralatan pengelasan harus dirawat agar tetap aman dan optimal digunakan. Langkah perawatan meliputi:" },
+      { kind: 'bullets', items: [
+        "Membersihkan peralatan setelah digunakan.",
+        "Menggulung kabel las dengan rapi agar tidak kusut atau terjepit.",
+        "Menyimpan elektroda di tempat yang kering untuk mencegah kelembapan.",
+        "Memeriksa kondisi peralatan secara berkala.",
+        "Melaporkan kerusakan kepada pembimbing agar segera ditangani.",
+      ] },
+
+      { kind: 'heading', text: "Kesalahan yang Sering Terjadi" },
+      { kind: 'para', text: "Beberapa kesalahan yang sering dilakukan peserta PKL antara lain:" },
+      { kind: 'bullets', items: [
+        "Menggunakan kabel las yang sudah rusak atau isolasinya terkelupas.",
+        "Memasang klem massa pada permukaan yang kotor atau berkarat.",
+        "Menggunakan elektroda yang lembap sehingga mengurangi kualitas las.",
+        "Tidak membersihkan terak sebelum melanjutkan pengelasan.",
+        "Menggunakan gerinda tanpa pelindung dan tanpa APD.",
+      ] },
+
+      { kind: 'heading', text: "Poin Penting" },
+      { kind: 'bullets', items: [
+        "📌 Gunakan peralatan sesuai fungsi dan prosedur.",
+        "📌 Periksa kondisi alat sebelum digunakan.",
+        "📌 Jangan menggunakan peralatan yang rusak.",
+        "📌 Bersihkan dan simpan peralatan setelah selesai digunakan.",
+        "📌 Laporkan kerusakan kepada pembimbing.",
+      ] },
+
+      { kind: 'checklist',
+        title: "Refleksi Diri",
+        variant: "refleksi",
+        items: [
+          "Saya mengenal seluruh peralatan pengelasan SMAW.",
+          "Saya mengetahui fungsi setiap peralatan.",
+          "Saya mampu memeriksa kondisi peralatan sebelum digunakan.",
+          "Saya mengetahui cara merawat dan menyimpan peralatan.",
+        ],
+      },
+
+      { kind: 'heading', text: "Ringkasan" },
+      { kind: 'para', text: "Peralatan kerja pengelasan terdiri atas peralatan utama dan peralatan pendukung yang memiliki fungsi berbeda dalam proses SMAW. Sebelum digunakan, setiap peralatan harus diperiksa untuk memastikan kondisinya aman dan layak pakai. Setelah pekerjaan selesai, peralatan perlu dibersihkan, dirawat, dan disimpan dengan benar agar tetap berfungsi optimal serta mendukung keselamatan dan kelancaran proses pengelasan." },
     ],
   },
+
+  // ══════════════════════════════════════════════════════════
+  // MODUL 4 — Dasar Membaca Gambar Kerja
+  // ══════════════════════════════════════════════════════════
   {
     id: 4,
     items: [
@@ -300,31 +473,36 @@
       { kind: 'image', file: "image14.jpeg", caption: "Gambar 14. Contoh title block pada gambar kerja", source: "" },
       { kind: 'heading', text: "Pandangan Gambar (Views)" },
       { kind: 'para', text: "Pandangan gambar digunakan untuk menunjukkan bentuk benda dari beberapa arah sehingga memudahkan proses pembuatan." },
-      { kind: 'heading', text: "Jenis pandangan yang umum digunakan meliputi:" },
-      { kind: 'heading', text: "Tampak depan (Front View)" },
-      { kind: 'heading', text: "Tampak atas (Top View)" },
-      { kind: 'heading', text: "Tampak samping (Side View)" },
-      { kind: 'heading', text: "Tampak isometri (Isometric View)" },
+      { kind: 'bullets', items: [
+        "Tampak depan (Front View)",
+        "Tampak atas (Top View)",
+        "Tampak samping (Side View)",
+        "Tampak isometri (Isometric View)",
+      ] },
       { kind: 'image', file: "image15.png", caption: "Gambar 15. Contoh pandangan gambar kerja", source: "" },
       { kind: 'heading', text: "Dimensi" },
       { kind: 'para', text: "Dimensi menunjukkan ukuran benda kerja yang harus dibuat sesuai dengan gambar. Informasi dimensi meliputi panjang, lebar, tinggi, diameter, jari-jari, sudut, maupun ketebalan material." },
-      { kind: 'heading', text: "Contoh penulisan dimensi:" },
-      { kind: 'heading', text: "Panjang = 150 mm" },
-      { kind: 'heading', text: "Lebar = 50 mm" },
-      { kind: 'heading', text: "Tebal = 6 mm" },
+      { kind: 'bullets', items: [
+        "Panjang = 150 mm",
+        "Lebar = 50 mm",
+        "Tebal = 6 mm",
+      ] },
       { kind: 'image', file: "image16.png", caption: "Gambar 16. Contoh pemberian dimensi pada gambar kerja", source: "" },
       { kind: 'heading', text: "Jenis Material" },
-      { kind: 'heading', text: "Pada gambar kerja biasanya dicantumkan jenis material yang digunakan, misalnya:" },
-      { kind: 'heading', text: "Baja karbon rendah (Mild Steel)" },
-      { kind: 'heading', text: "Baja tahan karat (Stainless Steel)" },
-      { kind: 'heading', text: "Aluminium" },
+      { kind: 'para', text: "Pada gambar kerja biasanya dicantumkan jenis material yang digunakan, misalnya:" },
+      { kind: 'bullets', items: [
+        "Baja karbon rendah (Mild Steel)",
+        "Baja tahan karat (Stainless Steel)",
+        "Aluminium",
+      ] },
       { kind: 'para', text: "Informasi ini menjadi acuan dalam pemilihan proses pengelasan dan elektroda yang sesuai." },
       { kind: 'heading', text: "Simbol Dasar Pengelasan" },
       { kind: 'para', text: "Pada gambar kerja pengelasan sering dijumpai simbol-simbol yang menunjukkan jenis sambungan las dan lokasi pengelasan. Simbol tersebut mengacu pada standar internasional sehingga memudahkan komunikasi antarpekerja." },
-      { kind: 'heading', text: "Beberapa simbol dasar yang umum digunakan antara lain:" },
-      { kind: 'heading', text: "Fillet Weld (Las Sudut)" },
-      { kind: 'heading', text: "Square Groove Weld (Las Kampuh Persegi)" },
-      { kind: 'heading', text: "Single V-Groove Weld (Las Kampuh V Tunggal)" },
+      { kind: 'bullets', items: [
+        "Fillet Weld (Las Sudut)",
+        "Square Groove Weld (Las Kampuh Persegi)",
+        "Single V-Groove Weld (Las Kampuh V Tunggal)",
+      ] },
       { kind: 'image', file: "image17.jpeg", caption: "Gambar 17. Contoh simbol dasar pengelasan", source: "American Welding Society. AWS A2.4 (2020)" },
       { kind: 'para', text: "Catatan: Pada e-modul ini peserta difokuskan pada fillet weld karena praktik awal menggunakan teknik tack weld pada sambungan sudut." },
       { kind: 'heading', text: "Membaca Gambar Kerja Sederhana" },
@@ -343,6 +521,10 @@
       { kind: 'para', text: "Gambar kerja merupakan pedoman utama dalam proses fabrikasi dan pengelasan. Setiap peserta PKL harus mampu memahami informasi yang terdapat pada gambar kerja, seperti title block, pandangan gambar, dimensi, jenis material, serta simbol pengelasan. Kemampuan membaca gambar kerja dengan benar akan membantu menghasilkan sambungan las yang sesuai dengan spesifikasi dan mengurangi kesalahan selama proses produksi." },
     ],
   },
+
+  // ══════════════════════════════════════════════════════════
+  // MODUL 5 — Dasar Penggunaan Alat Ukur
+  // ══════════════════════════════════════════════════════════
   {
     id: 5,
     items: [
@@ -353,16 +535,23 @@
         { file: "image22.jpeg", caption: "Siku Baja (Try Square)", source: "" },
         { file: "image23.jpeg", caption: "Penggores (Scriber)", source: "" },
       ] },
-      { kind: 'table', caption: "Tabel. Fungsi Alat Ukur pada Proses Pengelasan", cols: ["No", "Alat Ukur", "Fungsi"], rows: [
-        ["1", "Mistar Baja", "Mengukur panjang dan membuat garis bantu."],
-        ["2", "Meteran", "Mengukur benda kerja yang berukuran panjang."],
-        ["3", "Jangka Sorong", "Mengukur dimensi luar, dimensi dalam, dan kedalaman dengan ketelitian tinggi."],
-        ["4", "Siku Baja", "Memeriksa kesikuan atau sudut 90°."],
-        ["5", "Penggores", "Memberikan tanda atau garis pada benda kerja."],
-      ] },
+      { kind: 'table', caption: "Tabel. Fungsi Alat Ukur pada Proses Pengelasan",
+        cols: ["No", "Alat Ukur", "Fungsi"],
+        rows: [
+          ["1", "Mistar Baja", "Mengukur panjang dan membuat garis bantu."],
+          ["2", "Meteran", "Mengukur benda kerja yang berukuran panjang."],
+          ["3", "Jangka Sorong", "Mengukur dimensi luar, dimensi dalam, dan kedalaman dengan ketelitian tinggi."],
+          ["4", "Siku Baja", "Memeriksa kesikuan atau sudut 90°."],
+          ["5", "Penggores", "Memberikan tanda atau garis pada benda kerja."],
+        ],
+      },
       { kind: 'para', text: "Penggunaan alat ukur merupakan salah satu kompetensi dasar yang harus dikuasai oleh peserta PKL sebelum melakukan proses pengelasan. Pengukuran yang tepat akan membantu memastikan ukuran benda kerja sesuai dengan gambar kerja, mengurangi kesalahan produksi, serta meningkatkan kualitas hasil pengelasan. Oleh karena itu, setiap peserta harus memahami fungsi, cara penggunaan, dan perawatan alat ukur sebelum memasuki tahap praktik." },
     ],
   },
+
+  // ══════════════════════════════════════════════════════════
+  // MODUL 6 — Dasar-Dasar Pengelasan SMAW
+  // ══════════════════════════════════════════════════════════
   {
     id: 6,
     items: [
@@ -384,9 +573,6 @@
       { kind: 'bullets', items: [
         "Keberhasilan proses pengelasan tidak hanya dipengaruhi oleh keterampilan operator, tetapi juga oleh penggunaan peralatan yang sesuai. Setiap peralatan pada proses SMAW memiliki fungsi yang saling berkaitan sehingga harus digunakan dengan benar dan dalam kondisi yang baik.",
         "Sebelum melakukan praktik, peserta PKL wajib mengenali setiap peralatan beserta fungsinya untuk mengurangi risiko kesalahan kerja dan kecelakaan.",
-      ] },
-      { kind: 'heading', text: "Peralatan utama yang digunakan pada proses SMAW meliputi:" },
-      { kind: 'bullets', items: [
         "Mesin las SMAW sebagai sumber tenaga listrik.",
         "Holder elektroda untuk menjepit elektroda dan menghantarkan arus listrik.",
         "Kabel las sebagai penghantar arus dari mesin las menuju holder dan penjepit massa.",
@@ -398,20 +584,19 @@
       { kind: 'image', file: "image26.jpeg", caption: "Gambar 25. Peralatan utama pengelasan SMAW", source: "" },
       { kind: 'heading', text: "Jenis Sambungan Las (Weld Joint)" },
       { kind: 'bullets', items: [
-        "Sambungan las (weld joint) merupakan bentuk penyambungan dua atau lebih logam yang akan dilas. Pemilihan jenis sambungan sangat memengaruhi kekuatan, kemudahan proses pengelasan, serta fungsi komponen yang dihasilkan. Oleh karena itu, seorang welder harus mampu mengenali berbagai jenis sambungan yang umum digunakan dalam dunia industri.",
-        "Beberapa jenis sambungan las yang sering digunakan pada proses SMAW meliputi:",
-        "Butt Joint (Sambungan Tumpul), yaitu dua pelat disambung pada satu bidang yang sama.",
-        "Lap Joint (Sambungan Tumpang), yaitu dua pelat disusun saling menumpuk kemudian dilas pada bagian tepinya.",
-        "T-Joint (Sambungan T), yaitu dua pelat disusun membentuk sudut 90° menyerupai huruf T.",
-        "Corner Joint (Sambungan Sudut), yaitu dua pelat disambung pada bagian sudut sehingga membentuk huruf L.",
-        "Edge Joint (Sambungan Tepi), yaitu dua pelat disambung pada bagian tepinya.",
+        "Sambungan las (weld joint) merupakan bentuk penyambungan dua atau lebih logam yang akan dilas. Pemilihan jenis sambungan sangat memengaruhi kekuatan, kemudahan proses pengelasan, serta fungsi komponen yang dihasilkan.",
+        "Butt Joint (Sambungan Tumpul) — dua pelat disambung pada satu bidang yang sama.",
+        "Lap Joint (Sambungan Tumpang) — dua pelat disusun saling menumpuk kemudian dilas pada bagian tepinya.",
+        "T-Joint (Sambungan T) — dua pelat disusun membentuk sudut 90° menyerupai huruf T.",
+        "Corner Joint (Sambungan Sudut) — dua pelat disambung pada bagian sudut sehingga membentuk huruf L.",
+        "Edge Joint (Sambungan Tepi) — dua pelat disambung pada bagian tepinya.",
         "Pada e-modul ini, peserta PKL akan lebih difokuskan pada T-Joint, karena sambungan tersebut digunakan sebagai media latihan tack weld sebelum peserta mengerjakan produk sebenarnya di PT. Coppalt Utama Indomelt.",
       ] },
       { kind: 'image', file: "image27.png", caption: "Gambar 26. Jenis-jenis sambungan las", source: "" },
       { kind: 'heading', text: "Posisi Pengelasan" },
       { kind: 'bullets', items: [
-        "Posisi pengelasan merupakan orientasi benda kerja terhadap arah pengelasan. Posisi ini akan memengaruhi tingkat kesulitan proses pengelasan, bentuk manik las, serta teknik yang digunakan oleh operator. Semakin sulit posisi pengelasan, semakin tinggi pula keterampilan yang dibutuhkan untuk menghasilkan sambungan las yang baik.",
-        "Posisi dasar pengelasan pada proses SMAW meliputi posisi datar (Flat Position), horizontal (Horizontal Position), vertikal (Vertical Position), dan di atas kepala (Overhead Position). Setiap posisi memiliki karakteristik tersendiri sehingga memerlukan pengaturan arus, sudut elektroda, dan kecepatan gerak yang berbeda.",
+        "Posisi pengelasan merupakan orientasi benda kerja terhadap arah pengelasan. Posisi ini akan memengaruhi tingkat kesulitan proses pengelasan, bentuk manik las, serta teknik yang digunakan oleh operator.",
+        "Posisi dasar pengelasan pada proses SMAW meliputi posisi datar (Flat Position), horizontal (Horizontal Position), vertikal (Vertical Position), dan di atas kepala (Overhead Position).",
         "Pada tahap awal PKL, peserta hanya diperkenalkan mengenai konsep dasar posisi pengelasan. Praktik yang dilakukan akan menyesuaikan dengan posisi yang telah ditentukan dalam job sheet perusahaan.",
       ] },
       { kind: 'image', file: "image28.png", caption: "Gambar 27. Posisi dasar pengelasan SMAW", source: "" },
@@ -422,29 +607,22 @@
       ] },
       { kind: 'image', file: "image29.png", caption: "Gambar 28. Bagian-bagian elektroda SMAW", source: "" },
       { kind: 'heading', text: "Parameter Dasar Pengelasan" },
-      { kind: 'heading', text: "Beberapa parameter dasar yang memengaruhi kualitas hasil pengelasan antara lain:" },
+      { kind: 'para', text: "Beberapa parameter dasar yang memengaruhi kualitas hasil pengelasan antara lain:" },
       { kind: 'bullets', items: [
-        "Arus Pengelasan (Ampere), disesuaikan dengan diameter elektroda.",
-        "Panjang Busur (Arc Length), memengaruhi kestabilan busur listrik.",
-        "Sudut Elektroda (Electrode Angle), memengaruhi bentuk manik las.",
-        "Kecepatan Gerak (Travel Speed), memengaruhi penetrasi dan ukuran manik las.",
+        "Arus Pengelasan (Ampere) — disesuaikan dengan diameter elektroda.",
+        "Panjang Busur (Arc Length) — memengaruhi kestabilan busur listrik.",
+        "Sudut Elektroda (Electrode Angle) — memengaruhi bentuk manik las.",
+        "Kecepatan Gerak (Travel Speed) — memengaruhi penetrasi dan ukuran manik las.",
         "Pengaturan parameter yang tepat akan menghasilkan sambungan las yang lebih baik dan meminimalkan cacat pengelasan.",
       ] },
-      { kind: 'heading', text: "Kelebihan dan Keterbatasan SMAW" },
-      { kind: 'heading', text: "Kelebihan" },
-      { kind: 'heading', text: "Keterbatasan" },
-      { kind: 'heading', text: "Peralatan sederhana" },
-      { kind: 'heading', text: "Kecepatan pengelasan relatif rendah" },
-      { kind: 'heading', text: "Biaya operasional relatif murah" },
-      { kind: 'heading', text: "Elektroda harus sering diganti" },
-      { kind: 'heading', text: "Dapat digunakan diberbagai posisi" },
-      { kind: 'heading', text: "Menghasilkan terak yang harus dibersihkan" },
-      { kind: 'heading', text: "Dapat digunakan di luar ruangan" },
-      { kind: 'heading', text: "Membutuhkan keterampilan operator" },
-      { kind: 'heading', text: "RINGKASAN" },
+      { kind: 'heading', text: "Ringkasan" },
       { kind: 'para', text: "Shielded Metal Arc Welding (SMAW) merupakan salah satu proses pengelasan yang banyak digunakan dalam industri karena sederhana, ekonomis, dan mampu menghasilkan sambungan yang kuat. Sebelum melakukan praktik, peserta PKL harus memahami prinsip kerja SMAW, mengenal peralatan utama, jenis sambungan las, posisi pengelasan, elektroda, serta parameter dasar pengelasan. Pemahaman terhadap materi ini menjadi bekal penting sebelum melaksanakan praktik tack weld di workshop PT. Coppalt Utama Indomelt." },
     ],
   },
+
+  // ══════════════════════════════════════════════════════════
+  // MODUL 7 — Teknik Dasar Tack Weld
+  // ══════════════════════════════════════════════════════════
   {
     id: 7,
     items: [
@@ -455,40 +633,43 @@
       ] },
       { kind: 'heading', text: "Tujuan Tack Weld" },
       { kind: 'bullets', items: [
-        "Pelaksanaan tack weld memiliki beberapa tujuan penting dalam proses fabrikasi dan pengelasan. Tujuan tersebut antara lain sebagai berikut.",
         "Menahan posisi benda kerja agar tidak bergeser selama proses pengelasan.",
         "Menjaga kesesuaian dimensi dan bentuk sambungan dengan gambar kerja.",
         "Mengurangi terjadinya distorsi akibat panas selama proses pengelasan.",
         "Mempermudah proses penyetelan (fit-up) sebelum dilakukan pengelasan penuh.",
         "Meningkatkan efisiensi kerja karena posisi benda kerja telah stabil.",
         "Membantu menghasilkan kualitas sambungan las yang lebih baik.",
-        "Apabila tack weld dilakukan dengan benar, maka proses pengelasan selanjutnya akan menjadi lebih mudah, aman, dan menghasilkan sambungan yang presisi.",
       ] },
       { kind: 'heading', text: "Peralatan dan Bahan" },
-      { kind: 'para', text: "Sebelum melakukan praktik tack weld, seluruh peralatan dan bahan harus dipersiapkan sesuai dengan kebutuhan pekerjaan. Pemeriksaan terhadap kondisi peralatan juga perlu dilakukan untuk memastikan seluruh peralatan dalam keadaan baik dan aman digunakan." },
+      { kind: 'para', text: "Sebelum melakukan praktik tack weld, seluruh peralatan dan bahan harus dipersiapkan sesuai dengan kebutuhan pekerjaan." },
       { kind: 'heading', text: "Peralatan" },
-      { kind: 'heading', text: "Mesin las SMAW" },
-      { kind: 'heading', text: "Holder elektroda" },
-      { kind: 'heading', text: "Penjepit massa (Work Clamp)" },
-      { kind: 'heading', text: "Palu terak (Chipping Hammer)" },
-      { kind: 'heading', text: "Sikat baja (Wire Brush)" },
-      { kind: 'heading', text: "Clamp atau penjepit benda kerja" },
-      { kind: 'heading', text: "Mistar baja" },
-      { kind: 'heading', text: "Siku baja" },
+      { kind: 'bullets', items: [
+        "Mesin las SMAW",
+        "Holder elektroda",
+        "Penjepit massa (Work Clamp)",
+        "Palu terak (Chipping Hammer)",
+        "Sikat baja (Wire Brush)",
+        "Clamp atau penjepit benda kerja",
+        "Mistar baja",
+        "Siku baja",
+      ] },
       { kind: 'heading', text: "Bahan" },
-      { kind: 'heading', text: "Pelat baja karbon rendah (Mild Steel)" },
-      { kind: 'heading', text: "Elektroda E6013 Ø2,6 mm (atau sesuai standar perusahaan)" },
-      { kind: 'heading', text: "Alat Pelindung Diri (APD)" },
-      { kind: 'heading', text: "Helm las" },
-      { kind: 'heading', text: "Kacamata keselamatan" },
-      { kind: 'heading', text: "Masker las" },
-      { kind: 'heading', text: "Jaket las" },
-      { kind: 'heading', text: "Sarung tangan las" },
-      { kind: 'heading', text: "Celemek kulit" },
-      { kind: 'heading', text: "Sepatu keselamatan" },
+      { kind: 'bullets', items: [
+        "Pelat baja karbon rendah (Mild Steel)",
+        "Elektroda E6013 Ø2,6 mm (atau sesuai standar perusahaan)",
+      ] },
+      { kind: 'heading', text: "APD yang Wajib Digunakan" },
+      { kind: 'bullets', items: [
+        "Helm las",
+        "Kacamata keselamatan",
+        "Masker las",
+        "Jaket las",
+        "Sarung tangan las",
+        "Celemek kulit",
+        "Sepatu keselamatan",
+      ] },
       { kind: 'heading', text: "Persiapan Sebelum Tack Weld" },
-      { kind: 'para', text: "Persiapan merupakan tahapan awal yang sangat menentukan keberhasilan proses tack weld. Persiapan yang baik akan mengurangi kesalahan kerja, meningkatkan keselamatan, dan menghasilkan sambungan yang sesuai dengan spesifikasi." },
-      { kind: 'heading', text: "Langkah-langkah persiapan yang harus dilakukan meliputi:" },
+      { kind: 'para', text: "Persiapan merupakan tahapan awal yang sangat menentukan keberhasilan proses tack weld. Langkah-langkah persiapan yang harus dilakukan meliputi:" },
       { kind: 'bullets', items: [
         "Mempelajari gambar kerja dan memahami ukuran benda kerja.",
         "Menyiapkan seluruh alat, bahan, dan APD.",
@@ -502,35 +683,32 @@
       ] },
       { kind: 'heading', text: "Langkah-Langkah Melakukan Tack Weld" },
       { kind: 'para', text: "Setelah seluruh persiapan selesai dilakukan, proses tack weld dapat dimulai dengan mengikuti prosedur berikut." },
-      { kind: 'heading', text: "Langkah 1. Menyiapkan Benda Kerja" },
+      { kind: 'heading', text: "Langkah 1 — Menyiapkan Benda Kerja" },
       { kind: 'para', text: "Tempatkan kedua pelat sesuai gambar kerja sehingga membentuk sambungan T-Joint. Pastikan posisi pelat telah tegak lurus (90°) menggunakan siku baja." },
-      { kind: 'heading', text: "Langkah 2. Memasang Clamp" },
+      { kind: 'heading', text: "Langkah 2 — Memasang Clamp" },
       { kind: 'para', text: "Pasang clamp pada benda kerja agar posisi pelat tidak berubah selama proses pengelasan berlangsung." },
-      { kind: 'heading', text: "Langkah 3. Mengatur Mesin Las" },
+      { kind: 'heading', text: "Langkah 3 — Mengatur Mesin Las" },
       { kind: 'para', text: "Atur arus mesin las sesuai dengan diameter elektroda yang digunakan." },
-      { kind: 'heading', text: "Contoh pengaturan arus:" },
-      { kind: 'heading', text: "Diameter elektroda" },
-      { kind: 'heading', text: "Arus" },
-      { kind: 'heading', text: "Langkah 4. Membuat Tack Weld" },
+      { kind: 'heading', text: "Langkah 4 — Membuat Tack Weld" },
       { kind: 'bullets', items: [
-        "Nyalakan busur listrik, kemudian lakukan tack weld pada kedua ujung sambungan. Apabila benda kerja memiliki ukuran yang lebih panjang, tambahkan tack weld pada bagian tengah agar posisi benda kerja tetap stabil.",
+        "Nyalakan busur listrik, kemudian lakukan tack weld pada kedua ujung sambungan.",
+        "Apabila benda kerja memiliki ukuran yang lebih panjang, tambahkan tack weld pada bagian tengah agar posisi benda kerja tetap stabil.",
         "Panjang setiap tack weld berkisar antara 10–20 mm, dengan jarak antar titik disesuaikan terhadap panjang sambungan.",
       ] },
-      { kind: 'heading', text: "Langkah 5. Membersihkan Hasil Tack Weld" },
+      { kind: 'heading', text: "Langkah 5 — Membersihkan Hasil Tack Weld" },
       { kind: 'para', text: "Setelah tack weld selesai dilakukan, bersihkan terak menggunakan palu terak dan sikat baja hingga permukaan sambungan terlihat jelas." },
-      { kind: 'heading', text: "Langkah 6. Melakukan Pemeriksaan Awal" },
-      { kind: 'heading', text: "Periksa hasil tack weld secara visual untuk memastikan:" },
+      { kind: 'heading', text: "Langkah 6 — Melakukan Pemeriksaan Awal" },
+      { kind: 'para', text: "Periksa hasil tack weld secara visual untuk memastikan:" },
       { kind: 'bullets', items: [
-        "posisi benda kerja tidak bergeser,",
-        "ukuran sesuai gambar kerja,",
-        "tidak terdapat retak,",
-        "tidak terdapat porositas,",
-        "tack weld memiliki ukuran yang seragam.",
+        "Posisi benda kerja tidak bergeser.",
+        "Ukuran sesuai gambar kerja.",
+        "Tidak terdapat retak.",
+        "Tidak terdapat porositas.",
+        "Tack weld memiliki ukuran yang seragam.",
       ] },
       { kind: 'image', file: "image30.png", caption: "Gambar 29. Posisi titik tack weld pada sambungan T-Joint", source: "" },
       { kind: 'heading', text: "Hal-Hal yang Harus Diperhatikan" },
       { kind: 'bullets', items: [
-        "Agar proses tack weld menghasilkan sambungan yang baik, beberapa hal berikut harus diperhatikan.",
         "Selalu menggunakan APD secara lengkap.",
         "Memastikan benda kerja sesuai dengan gambar kerja.",
         "Menggunakan arus pengelasan sesuai diameter elektroda.",
@@ -540,32 +718,22 @@
         "Membersihkan terak sebelum dilakukan pemeriksaan.",
         "Memastikan area kerja tetap bersih dan aman.",
       ] },
-      { kind: 'para', text: "Penerapan prosedur tersebut akan membantu menghasilkan tack weld yang kuat serta meminimalkan kemungkinan terjadinya cacat pengelasan." },
       { kind: 'heading', text: "Kesalahan yang Sering Terjadi" },
-      { kind: 'para', text: "Kesalahan pada proses tack weld dapat menyebabkan perubahan posisi benda kerja dan menurunkan kualitas hasil pengelasan. Oleh karena itu, peserta PKL harus memahami berbagai kesalahan yang umum terjadi beserta penyebabnya." },
-      { kind: 'para', text: "Tack weld terlalu kecil" },
-      { kind: 'para', text: "Waktu pengelasan terlalu singkat" },
-      { kind: 'para', text: "Tidak mampu menahan benda kerja" },
-      { kind: 'para', text: "Tack weld terlalu besar" },
-      { kind: 'para', text: "Pengelasan terlalu lama" },
-      { kind: 'para', text: "Menyulitkan proses pengelasan akhir" },
-      { kind: 'para', text: "Posisi benda kerja bergeser" },
-      { kind: 'para', text: "Clamp kurang kuat atau posisi tidak tepat" },
-      { kind: 'para', text: "Dimensi tidak sesuai gambar kerja" },
-      { kind: 'para', text: "Retak pada tack weld" },
-      { kind: 'para', text: "Pendinginan terlalu cepat atau parameter pengelasan tidak sesuai" },
-      { kind: 'para', text: "Sambungan mudah patah" },
-      { kind: 'para', text: "Elektroda lembap atau permukaan benda kerja kotor" },
-      { kind: 'para', text: "Menurunkan kekuatan sambungan" },
-      { kind: 'para', text: "Percikan las (spatter) berlebihan" },
-      { kind: 'para', text: "Arus terlalu tinggi atau busur listrik terlalu Panjang" },
-      { kind: 'para', text: "Hasil las kurang rapi dan membutuhkan pembersihan lebih lanjut" },
-      { kind: 'para', text: "Sudut sambungan tidak 90°" },
-      { kind: 'para', text: "Kesalahan saat penyetelan benda kerja" },
-      { kind: 'para', text: "Produk tidak memenuhi spesifikasi" },
+      { kind: 'bullets', items: [
+        "Tack weld terlalu kecil → tidak mampu menahan benda kerja.",
+        "Tack weld terlalu besar → menyulitkan proses pengelasan akhir.",
+        "Posisi benda kerja bergeser → clamp kurang kuat atau posisi tidak tepat.",
+        "Retak pada tack weld → pendinginan terlalu cepat atau parameter tidak sesuai.",
+        "Percikan las (spatter) berlebihan → arus terlalu tinggi atau busur terlalu panjang.",
+        "Sudut sambungan tidak 90° → kesalahan saat penyetelan benda kerja.",
+      ] },
       { kind: 'para', text: "Untuk menghindari kesalahan tersebut, peserta PKL harus selalu mengikuti prosedur kerja, menggunakan parameter pengelasan yang sesuai, serta melakukan pemeriksaan visual sebelum melanjutkan ke proses pengelasan berikutnya." },
     ],
   },
+
+  // ══════════════════════════════════════════════════════════
+  // MODUL 8 — Pemeriksaan Hasil Tack Weld
+  // ══════════════════════════════════════════════════════════
   {
     id: 8,
     items: [
@@ -575,7 +743,6 @@
         "Dalam kegiatan praktik di PT. Coppalt Utama Indomelt, setiap peserta PKL diwajibkan melakukan pemeriksaan hasil tack weld sebelum mendapatkan persetujuan dari instruktur untuk melanjutkan ke proses pengelasan berikutnya.",
       ] },
       { kind: 'heading', text: "Tujuan Pemeriksaan Hasil Tack Weld" },
-      { kind: 'heading', text: "Pemeriksaan hasil tack weld bertujuan untuk:" },
       { kind: 'bullets', items: [
         "Memastikan posisi benda kerja telah sesuai dengan gambar kerja.",
         "Mengetahui kualitas sambungan sebelum dilakukan pengelasan penuh.",
@@ -585,16 +752,17 @@
       ] },
       { kind: 'heading', text: "Peralatan Pemeriksaan" },
       { kind: 'para', text: "Peralatan yang digunakan untuk melakukan pemeriksaan hasil tack weld antara lain:" },
-      { kind: 'heading', text: "Mistar baja (Steel Rule)" },
-      { kind: 'heading', text: "Siku baja (Try Square)" },
-      { kind: 'heading', text: "Jangka sorong (Vernier Caliper)" },
-      { kind: 'heading', text: "Lampu inspeksi (jika diperlukan)" },
-      { kind: 'heading', text: "Sikat baja (Wire Brush)" },
-      { kind: 'heading', text: "Palu terak (Chipping Hammer)" },
+      { kind: 'bullets', items: [
+        "Mistar baja (Steel Rule)",
+        "Siku baja (Try Square)",
+        "Jangka sorong (Vernier Caliper)",
+        "Lampu inspeksi (jika diperlukan)",
+        "Sikat baja (Wire Brush)",
+        "Palu terak (Chipping Hammer)",
+      ] },
       { kind: 'para', text: "Sebelum dilakukan pemeriksaan, permukaan hasil tack weld harus dibersihkan dari terak dan percikan las agar kondisi sambungan dapat diamati dengan jelas." },
       { kind: 'heading', text: "Langkah-Langkah Pemeriksaan" },
       { kind: 'bullets', items: [
-        "Pemeriksaan hasil tack weld dilakukan dengan tahapan sebagai berikut.",
         "Membersihkan hasil tack weld menggunakan palu terak dan sikat baja.",
         "Memeriksa posisi benda kerja agar sesuai dengan gambar kerja.",
         "Memastikan sudut sambungan T-Joint tetap 90° menggunakan siku baja.",
@@ -605,55 +773,43 @@
         "Melaporkan hasil pemeriksaan kepada pembimbing atau instruktur.",
       ] },
       { kind: 'heading', text: "Kriteria Hasil Tack Weld yang Baik" },
-      { kind: 'para', text: "Hasil tack weld dinyatakan baik apabila memenuhi kriteria berikut." },
-      { kind: 'para', text: "Kriteria pemeriksaan" },
-      { kind: 'para', text: "Kondisi yang diharapkan" },
-      { kind: 'para', text: "Posisi benda kerja" },
-      { kind: 'para', text: "Sesuai gambar kerja" },
-      { kind: 'para', text: "Sudut sambungan" },
-      { kind: 'para', text: "Panjang tack weld" },
-      { kind: 'para', text: "Jumlah titik tack weld" },
-      { kind: 'para', text: "Sesuai gambar kerja" },
-      { kind: 'para', text: "Bentuk tack weld" },
-      { kind: 'para', text: "Rapi dan seragam" },
-      { kind: 'para', text: "Retak (crack)" },
-      { kind: 'para', text: "Porositas (porocity)" },
-      { kind: 'para', text: "Percikan las berlebihan" },
-      { kind: 'para', text: "Pergeseran benda kerja" },
-      { kind: 'para', text: "Tidak terjadi" },
-      { kind: 'heading', text: "Cacat yang Sering Ditemukan pada Tack Weld" },
-      { kind: 'para', text: "Beberapa cacat yang sering ditemukan pada hasil tack weld ditunjukkan pada Tabel 10.2." },
-      { kind: 'heading', text: "Jenis cacat" },
-      { kind: 'heading', text: "Dampak" },
-      { kind: 'heading', text: "Retak (crack)" },
-      { kind: 'heading', text: "Pendinginan terlalu cepat atau parameter tidak sesuai" },
-      { kind: 'heading', text: "Sambungan mudah patah" },
-      { kind: 'heading', text: "Porositas (porosity)" },
-      { kind: 'heading', text: "Elektroda lembab atau permukaan benda kotor" },
-      { kind: 'heading', text: "Kekuatan sambungan menurun" },
-      { kind: 'heading', text: "Tack weld terlalu kecil" },
-      { kind: 'heading', text: "Waktu pengelasan terlalu singkat" },
-      { kind: 'heading', text: "Sambungan kurang kuat" },
-      { kind: 'heading', text: "Tack weld terlalu besar" },
-      { kind: 'heading', text: "Pengelasan terlalu lama" },
-      { kind: 'heading', text: "Menyulitkan proses pengelasan akhir" },
-      { kind: 'heading', text: "Pergeseran benda kerja" },
-      { kind: 'heading', text: "Clamp kurang kuat" },
-      { kind: 'heading', text: "Dimensi tidak sesuai gambar" },
-      { kind: 'heading', text: "Percikan las berlebih" },
-      { kind: 'heading', text: "Arus terlalu tinggi atau busur terlalu panjang" },
-      { kind: 'heading', text: "Permukaan hasil las kurang rapih" },
-      { kind: 'heading', text: "Tindakan Perbaikan" },
+      { kind: 'table', caption: "Tabel. Kriteria Pemeriksaan Hasil Tack Weld",
+        cols: ["Kriteria Pemeriksaan", "Kondisi yang Diharapkan"],
+        rows: [
+          ["Posisi benda kerja", "Sesuai gambar kerja"],
+          ["Sudut sambungan", "90° (tegak lurus)"],
+          ["Panjang tack weld", "10–20 mm"],
+          ["Jumlah titik tack weld", "Sesuai gambar kerja"],
+          ["Bentuk tack weld", "Rapi dan seragam"],
+          ["Retak (crack)", "Tidak ada"],
+          ["Porositas (porosity)", "Tidak ada"],
+          ["Percikan las berlebihan", "Tidak ada"],
+          ["Pergeseran benda kerja", "Tidak ada"],
+        ],
+      },
+      { kind: 'checklist',
+        title: "Checklist Pemeriksaan Hasil Tack Weld",
+        variant: "pemeriksaan",
+        items: [
+          "Posisi benda kerja sesuai gambar kerja.",
+          "Sudut sambungan T-Joint tepat 90°.",
+          "Panjang setiap tack weld 10–20 mm.",
+          "Tidak terdapat retak pada sambungan.",
+          "Tidak terdapat porositas.",
+          "Permukaan tack weld telah dibersihkan dari terak.",
+          "Hasil pemeriksaan telah dilaporkan kepada instruktur.",
+        ],
+      },
+      { kind: 'heading', text: "Tindakan Apabila Hasil Tidak Memenuhi Kriteria" },
       { kind: 'bullets', items: [
-        "Apabila hasil pemeriksaan menunjukkan adanya ketidaksesuaian, maka peserta harus melakukan tindakan perbaikan sebagai berikut.",
-        "Membersihkan kembali hasil tack weld apabila masih terdapat terak.",
-        "Melepas dan mengatur ulang posisi benda kerja jika terjadi pergeseran.",
-        "Mengulangi proses tack weld apabila sambungan tidak cukup kuat.",
-        "Mengganti elektroda apabila elektroda lembap atau rusak.",
-        "Menyesuaikan arus pengelasan sesuai diameter elektroda.",
-        "Melakukan pemeriksaan ulang hingga hasil memenuhi standar.",
+        "Apabila posisi benda kerja bergeser, lakukan penyetelan ulang menggunakan clamp dan siku baja.",
+        "Apabila sudut tidak 90°, lepas clamp dan sesuaikan posisi benda kerja.",
+        "Apabila ditemukan retak pada tack weld, lakukan gerinda untuk menghilangkan tack weld tersebut dan ulangi proses.",
+        "Apabila spatter berlebihan, periksa dan sesuaikan parameter pengelasan.",
+        "Apabila panjang tack weld tidak sesuai, tambahkan atau kurangi sesuai ketentuan.",
       ] },
-      { kind: 'para', text: "Pemeriksaan hasil tack weld merupakan tahapan penting sebelum proses pengelasan penuh dilakukan. Pemeriksaan dilakukan secara visual untuk memastikan posisi benda kerja, dimensi, dan kualitas sambungan telah sesuai dengan gambar kerja. Hasil tack weld yang memenuhi standar akan mempermudah proses pengelasan selanjutnya serta menghasilkan sambungan yang lebih kuat, presisi, dan sesuai dengan standar kualitas PT. Coppalt Utama Indomelt." },
+      { kind: 'heading', text: "Ringkasan" },
+      { kind: 'para', text: "Pemeriksaan hasil tack weld merupakan tahapan penting dalam proses fabrikasi yang memastikan kualitas sambungan sebelum dilakukan pengelasan penuh. Setiap peserta PKL harus mampu melakukan pemeriksaan secara visual, menggunakan alat ukur yang tepat, serta memahami kriteria hasil tack weld yang baik. Apabila ditemukan ketidaksesuaian, peserta harus segera melakukan tindakan perbaikan sebelum mendapatkan persetujuan instruktur untuk melanjutkan pekerjaan." },
     ],
   },
 ];

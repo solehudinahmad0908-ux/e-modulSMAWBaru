@@ -3,8 +3,8 @@ import { modulesData } from "@/data/modules";
 import { moduleRichContents, type ContentItem } from "@/data/moduleRichContent";
 import { docImages } from "@/assets/docImages";
 import { useProgress } from "@/contexts/ProgressContext";
-import { ChevronLeft } from "lucide-react";
-import { useEffect } from "react";
+import { ChevronLeft, CheckSquare, ClipboardList } from "lucide-react";
+import { useEffect, useState } from "react";
 
 // ── Single image ──────────────────────────────────────────────────────────────
 function DocImage({ file, caption, source }: { file: string; caption: string; source: string }) {
@@ -85,8 +85,135 @@ function DocTable({ caption, cols, rows }: { caption: string; cols: string[]; ro
   );
 }
 
+// ── Info box ──────────────────────────────────────────────────────────────────
+function DocInfobox({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="my-4 rounded-2xl border border-blue-400/40 bg-blue-500/5 p-5">
+      <h4 className="font-bold text-blue-400 mb-2 flex items-center gap-2">
+        <span>ℹ️</span> {title}
+      </h4>
+      <p className="text-foreground/85 text-sm leading-relaxed">{text}</p>
+    </div>
+  );
+}
+
+// ── Interactive checklist ─────────────────────────────────────────────────────
+function DocChecklist({
+  moduleId,
+  title,
+  items,
+  variant = "refleksi",
+}: {
+  moduleId: number;
+  title: string;
+  items: string[];
+  variant?: "refleksi" | "pemeriksaan";
+}) {
+  const storageKey = `smaw_checklist_m${moduleId}_${title.replace(/\s+/g, "_")}`;
+
+  const [checked, setChecked] = useState<boolean[]>(() => {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      return saved ? JSON.parse(saved) : new Array(items.length).fill(false);
+    } catch {
+      return new Array(items.length).fill(false);
+    }
+  });
+
+  const toggle = (i: number) => {
+    setChecked((prev) => {
+      const next = [...prev];
+      next[i] = !next[i];
+      try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch {}
+      return next;
+    });
+  };
+
+  const doneCount = checked.filter(Boolean).length;
+  const allDone = doneCount === items.length;
+
+  const isRefleksi = variant === "refleksi";
+  const accentColor = isRefleksi
+    ? { border: "border-primary/30", bg: "bg-primary/5", title: "text-primary", check: "bg-primary border-primary", hover: "group-hover:border-primary" }
+    : { border: "border-amber-500/30", bg: "bg-amber-500/5", title: "text-amber-400", check: "bg-amber-500 border-amber-500", hover: "group-hover:border-amber-400" };
+
+  return (
+    <div className={`my-6 rounded-2xl border ${accentColor.border} ${accentColor.bg} p-5`}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <h4 className={`font-bold text-base flex items-center gap-2 ${accentColor.title}`}>
+          {isRefleksi
+            ? <CheckSquare className="w-4 h-4" />
+            : <ClipboardList className="w-4 h-4" />}
+          {title}
+        </h4>
+        <span
+          className={`text-xs px-2.5 py-1 rounded-full font-bold transition-colors ${
+            allDone
+              ? "bg-green-500/20 text-green-400"
+              : "bg-muted/60 text-muted-foreground"
+          }`}
+        >
+          {doneCount}/{items.length}
+        </span>
+      </div>
+
+      {/* Items */}
+      <div className="space-y-2.5">
+        {items.map((item, i) => (
+          <label
+            key={i}
+            className="flex items-start gap-3 cursor-pointer group select-none"
+            onClick={() => toggle(i)}
+          >
+            {/* Checkbox box */}
+            <div
+              className={`mt-0.5 w-5 h-5 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all ${
+                checked[i]
+                  ? accentColor.check
+                  : `border-border/70 ${accentColor.hover}`
+              }`}
+            >
+              {checked[i] && (
+                <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="M2 6l3 3 5-5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
+            </div>
+            {/* Label text */}
+            <span
+              className={`text-sm leading-snug transition-colors ${
+                checked[i] ? "text-muted-foreground line-through" : "text-foreground/85"
+              }`}
+            >
+              {item}
+            </span>
+          </label>
+        ))}
+      </div>
+
+      {/* Done banner */}
+      {allDone && (
+        <div className="mt-4 flex items-center gap-2 text-green-400 text-sm font-semibold">
+          <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M5 8l2.5 2.5L11 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Semua item selesai! Anda siap melanjutkan.
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Content item renderer ────────────────────────────────────────────────────
-function RenderItem({ item }: { item: ContentItem }) {
+function RenderItem({ item, moduleId }: { item: ContentItem; moduleId: number }) {
   switch (item.kind) {
     case "heading":
       return (
@@ -113,6 +240,17 @@ function RenderItem({ item }: { item: ContentItem }) {
       return <DocGallery images={item.images} />;
     case "table":
       return <DocTable caption={item.caption} cols={item.cols} rows={item.rows} />;
+    case "infobox":
+      return <DocInfobox title={item.title} text={item.text} />;
+    case "checklist":
+      return (
+        <DocChecklist
+          moduleId={moduleId}
+          title={item.title}
+          items={item.items}
+          variant={item.variant}
+        />
+      );
     default:
       return null;
   }
@@ -157,11 +295,11 @@ export default function ModulePage() {
           {moduleData.title}
         </h1>
 
-        {/* Verbatim content with images */}
+        {/* Content */}
         {richContent ? (
           <div className="space-y-4">
             {richContent.items.map((item, i) => (
-              <RenderItem key={i} item={item} />
+              <RenderItem key={i} item={item} moduleId={moduleId} />
             ))}
           </div>
         ) : (
