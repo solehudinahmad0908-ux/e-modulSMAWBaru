@@ -15,7 +15,7 @@ function DocImage({ file, caption, source }: { file: string; caption: string; so
       <img
         src={src}
         alt={caption}
-        className="w-full max-h-[480px] object-contain rounded-xl border border-border bg-black/30"
+        className="w-full h-auto rounded-xl border border-border"
       />
       {caption && (
         <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
