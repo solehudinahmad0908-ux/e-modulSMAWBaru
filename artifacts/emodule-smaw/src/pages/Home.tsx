@@ -60,9 +60,9 @@ export default function Home() {
             className="w-24 h-24 rounded-full object-cover object-top border-2 border-primary/40 shadow-md"
           />
           <div>
-            <h3 className="font-bold text-foreground text-lg">Identitas Penyusun</h3>
+            <h3 className="font-bold text-foreground text-lg">Penyusun</h3>
             <p className="text-primary font-medium mt-1">Ahmad Solehudin</p>
-            <p className="text-sm text-muted-foreground">NIM 2207939</p>
+            <p className="text-sm text-muted-foreground">Pendidikan Teknik Mesin, Universitas Pendidikan Indonesia</p>
           </div>
         </div>
 
