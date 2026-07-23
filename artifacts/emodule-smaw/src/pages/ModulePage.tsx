@@ -92,7 +92,7 @@ function DocInfobox({ title, text }: { title: string; text: string }) {
       <h4 className="font-bold text-blue-400 mb-2 flex items-center gap-2">
         <span>ℹ️</span> {title}
       </h4>
-      <p className="text-foreground/85 text-sm leading-relaxed">{text}</p>
+      <p className="text-foreground/85 text-sm leading-relaxed text-justify">{text}</p>
     </div>
   );
 }
@@ -222,7 +222,7 @@ function RenderItem({ item, moduleId }: { item: ContentItem; moduleId: number })
         </h3>
       );
     case "para":
-      return <p className="text-foreground/85 leading-relaxed">{item.text}</p>;
+      return <p className="text-foreground/85 leading-relaxed text-justify">{item.text}</p>;
     case "bullets":
       return (
         <ul className="space-y-1.5 my-1">
