@@ -62,7 +62,8 @@ export default function Home() {
           <div>
             <h3 className="font-bold text-foreground text-lg">Penyusun</h3>
             <p className="text-primary font-medium mt-1">Ahmad Solehudin</p>
-            <p className="text-sm text-muted-foreground">Pendidikan Teknik Mesin Universitas Pendidikan Indonesia</p>
+            <p className="text-sm text-muted-foreground">Pendidikan Teknik Mesin</p>
+            <p className="text-sm text-muted-foreground -mt-2">Universitas Pendidikan Indonesia</p>
           </div>
         </div>
 
