@@ -91,7 +91,7 @@ export default function Pustaka() {
               className="flex items-start gap-4 text-foreground/90 leading-relaxed border-b border-border pb-5 last:border-0 last:pb-0"
             >
               <BookMarked className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-              <span>
+              <span className="block text-justify">
                 <span className="font-medium">{ref.cite}</span>{" "}
                 <span className="italic">{ref.title}</span>
                 {ref.publisher && <span> {ref.publisher}</span>}
@@ -102,7 +102,7 @@ export default function Pustaka() {
       </div>
 
       <div className="bg-secondary/30 border border-border rounded-xl p-5 text-sm text-muted-foreground">
-        <p>
+        <p className="text-justify">
           Seluruh referensi di atas digunakan sebagai landasan teoritis dan sumber gambar dalam pengembangan
           E-Modul Pengelasan SMAW standar kompetensi PT Coppalt Utama Indomelt (CUI).
         </p>
