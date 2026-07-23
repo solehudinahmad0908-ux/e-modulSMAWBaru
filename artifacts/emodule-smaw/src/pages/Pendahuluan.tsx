@@ -74,19 +74,19 @@ export default function Pendahuluan() {
       <Card icon={Info} title="Deskripsi E-Modul">
         <div className="space-y-3">
           {deskripsi.split("\n\n").map((para, i) => (
-            <p key={i} className="text-foreground/80 leading-relaxed">{para}</p>
+            <p key={i} className="text-foreground/80 leading-relaxed text-justify">{para}</p>
           ))}
         </div>
       </Card>
 
       {/* 2. Tujuan Pembelajaran */}
       <Card icon={Target} title="Tujuan Pembelajaran">
-        <p className="text-foreground/80 mb-4">Setelah mempelajari e-modul ini, peserta diharapkan mampu:</p>
+        <p className="text-foreground/80 mb-4 text-justify">Setelah mempelajari e-modul ini, peserta diharapkan mampu:</p>
         <ul className="space-y-2">
           {tujuanItems.map((item, i) => (
             <li key={i} className="flex gap-3 text-foreground/80 leading-relaxed">
               <CheckCircle2 className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
-              <span>{item}</span>
+              <span className="block text-justify">{item}</span>
             </li>
           ))}
         </ul>
@@ -94,14 +94,14 @@ export default function Pendahuluan() {
 
       {/* 3. Capaian Pembelajaran */}
       <Card icon={Award} title="Capaian Pembelajaran">
-        <p className="text-foreground/80 mb-4">Setelah menyelesaikan seluruh materi, peserta mampu menunjukkan kompetensi sebagai berikut:</p>
+        <p className="text-foreground/80 mb-4 text-justify">Setelah menyelesaikan seluruh materi, peserta mampu menunjukkan kompetensi sebagai berikut:</p>
         <ul className="space-y-2">
           {capaianItems.map((item, i) => (
             <li key={i} className="flex gap-3 text-foreground/80 leading-relaxed">
               <span className="mt-2 w-5 h-5 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs flex items-center justify-center font-bold flex-shrink-0">
                 {i + 1}
               </span>
-              <span>{item}</span>
+              <span className="block text-justify">{item}</span>
             </li>
           ))}
         </ul>
@@ -109,14 +109,14 @@ export default function Pendahuluan() {
 
       {/* 4. Petunjuk Penggunaan */}
       <Card icon={BookOpen} title="Petunjuk Penggunaan E-Modul">
-        <p className="text-foreground/80 mb-4">Agar proses pembelajaran berlangsung secara optimal, peserta diharapkan mengikuti petunjuk berikut:</p>
+        <p className="text-foreground/80 mb-4 text-justify">Agar proses pembelajaran berlangsung secara optimal, peserta diharapkan mengikuti petunjuk berikut:</p>
         <ol className="space-y-3">
           {petunjukItems.map((item, i) => (
             <li key={i} className="flex gap-3 text-foreground/80 leading-relaxed">
               <span className="mt-0.5 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold flex-shrink-0">
                 {i + 1}
               </span>
-              <span>{item}</span>
+              <span className="block text-justify">{item}</span>
             </li>
           ))}
         </ol>
@@ -124,12 +124,12 @@ export default function Pendahuluan() {
 
       {/* 5. Prasyarat */}
       <Card icon={Settings} title="Prasyarat Pembelajaran">
-        <p className="text-foreground/80 mb-4">Sebelum mempelajari e-modul ini, peserta diharapkan memenuhi beberapa prasyarat berikut:</p>
+        <p className="text-foreground/80 mb-4 text-justify">Sebelum mempelajari e-modul ini, peserta diharapkan memenuhi beberapa prasyarat berikut:</p>
         <ul className="space-y-2">
           {prasyaratItems.map((item, i) => (
             <li key={i} className="flex gap-3 text-foreground/80 leading-relaxed">
               <span className="mt-1.5 w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-              <span>{item}</span>
+              <span className="block text-justify">{item}</span>
             </li>
           ))}
         </ul>
@@ -140,12 +140,12 @@ export default function Pendahuluan() {
         <div className="space-y-6">
           <div>
             <h3 className="font-semibold text-foreground mb-2">Sejarah Singkat</h3>
-            <p className="text-foreground/80 leading-relaxed">{profilContent.sejarah}</p>
+            <p className="text-foreground/80 leading-relaxed text-justify">{profilContent.sejarah}</p>
           </div>
 
           <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
             <h3 className="font-semibold text-primary mb-1">Visi Perusahaan</h3>
-            <p className="text-foreground/85 italic leading-relaxed">{profilContent.visi}</p>
+            <p className="text-foreground/85 italic leading-relaxed text-justify">{profilContent.visi}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -173,7 +173,7 @@ export default function Pendahuluan() {
             </div>
           </div>
 
-          <p className="text-foreground/70 text-sm">
+          <p className="text-foreground/70 text-sm text-justify">
             PT. Coppalt Utama Indomelt menerapkan budaya kerja yang mengutamakan Keselamatan dan Kesehatan Kerja (K3). Seluruh karyawan maupun peserta PKL diwajibkan mematuhi prosedur keselamatan kerja, menggunakan Alat Pelindung Diri (APD), dan menjaga kebersihan area kerja.
           </p>
         </div>

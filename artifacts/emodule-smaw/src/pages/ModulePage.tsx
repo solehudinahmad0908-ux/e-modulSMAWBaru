@@ -229,7 +229,7 @@ function RenderItem({ item, moduleId }: { item: ContentItem; moduleId: number })
           {item.items.map((t, i) => (
             <li key={i} className="flex gap-3 text-foreground/85 leading-relaxed">
               <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-              <span>{t}</span>
+              <span className="block text-justify">{t}</span>
             </li>
           ))}
         </ul>
