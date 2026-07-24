@@ -358,264 +358,251 @@ export default function Jobsheet() {
 
 
       {/* ══════════════════════════════════════════════════════════════════
-          PRINT LAYOUT — 2 HALAMAN A4 (tersembunyi di layar)
+          PRINT LAYOUT — satu dokumen mengalir, tersembunyi di layar
       ══════════════════════════════════════════════════════════════════ */}
-      <div id="js-print" style={{ fontFamily: "Arial, Helvetica, sans-serif", fontSize: 11, color: "#000" }}>
+      <div id="js-print" style={{ fontFamily: "Arial, Helvetica, sans-serif", fontSize: 10, color: "#000", width: "190mm", background: "white" }}>
 
-        {/* ▌HALAMAN 1 — Header · Identitas · Tujuan · Gambar Kerja ─────── */}
-        <div className="page-break" style={{ width: "190mm", background: "white" }}>
+        {/* ── HEADER ───────────────────────────────────────────────────────── */}
+        <table style={{ width: "100%", borderCollapse: "collapse", border: "2px solid #111" }}>
+          <tbody>
+            <tr>
+              <td style={{ width: 70, padding: "5px 8px", borderRight: "2px solid #111", textAlign: "center", verticalAlign: "middle" }}>
+                <img src={logoCUI} alt="CUI" style={{ height: 36, objectFit: "contain" }} />
+              </td>
+              <td style={{ textAlign: "center", padding: "5px 8px", verticalAlign: "middle" }}>
+                <div style={{ fontWeight: 900, fontSize: 13, letterSpacing: "0.06em" }}>PT. COPPALT UTAMA INDOMELT</div>
+                <div style={{ fontSize: 8, color: "#444", letterSpacing: "0.14em", fontWeight: 700, marginTop: 2 }}>WORKSHOP FABRIKASI</div>
+              </td>
+              <td style={{ width: 72, padding: "4px 8px", borderLeft: "2px solid #111", textAlign: "center", verticalAlign: "middle" }}>
+                <div style={{ fontSize: 7, color: "#666", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>KODE DOK.</div>
+                <div style={{ fontWeight: 900, fontSize: 17, lineHeight: 1.1, color: "#000" }}>TW-01</div>
+                <div style={{ fontSize: 7.5, color: "#888", marginTop: 1 }}>Rev. 00 / 2025</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          {/* Header */}
-          <table style={{ width: "100%", borderCollapse: "collapse", border: "2px solid #111", marginBottom: 0 }}>
+        {/* ── JUDUL ────────────────────────────────────────────────────────── */}
+        <div style={{ border: "2px solid #111", borderTop: 0, background: "#fff8f0", textAlign: "center", padding: "5px 10px" }}>
+          <div style={{ fontWeight: 900, fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase" }}>JOB SHEET PRAKTIK TACK WELD</div>
+          <div style={{ fontSize: 8.5, color: "#555", marginTop: 2 }}>
+            Proses: Shielded Metal Arc Welding (SMAW)&nbsp;&nbsp;|&nbsp;&nbsp;Sambungan T-Joint&nbsp;&nbsp;|&nbsp;&nbsp;Posisi 1F (Flat Fillet)
+          </div>
+        </div>
+
+        {/* ── IDENTITAS JOB ────────────────────────────────────────────────── */}
+        <div style={{ border: "2px solid #111", borderTop: 0 }}>
+          <div style={{ background: "#222", color: "#fff", padding: "2px 10px", fontWeight: 900, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.12em" }}>IDENTITAS JOB</div>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <tbody>
               <tr>
-                {/* Logo */}
-                <td style={{ width: 80, padding: "6px 10px", borderRight: "2px solid #111", textAlign: "center", verticalAlign: "middle" }}>
-                  <img src={logoCUI} alt="CUI" style={{ height: 40, objectFit: "contain" }} />
+                {[["MATERIAL","Mild Steel SS400"],["KETEBALAN","6 mm"],["ELEKTRODA","AWS E6013 Ø2,6 mm"],["ARUS LAS","70–90 Ampere"],["DURASI","±60 Menit"]].map(([l,v],i)=>(
+                  <td key={l} style={{ padding: "4px 10px", borderRight: i<4?"1px solid #ccc":"none", verticalAlign:"top" }}>
+                    <div style={{ fontSize: 7, color: "#666", textTransform: "uppercase", fontWeight: 700, letterSpacing:"0.05em" }}>{l}</div>
+                    <div style={{ fontWeight: 700, fontSize: 10, marginTop: 1 }}>{v}</div>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* ── TUJUAN PRAKTIK ───────────────────────────────────────────────── */}
+        <div style={{ border: "2px solid #111", borderTop: 0 }}>
+          <div style={{ background: "#222", color: "#fff", padding: "2px 10px", fontWeight: 900, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.12em" }}>TUJUAN PRAKTIK</div>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <tbody>
+              <tr>
+                <td style={{ padding: "4px 14px", verticalAlign: "top", width: "50%" }}>
+                  {["1. Membaca gambar kerja.","3. Melakukan penyetelan mesin SMAW.","5. Melakukan pemeriksaan visual hasil tack weld."].map(t=>(
+                    <div key={t} style={{ fontSize: 9.5, marginBottom: 2 }}>{t}</div>
+                  ))}
                 </td>
-                {/* Nama */}
-                <td style={{ textAlign: "center", padding: "6px 10px", verticalAlign: "middle" }}>
-                  <div style={{ fontWeight: 900, fontSize: 14, letterSpacing: "0.05em" }}>PT. COPPALT UTAMA INDOMELT</div>
-                  <div style={{ fontSize: 9, color: "#555", letterSpacing: "0.12em", fontWeight: 700, marginTop: 2 }}>WORKSHOP FABRIKASI</div>
-                </td>
-                {/* Kode */}
-                <td style={{ width: 80, padding: "6px 10px", borderLeft: "2px solid #111", textAlign: "center", verticalAlign: "middle" }}>
-                  <div style={{ fontSize: 8, color: "#666", fontWeight: 700, textTransform: "uppercase" }}>Kode Dok.</div>
-                  <div style={{ fontWeight: 900, fontSize: 16, lineHeight: 1.1 }}>TW-01</div>
-                  <div style={{ fontSize: 8, color: "#888", marginTop: 1 }}>Rev. 00 / 2025</div>
+                <td style={{ padding: "4px 14px", verticalAlign: "top" }}>
+                  {["2. Menyiapkan material sesuai spesifikasi.","4. Melakukan tack weld sesuai SOP."].map(t=>(
+                    <div key={t} style={{ fontSize: 9.5, marginBottom: 2 }}>{t}</div>
+                  ))}
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
 
-          {/* Judul */}
-          <div style={{ border: "2px solid #111", borderTop: 0, background: "#fff3e0", textAlign: "center", padding: "5px 10px" }}>
-            <div style={{ fontWeight: 900, fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase" }}>JOB SHEET PRAKTIK TACK WELD</div>
-            <div style={{ fontSize: 9, color: "#555", marginTop: 2 }}>
-              Proses: Shielded Metal Arc Welding (SMAW) &nbsp;|&nbsp; Sambungan T-Joint &nbsp;|&nbsp; Posisi 1F (Flat Fillet)
-            </div>
+        {/* ── GAMBAR KERJA ─────────────────────────────────────────────────── */}
+        <div style={{ border: "2px solid #111", borderTop: 0 }}>
+          <div style={{ background: "#222", color: "#fff", padding: "2px 10px", fontWeight: 900, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.12em", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span>GAMBAR KERJA — TW-01</span>
+            <span style={{ fontSize: 7.5, fontStyle: "italic", fontWeight: 400, color: "#ccc", letterSpacing: 0 }}>SKALA: TIDAK SKALA — REFERENSI FABRIKASI</span>
           </div>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "6px", background: "white" }}>
+            <img src={jobsheetImg} alt="Gambar Kerja" style={{ maxHeight: 188, maxWidth: "88%", objectFit: "contain" }} />
+          </div>
+        </div>
 
-          {/* Identitas */}
-          <div style={{ border: "2px solid #111", borderTop: 0 }}>
-            <div style={{ background: "#e8e8e8", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em" }}>Identitas Job</div>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <tbody>
-                <tr>
-                  {[["Material","Mild Steel SS400"],["Ketebalan","6 mm"],["Elektroda","AWS E6013 Ø2,6 mm"],["Arus Las","70–90 Ampere"],["Durasi","±60 Menit"]].map(([l,v],i)=>(
-                    <td key={l} style={{ padding: "5px 10px", borderRight: i<4?"1px solid #ccc":"none", verticalAlign:"top" }}>
-                      <div style={{ fontSize: 8, color: "#666", textTransform: "uppercase", fontWeight: 700 }}>{l}</div>
-                      <div style={{ fontWeight: 700, fontSize: 11, marginTop: 1 }}>{v}</div>
-                    </td>
+        {/* ── LANGKAH KERJA ────────────────────────────────────────────────── */}
+        <div style={{ border: "2px solid #111", borderTop: 0 }}>
+          <div style={{ background: "#222", color: "#fff", padding: "2px 10px", fontWeight: 900, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.12em" }}>LANGKAH KERJA</div>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <tbody>
+              <tr>
+                {/* A */}
+                <td style={{ padding: "4px 8px", borderRight: "1px solid #ccc", verticalAlign: "top", width: "33%" }}>
+                  <div style={{ fontWeight: 900, fontSize: 8, color: "#E65100", textTransform: "uppercase", marginBottom: 3, letterSpacing:"0.05em" }}>A. PERSIAPAN</div>
+                  {["Gunakan APD secara lengkap.","Baca gambar kerja.","Siapkan material sesuai ukuran.","Bersihkan permukaan material.","Susun benda kerja sesuai gambar.","Periksa kesikuan (siku baja).","Jepit menggunakan C-Clamp."].map((t,i)=>(
+                    <div key={i} style={{ display:"flex", gap:3, fontSize:9, marginBottom:1.5 }}>
+                      <span style={{ color:"#999", minWidth:12 }}>{i+1}.</span><span>{t}</span>
+                    </div>
                   ))}
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                </td>
+                {/* B + C */}
+                <td style={{ padding: "4px 8px", borderRight: "1px solid #ccc", verticalAlign: "top", width: "34%" }}>
+                  <div style={{ fontWeight: 900, fontSize: 8, color: "#E65100", textTransform: "uppercase", marginBottom: 3, letterSpacing:"0.05em" }}>B. PENGATURAN MESIN</div>
+                  {["Pasang elektroda E6013 Ø2,6 mm.","Atur arus 70–90 A.","Pasang kabel massa ke benda kerja."].map((t,i)=>(
+                    <div key={i} style={{ display:"flex", gap:3, fontSize:9, marginBottom:1.5 }}>
+                      <span style={{ color:"#999", minWidth:12 }}>{i+1}.</span><span>{t}</span>
+                    </div>
+                  ))}
+                  <div style={{ fontWeight: 900, fontSize: 8, color: "#E65100", textTransform: "uppercase", margin: "5px 0 3px", letterSpacing:"0.05em" }}>C. PELAKSANAAN TACK WELD</div>
+                  {["Nyalakan mesin las.","Posisikan elektroda 70–80°.","Tack weld ujung pertama (10–20 mm).","Tack weld ujung kedua (10–20 mm).","Tambahkan tack tengah bila perlu.","Bersihkan terak (palu + sikat baja)."].map((t,i)=>(
+                    <div key={i} style={{ display:"flex", gap:3, fontSize:9, marginBottom:1.5 }}>
+                      <span style={{ color:"#999", minWidth:12 }}>{i+1}.</span><span>{t}</span>
+                    </div>
+                  ))}
+                </td>
+                {/* D */}
+                <td style={{ padding: "4px 8px", verticalAlign: "top" }}>
+                  <div style={{ fontWeight: 900, fontSize: 8, color: "#E65100", textTransform: "uppercase", marginBottom: 3, letterSpacing:"0.05em" }}>D. STANDAR KOMPETENSI</div>
+                  <div style={{ fontSize: 8, color: "#777", marginBottom: 3, fontStyle:"italic" }}>Peserta dinyatakan kompeten apabila:</div>
+                  {["Material sesuai gambar kerja.","Kesikuan sambungan terjaga (90°).","Panjang tack weld 10–20 mm.","Slag telah dibersihkan.","Pemeriksaan visual dilakukan."].map(t=>(
+                    <div key={t} style={{ display:"flex", gap:3, fontSize:9, marginBottom:1.5 }}>
+                      <span style={{ color:"#E65100", fontWeight:900 }}>✓</span><span>{t}</span>
+                    </div>
+                  ))}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          {/* Tujuan */}
-          <div style={{ border: "2px solid #111", borderTop: 0 }}>
-            <div style={{ background: "#e8e8e8", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em" }}>Tujuan Praktik</div>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <tbody>
-                <tr>
-                  <td style={{ padding: "5px 14px", verticalAlign: "top", width: "50%" }}>
-                    {["1. Membaca gambar kerja.","3. Melakukan penyetelan mesin SMAW.","5. Melakukan pemeriksaan visual hasil tack weld."].map(t=>(
-                      <div key={t} style={{ fontSize: 10, marginBottom: 3 }}>{t}</div>
-                    ))}
+        {/* ── CHECKLIST PEMERIKSAAN ────────────────────────────────────────── */}
+        <div style={{ border: "2px solid #111", borderTop: 0 }}>
+          <div style={{ background: "#222", color: "#fff", padding: "2px 10px", fontWeight: 900, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.12em" }}>CHECKLIST PEMERIKSAAN HASIL TACK WELD</div>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ background: "#f0f0f0", borderBottom: "1px solid #bbb" }}>
+                <th style={{ padding: "2px 8px", textAlign: "center", fontSize: 8, fontWeight: 700, width: 22, borderRight: "1px solid #ccc" }}>No</th>
+                <th style={{ padding: "2px 10px", textAlign: "left", fontSize: 8, fontWeight: 700, borderRight: "1px solid #ccc" }}>Aspek Pemeriksaan</th>
+                <th style={{ padding: "2px 6px", textAlign: "center", fontSize: 8, fontWeight: 700, width: 36, borderRight: "1px solid #ccc" }}>Ya</th>
+                <th style={{ padding: "2px 6px", textAlign: "center", fontSize: 8, fontWeight: 700, width: 36 }}>Belum</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CHECKLIST_ITEMS.map((label, i) => (
+                <tr key={label} style={{ background: i%2===0?"white":"#fafafa", borderBottom: "1px solid #e5e5e5" }}>
+                  <td style={{ padding: "2px 8px", textAlign: "center", fontSize: 9, color: "#777", borderRight: "1px solid #ccc" }}>{i+1}</td>
+                  <td style={{ padding: "2px 10px", fontSize: 9, borderRight: "1px solid #ccc" }}>{label}</td>
+                  <td style={{ padding: "2px 6px", textAlign: "center", borderRight: "1px solid #ccc" }}>
+                    <div style={{ width: 13, height: 13, border: "1px solid #555", borderRadius: 2, margin: "0 auto", background: cl[i] ? "#E65100" : "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      {cl[i] && <span style={{ color: "white", fontSize: 8, fontWeight: 900, lineHeight: 1 }}>✓</span>}
+                    </div>
                   </td>
-                  <td style={{ padding: "5px 14px", verticalAlign: "top" }}>
-                    {["2. Menyiapkan material sesuai spesifikasi.","4. Melakukan tack weld sesuai SOP."].map(t=>(
-                      <div key={t} style={{ fontSize: 10, marginBottom: 3 }}>{t}</div>
-                    ))}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* Gambar Kerja */}
-          <div style={{ border: "2px solid #111", borderTop: 0 }}>
-            <div style={{ background: "#e8e8e8", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span>Gambar Kerja — TW-01</span>
-              <span style={{ fontSize: 8, color: "#777", fontStyle: "italic", fontWeight: 400 }}>Skala: Tidak skala — referensi fabrikasi</span>
-            </div>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "8px", background: "white", height: 200 }}>
-              <img src={jobsheetImg} alt="Gambar Kerja" style={{ maxHeight: 192, maxWidth: "90%", objectFit: "contain" }} />
-            </div>
-          </div>
-
-        </div>{/* end page 1 */}
-
-
-        {/* ▌HALAMAN 2 — Langkah · Checklist · Penilaian · TTD ─────────── */}
-        <div style={{ width: "190mm", background: "white" }}>
-
-          {/* Langkah Kerja */}
-          <div style={{ border: "2px solid #111" }}>
-            <div style={{ background: "#e8e8e8", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em" }}>Langkah Kerja</div>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <tbody>
-                <tr>
-                  {/* A. Persiapan */}
-                  <td style={{ padding: "5px 10px", borderRight: "1px solid #1a1a1a", verticalAlign: "top", width: "33%" }}>
-                    <div style={{ fontWeight: 900, fontSize: 9, color: "#E65100", textTransform: "uppercase", marginBottom: 4 }}>A. Persiapan</div>
-                    {["Gunakan APD secara lengkap.","Baca gambar kerja.","Siapkan material sesuai ukuran.","Bersihkan permukaan material.","Susun benda kerja sesuai gambar.","Periksa kesikuan (siku baja).","Jepit menggunakan C-Clamp."].map((t,i)=>(
-                      <div key={i} style={{ display:"flex", gap:4, fontSize:10, marginBottom:2 }}>
-                        <span style={{ color:"#999", minWidth:14 }}>{i+1}.</span><span>{t}</span>
-                      </div>
-                    ))}
-                  </td>
-                  {/* B+C */}
-                  <td style={{ padding: "5px 10px", borderRight: "1px solid #1a1a1a", verticalAlign: "top", width: "33%" }}>
-                    <div style={{ fontWeight: 900, fontSize: 9, color: "#E65100", textTransform: "uppercase", marginBottom: 4 }}>B. Pengaturan Mesin</div>
-                    {["Pasang elektroda E6013 Ø2,6 mm.","Atur arus 70–90 A.","Pasang kabel massa ke benda kerja."].map((t,i)=>(
-                      <div key={i} style={{ display:"flex", gap:4, fontSize:10, marginBottom:2 }}>
-                        <span style={{ color:"#999", minWidth:14 }}>{i+1}.</span><span>{t}</span>
-                      </div>
-                    ))}
-                    <div style={{ fontWeight: 900, fontSize: 9, color: "#E65100", textTransform: "uppercase", margin: "6px 0 4px" }}>C. Pelaksanaan Tack Weld</div>
-                    {["Nyalakan mesin las.","Posisikan elektroda 70–80°.","Tack weld ujung pertama (10–20 mm).","Tack weld ujung kedua (10–20 mm).","Tambahkan tack tengah bila perlu.","Bersihkan terak (palu + sikat baja)."].map((t,i)=>(
-                      <div key={i} style={{ display:"flex", gap:4, fontSize:10, marginBottom:2 }}>
-                        <span style={{ color:"#999", minWidth:14 }}>{i+1}.</span><span>{t}</span>
-                      </div>
-                    ))}
-                  </td>
-                  {/* D */}
-                  <td style={{ padding: "5px 10px", verticalAlign: "top" }}>
-                    <div style={{ fontWeight: 900, fontSize: 9, color: "#E65100", textTransform: "uppercase", marginBottom: 4 }}>D. Standar Kompetensi</div>
-                    <div style={{ fontSize: 9, color: "#777", marginBottom: 4, fontStyle:"italic" }}>Peserta dinyatakan kompeten apabila:</div>
-                    {["Material sesuai gambar kerja.","Kesikuan sambungan terjaga (90°).","Panjang tack weld 10–20 mm.","Slag telah dibersihkan.","Pemeriksaan visual dilakukan."].map(t=>(
-                      <div key={t} style={{ display:"flex", gap:4, fontSize:10, marginBottom:2 }}>
-                        <span style={{ color:"#E65100", fontWeight:900 }}>✓</span><span>{t}</span>
-                      </div>
-                    ))}
+                  <td style={{ padding: "2px 6px", textAlign: "center" }}>
+                    <div style={{ width: 13, height: 13, border: "1px solid #bbb", borderRadius: 2, margin: "0 auto", background: !cl[i] ? "#f0f0f0" : "white" }} />
                   </td>
                 </tr>
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-          {/* Checklist */}
-          <div style={{ border: "2px solid #111", borderTop: 0 }}>
-            <div style={{ background: "#e8e8e8", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em" }}>Checklist Pemeriksaan Hasil Tack Weld</div>
+        {/* ── INSPEKSI VISUAL ──────────────────────────────────────────────── */}
+        <div style={{ border: "2px solid #111", borderTop: 0 }}>
+          <div style={{ background: "#1b5e20", color: "#fff", padding: "2px 10px", fontWeight: 900, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.12em" }}>INSPEKSI VISUAL SETELAH TACK WELD</div>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ background: "#f0f0f0", borderBottom: "1px solid #bbb" }}>
+                <th style={{ padding: "2px 8px", textAlign: "center", fontSize: 8, fontWeight: 700, width: 22, borderRight: "1px solid #ccc" }}>No</th>
+                <th style={{ padding: "2px 10px", textAlign: "left", fontSize: 8, fontWeight: 700, borderRight: "1px solid #ccc" }}>Aspek Inspeksi</th>
+                <th style={{ padding: "2px 6px", textAlign: "center", fontSize: 8, fontWeight: 700, width: 36, borderRight: "1px solid #ccc" }}>Ya</th>
+                <th style={{ padding: "2px 6px", textAlign: "center", fontSize: 8, fontWeight: 700, width: 36 }}>Tidak</th>
+              </tr>
+            </thead>
+            <tbody>
+              {INSPEKSI_ITEMS.map((label, i) => (
+                <tr key={label} style={{ background: i%2===0?"white":"#f5faf5", borderBottom: "1px solid #e5e5e5" }}>
+                  <td style={{ padding: "2px 8px", textAlign: "center", fontSize: 9, color: "#777", borderRight: "1px solid #ccc" }}>{i+1}</td>
+                  <td style={{ padding: "2px 10px", fontSize: 9, borderRight: "1px solid #ccc" }}>{label}</td>
+                  <td style={{ padding: "2px 6px", textAlign: "center", borderRight: "1px solid #ccc" }}>
+                    <div style={{ width: 13, height: 13, border: "1px solid #2e7d32", borderRadius: 2, margin: "0 auto", background: ins[i] ? "#2e7d32" : "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      {ins[i] && <span style={{ color: "white", fontSize: 8, fontWeight: 900, lineHeight: 1 }}>✓</span>}
+                    </div>
+                  </td>
+                  <td style={{ padding: "2px 6px", textAlign: "center" }}>
+                    <div style={{ width: 13, height: 13, border: "1px solid #bbb", borderRadius: 2, margin: "0 auto", background: !ins[i] ? "#f0f0f0" : "white" }} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* ── PENILAIAN + CATATAN ──────────────────────────────────────────── */}
+        <div style={{ display: "flex", border: "2px solid #111", borderTop: 0 }}>
+          {/* Komponen Penilaian */}
+          <div style={{ width: "46%", borderRight: "2px solid #111" }}>
+            <div style={{ background: "#222", color: "#fff", padding: "2px 10px", fontWeight: 900, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.12em" }}>KOMPONEN PENILAIAN</div>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
-                <tr style={{ background: "#f0f0f0", borderBottom: "1px solid #111" }}>
-                  <th style={{ padding: "3px 8px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 22, borderRight: "1px solid #ccc" }}>No</th>
-                  <th style={{ padding: "3px 10px", textAlign: "left", fontSize: 9, fontWeight: 700, borderRight: "1px solid #ccc" }}>Aspek Pemeriksaan</th>
-                  <th style={{ padding: "3px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 36, borderRight: "1px solid #ccc" }}>Ya</th>
-                  <th style={{ padding: "3px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 36 }}>Belum</th>
+                <tr style={{ background: "#f0f0f0", borderBottom: "1px solid #bbb" }}>
+                  <th style={{ padding: "2px 8px", textAlign: "left", fontSize: 8, fontWeight: 700, borderRight: "1px solid #ccc" }}>Komponen</th>
+                  <th style={{ padding: "2px 6px", textAlign: "center", fontSize: 8, fontWeight: 700, width: 38, borderRight: "1px solid #ccc" }}>Bobot</th>
+                  <th style={{ padding: "2px 6px", textAlign: "center", fontSize: 8, fontWeight: 700, width: 44 }}>Nilai</th>
                 </tr>
               </thead>
               <tbody>
-                {CHECKLIST_ITEMS.map((label, i) => (
-                  <tr key={label} style={{ background: i%2===0?"white":"#fafafa", borderBottom: "1px solid #ddd" }}>
-                    <td style={{ padding: "3px 8px", textAlign: "center", fontSize: 10, color: "#777", borderRight: "1px solid #ccc" }}>{i+1}</td>
-                    <td style={{ padding: "3px 10px", fontSize: 10, borderRight: "1px solid #ccc" }}>{label}</td>
-                    <td style={{ padding: "3px 6px", textAlign: "center", borderRight: "1px solid #ccc" }}>
-                      <div style={{ width: 14, height: 14, border: "1px solid #555", borderRadius: 2, margin: "0 auto", background: cl[i] ? "#E65100" : "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        {cl[i] && <span style={{ color: "white", fontSize: 9, fontWeight: 900, lineHeight: 1 }}>✓</span>}
-                      </div>
-                    </td>
-                    <td style={{ padding: "3px 6px", textAlign: "center" }}>
-                      <div style={{ width: 14, height: 14, border: "1px solid #bbb", borderRadius: 2, margin: "0 auto", background: !cl[i] ? "#f0f0f0" : "white" }} />
+                {KOMPONEN.map((k, idx) => (
+                  <tr key={k.label} style={{ borderBottom: "1px solid #e5e5e5", background: idx%2===0?"white":"#fafafa" }}>
+                    <td style={{ padding: "2px 8px", fontSize: 9, borderRight: "1px solid #ccc" }}>{k.label}</td>
+                    <td style={{ padding: "2px 6px", textAlign: "center", fontSize: 9, borderRight: "1px solid #ccc" }}>{k.bobot}</td>
+                    <td style={{ padding: "2px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, color: scores[idx] > 0 ? "#E65100" : "#ccc" }}>
+                      {scores[idx] > 0 ? scores[idx] : "—"}
                     </td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Inspeksi Visual */}
-          <div style={{ border: "2px solid #111", borderTop: 0 }}>
-            <div style={{ background: "#e8f5e9", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#1b5e20" }}>Inspeksi Visual Setelah Tack Weld</div>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead>
-                <tr style={{ background: "#f0f0f0", borderBottom: "1px solid #111" }}>
-                  <th style={{ padding: "3px 8px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 22, borderRight: "1px solid #ccc" }}>No</th>
-                  <th style={{ padding: "3px 10px", textAlign: "left", fontSize: 9, fontWeight: 700, borderRight: "1px solid #ccc" }}>Aspek Inspeksi</th>
-                  <th style={{ padding: "3px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 36, borderRight: "1px solid #ccc" }}>Ya</th>
-                  <th style={{ padding: "3px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 36 }}>Tidak</th>
+                <tr style={{ background: "#fff3e0", borderTop: "2px solid #111" }}>
+                  <td style={{ padding: "2px 8px", fontSize: 9, fontWeight: 900, borderRight: "1px solid #ccc" }}>Total</td>
+                  <td style={{ padding: "2px 6px", textAlign: "center", fontSize: 9, fontWeight: 900, borderRight: "1px solid #ccc" }}>100</td>
+                  <td style={{ padding: "2px 6px", textAlign: "center", fontSize: 10, fontWeight: 900, color: total > 0 ? "#E65100" : "#bbb" }}>
+                    {total > 0 ? total : "—"}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {INSPEKSI_ITEMS.map((label, i) => (
-                  <tr key={label} style={{ background: i%2===0?"white":"#fafafa", borderBottom: "1px solid #ddd" }}>
-                    <td style={{ padding: "3px 8px", textAlign: "center", fontSize: 10, color: "#777", borderRight: "1px solid #ccc" }}>{i+1}</td>
-                    <td style={{ padding: "3px 10px", fontSize: 10, borderRight: "1px solid #ccc" }}>{label}</td>
-                    <td style={{ padding: "3px 6px", textAlign: "center", borderRight: "1px solid #ccc" }}>
-                      <div style={{ width: 14, height: 14, border: "1px solid #2e7d32", borderRadius: 2, margin: "0 auto", background: ins[i] ? "#2e7d32" : "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        {ins[i] && <span style={{ color: "white", fontSize: 9, fontWeight: 900, lineHeight: 1 }}>✓</span>}
-                      </div>
-                    </td>
-                    <td style={{ padding: "3px 6px", textAlign: "center" }}>
-                      <div style={{ width: 14, height: 14, border: "1px solid #bbb", borderRadius: 2, margin: "0 auto", background: !ins[i] ? "#f0f0f0" : "white" }} />
-                    </td>
-                  </tr>
-                ))}
               </tbody>
             </table>
           </div>
-
-          {/* Penilaian + Catatan */}
-          <div style={{ display: "flex", border: "2px solid #111", borderTop: 0 }}>
-            {/* Penilaian */}
-            <div style={{ width: "45%", borderRight: "2px solid #111" }}>
-              <div style={{ background: "#e8e8e8", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em" }}>Komponen Penilaian</div>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                <thead>
-                  <tr style={{ background: "#f0f0f0", borderBottom: "1px solid #ccc" }}>
-                    <th style={{ padding: "2px 8px", textAlign: "left", fontSize: 9, fontWeight: 700, borderRight: "1px solid #ccc" }}>Komponen</th>
-                    <th style={{ padding: "2px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 40, borderRight: "1px solid #ccc" }}>Bobot</th>
-                    <th style={{ padding: "2px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 46 }}>Nilai</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {KOMPONEN.map((k, idx) => (
-                    <tr key={k.label} style={{ borderBottom: "1px solid #ddd", background: idx%2===0?"white":"#fafafa" }}>
-                      <td style={{ padding: "3px 8px", fontSize: 10, borderRight: "1px solid #ccc" }}>{k.label}</td>
-                      <td style={{ padding: "3px 6px", textAlign: "center", fontSize: 10, fontFamily: "monospace", borderRight: "1px solid #ccc" }}>{k.bobot}</td>
-                      <td style={{ padding: "3px 6px", textAlign: "center", fontSize: 10, fontFamily: "monospace", fontWeight: 700, color: scores[idx] > 0 ? "#E65100" : "#ccc" }}>
-                        {scores[idx] > 0 ? scores[idx] : "—"}
-                      </td>
-                    </tr>
-                  ))}
-                  <tr style={{ background: "#fff3e0", borderTop: "2px solid #111" }}>
-                    <td style={{ padding: "3px 8px", fontSize: 10, fontWeight: 900, borderRight: "1px solid #ccc" }}>Total</td>
-                    <td style={{ padding: "3px 6px", textAlign: "center", fontSize: 10, fontWeight: 900, fontFamily: "monospace", borderRight: "1px solid #ccc" }}>100</td>
-                    <td style={{ padding: "3px 6px", textAlign: "center", fontSize: 11, fontWeight: 900, fontFamily: "monospace", color: total > 0 ? "#E65100" : "#ccc" }}>
-                      {total > 0 ? total : "—"}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            {/* Catatan */}
-            <div style={{ flex: 1 }}>
-              <div style={{ background: "#e8e8e8", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em" }}>Catatan Pembimbing</div>
-              <div style={{ padding: 8, height: 80 }}>
-                <div style={{ width: "100%", height: "100%", border: "1px dashed #bbb", borderRadius: 4 }} />
-              </div>
+          {/* Catatan */}
+          <div style={{ flex: 1 }}>
+            <div style={{ background: "#222", color: "#fff", padding: "2px 10px", fontWeight: 900, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.12em" }}>CATATAN PEMBIMBING</div>
+            <div style={{ padding: 8, minHeight: 80 }}>
+              <div style={{ width: "100%", height: 72, border: "1px dashed #bbb", borderRadius: 3 }} />
             </div>
           </div>
+        </div>
 
-          {/* Tanda Tangan */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", border: "2px solid #111", borderTop: 0 }}>
-            {[["Peserta PKL","Mengetahui"],["Pembimbing Industri","Menyetujui"],["Instruktur","Mengesahkan"]].map(([role,sub],i)=>(
-              <div key={role} style={{ padding: "6px 12px", textAlign: "center", borderRight: i<2?"2px solid #111":"none" }}>
-                <div style={{ fontSize: 8, color: "#666", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>{sub},</div>
-                <div style={{ fontWeight: 900, fontSize: 10, marginBottom: 8 }}>{role}</div>
-                <div style={{ height: 44, border: "1px dashed #bbb", borderRadius: 4, marginBottom: 6 }} />
-                <div style={{ textAlign: "left" }}>
-                  <div style={{ fontSize: 9, color: "#555", marginBottom: 2 }}>Nama&nbsp;: ____________________________</div>
-                  <div style={{ fontSize: 9, color: "#555" }}>Tgl&nbsp;&nbsp;&nbsp;&nbsp;: ____________________________</div>
-                </div>
+        {/* ── TANDA TANGAN ─────────────────────────────────────────────────── */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", border: "2px solid #111", borderTop: 0 }}>
+          {[["Peserta PKL","Mengetahui"],["Pembimbing Industri","Menyetujui"],["Instruktur","Mengesahkan"]].map(([role,sub],i)=>(
+            <div key={role} style={{ padding: "5px 10px", textAlign: "center", borderRight: i<2?"2px solid #111":"none" }}>
+              <div style={{ fontSize: 7.5, color: "#555", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.06em" }}>{sub},</div>
+              <div style={{ fontWeight: 900, fontSize: 9.5, marginBottom: 6 }}>{role}</div>
+              <div style={{ height: 42, border: "1px dashed #bbb", borderRadius: 3, marginBottom: 5 }} />
+              <div style={{ textAlign: "left" }}>
+                <div style={{ fontSize: 8.5, color: "#444", marginBottom: 2 }}>Nama&nbsp;: _______________________</div>
+                <div style={{ fontSize: 8.5, color: "#444" }}>Tgl&nbsp;&nbsp;&nbsp;&nbsp;: _______________________</div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-        </div>{/* end page 2 */}
       </div>{/* end #js-print */}
 
     </div>
