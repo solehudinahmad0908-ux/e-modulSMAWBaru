@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Printer, CheckSquare, Square, ClipboardList, Wrench, ShieldCheck, Star } from "lucide-react";
+import { Printer, CheckSquare, Square, ClipboardList, Wrench, ShieldCheck, Star, Loader2 } from "lucide-react";
 import logoCUI from "@/assets/logo-cui-nobg.png";
 import jobsheetImg from "@/assets/jobsheet-image1.png";
 
@@ -117,6 +117,36 @@ export default function Jobsheet() {
     setIns(next); localStorage.setItem("js_ins", JSON.stringify(next));
   };
   const insCount = ins.filter(Boolean).length;
+  const [generating, setGenerating] = useState(false);
+
+  const downloadPDF = async () => {
+    const el = document.getElementById("js-print");
+    if (!el) return;
+    setGenerating(true);
+    try {
+      // Sementara tampilkan blok cetak agar html2pdf bisa menangkapnya
+      el.style.display = "block";
+      el.style.position = "static";
+      // Dynamic import agar tidak memperbesar bundle awal
+      const html2pdf = (await import("html2pdf.js")).default;
+      await html2pdf()
+        .set({
+          margin: [8, 10, 8, 10],
+          filename: "JobSheet-TW-01.pdf",
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, logging: false },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+          pagebreak: { mode: ["avoid-all", "css"], avoid: "tr" },
+        })
+        .from(el)
+        .save();
+    } finally {
+      // Kembalikan ke sembunyikan
+      el.style.display = "";
+      el.style.position = "";
+      setGenerating(false);
+    }
+  };
 
   const scores = KOMPONEN.map(k => scoreOf(cl, k));
   const total  = scores.reduce((a, b) => a + b, 0);
@@ -138,11 +168,13 @@ export default function Jobsheet() {
           <p className="text-sm text-muted-foreground">Kode: TW-01 · PT. Coppalt Utama Indomelt</p>
         </div>
         <button
-          onClick={() => window.print()}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors shadow"
+          onClick={downloadPDF}
+          disabled={generating}
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90 disabled:opacity-60 transition-colors shadow"
         >
-          <Printer className="w-4 h-4" />
-          Cetak / Simpan PDF (2 hal.)
+          {generating
+            ? <><Loader2 className="w-4 h-4 animate-spin" />Membuat PDF…</>
+            : <><Printer className="w-4 h-4" />Unduh PDF</>}
         </button>
       </div>
 
