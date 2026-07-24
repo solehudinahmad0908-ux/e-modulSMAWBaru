@@ -863,6 +863,8 @@ export const moduleRichContents: ModuleRichContent[] = [
         "Langkah 10 — Lakukan pemeriksaan visual sebelum proses pengelasan penuh.",
       ] },
 
+      { kind: 'heading', text: "Video Pembelajaran" },
+
       { kind: 'video',
         file: 'smaw-1f-tack-weld.mp4',
         intro: [
