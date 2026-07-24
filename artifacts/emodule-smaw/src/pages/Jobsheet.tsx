@@ -1,485 +1,347 @@
 import { useState } from "react";
-import { CheckSquare, Square, Printer } from "lucide-react";
+import { Printer } from "lucide-react";
 import logoCUI from "@/assets/logo-cui-nobg.png";
 import logoUPI from "@/assets/logo-upi-nobg.png";
 import jobsheetImg from "@/assets/jobsheet-image1.png";
 
-// ── Checklist hook ──────────────────────────────────────────────────────────
-function useChecklist(key: string, count: number) {
-  const stored = localStorage.getItem(key);
-  const init: boolean[] = stored
-    ? JSON.parse(stored)
-    : Array(count).fill(false);
-  const [checked, setChecked] = useState<boolean[]>(init);
+/* ─── Print styles injected into <head> ──────────────────────────────────── */
+const PRINT_CSS = `
+@media print {
+  @page { size: A4 portrait; margin: 10mm; }
+  body * { visibility: hidden; }
+  #jobsheet-print, #jobsheet-print * { visibility: visible; }
+  #jobsheet-print { position: fixed; inset: 0; }
+  .no-print { display: none !important; }
+  .js-border { border-color: #000 !important; }
+  .js-row { background: transparent !important; }
+  input[type="checkbox"] { print-color-adjust: exact; }
+}
+`;
 
-  const toggle = (i: number) => {
-    const next = checked.map((v, idx) => (idx === i ? !v : v));
-    setChecked(next);
-    localStorage.setItem(key, JSON.stringify(next));
-  };
-  return { checked, toggle };
+function injectPrintCSS() {
+  if (document.getElementById("jobsheet-print-css")) return;
+  const style = document.createElement("style");
+  style.id = "jobsheet-print-css";
+  style.textContent = PRINT_CSS;
+  document.head.appendChild(style);
 }
 
-// ── Sub-components ──────────────────────────────────────────────────────────
-function CheckItem({
-  label,
-  checked,
-  onToggle,
-}: {
-  label: string;
-  checked: boolean;
-  onToggle: () => void;
-}) {
+/* ─── Checklist row ─────────────────────────────────────────────────────── */
+function CheckRow({
+  no, label, checked, onToggle,
+}: { no: number; label: string; checked: boolean; onToggle: () => void }) {
   return (
-    <button
-      onClick={onToggle}
-      className="flex items-start gap-2 text-left w-full group"
-    >
-      {checked ? (
-        <CheckSquare className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-      ) : (
-        <Square className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0 group-hover:text-primary/60 transition-colors" />
-      )}
-      <span
-        className={`text-sm leading-snug transition-colors ${
-          checked ? "line-through text-muted-foreground" : "text-foreground/90"
-        }`}
-      >
-        {label}
-      </span>
-    </button>
+    <tr className="border-b border-border/50 last:border-0 js-row">
+      <td className="px-2 py-1 text-center text-xs w-6 text-muted-foreground">{no}</td>
+      <td className="px-2 py-1 text-xs text-foreground/90 leading-snug">{label}</td>
+      <td className="px-2 py-1 text-center w-8">
+        <button onClick={onToggle} className="w-3.5 h-3.5 border border-foreground/50 rounded-sm mx-auto flex items-center justify-center"
+          style={{ background: checked ? '#F57C00' : 'transparent' }}>
+          {checked && <span className="text-white text-[8px] font-black leading-none">✓</span>}
+        </button>
+      </td>
+      <td className="px-2 py-1 text-center w-8">
+        <div className="w-3.5 h-3.5 border border-foreground/50 rounded-sm mx-auto"
+          style={{ background: !checked ? 'rgba(150,150,150,0.15)' : 'transparent' }} />
+      </td>
+    </tr>
   );
 }
 
-function SectionCard({
-  title,
-  children,
-  accent = false,
-}: {
-  title: string;
-  children: React.ReactNode;
-  accent?: boolean;
-}) {
-  return (
-    <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
-      <div
-        className={`px-5 py-3 border-b border-border ${
-          accent ? "bg-primary/10" : "bg-secondary/40"
-        }`}
-      >
-        <h2
-          className={`font-bold text-sm tracking-wide uppercase ${
-            accent ? "text-primary" : "text-foreground"
-          }`}
-        >
-          {title}
-        </h2>
-      </div>
-      <div className="p-5">{children}</div>
-    </div>
-  );
-}
-
-// ── Main Page ───────────────────────────────────────────────────────────────
+/* ─── Main ───────────────────────────────────────────────────────────────── */
 export default function Jobsheet() {
-  // Checklist states (persisted in localStorage)
-  const k3Before = useChecklist("js_k3_before", 5);
-  const k3During = useChecklist("js_k3_during", 3);
-  const persiapan = useChecklist("js_persiapan", 6);
-  const mesin = useChecklist("js_mesin", 3);
-  const pemeriksaan = useChecklist("js_pemeriksaan", 6);
-  const penilaian = useChecklist("js_penilaian", 8);
+  injectPrintCSS();
+
+  /* checklist state */
+  const stored = (k: string, n: number): boolean[] => {
+    try { return JSON.parse(localStorage.getItem(k) || "null") || Array(n).fill(false); }
+    catch { return Array(n).fill(false); }
+  };
+  const [cl, setCl] = useState<boolean[]>(stored("js_cl", 8));
+  const toggle = (i: number) => {
+    const next = cl.map((v, idx) => idx === i ? !v : v);
+    setCl(next);
+    localStorage.setItem("js_cl", JSON.stringify(next));
+  };
 
   return (
-    <div className="flex flex-col gap-6 max-w-4xl mx-auto w-full pb-16">
+    <div className="flex flex-col items-center gap-4 pb-12">
 
-      {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
-        {/* Top bar */}
-        <div className="bg-primary px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src={logoCUI} alt="CUI" className="h-8 w-8 object-contain" />
-            <img src={logoUPI} alt="UPI" className="h-8 object-contain brightness-0 invert" />
-          </div>
-          <span className="text-primary-foreground font-bold text-xs tracking-widest uppercase opacity-80">
-            Kode Job: TW-01
-          </span>
-        </div>
-        {/* Title */}
-        <div className="px-6 py-5 text-center border-b border-border">
-          <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">
-            PT. Coppalt Utama Indomelt
-          </p>
-          <h1 className="text-2xl font-extrabold text-foreground">
-            Job Sheet Praktik Pengelasan SMAW
-          </h1>
-          <p className="text-primary font-semibold mt-1">
-            Praktik Tack Weld Sambungan T-Joint
-          </p>
-        </div>
-
-        {/* Identitas grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 divide-x divide-y divide-border text-sm">
-          {[
-            ["Proses", "SMAW"],
-            ["Posisi", "1F (Flat Fillet)"],
-            ["Material", "Mild Steel SS400"],
-            ["Ketebalan", "6 mm"],
-            ["Elektroda", "AWS E6013 Ø2,6 mm"],
-            ["Arus", "70–90 Ampere"],
-            ["Durasi", "±60 Menit"],
-            ["Kode Job", "TW-01"],
-          ].map(([label, value]) => (
-            <div key={label} className="px-4 py-3">
-              <p className="text-muted-foreground text-xs">{label}</p>
-              <p className="font-semibold text-foreground">{value}</p>
-            </div>
-          ))}
-        </div>
+      {/* Print button */}
+      <div className="no-print flex justify-end w-full max-w-[794px]">
+        <button
+          onClick={() => window.print()}
+          className="flex items-center gap-2 px-4 py-2 border border-border rounded-lg text-sm text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+        >
+          <Printer className="w-4 h-4" />
+          Cetak / Simpan PDF
+        </button>
       </div>
 
-      {/* ── 2-col layout ───────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* ── A4 Document ─────────────────────────────────────────────────── */}
+      <div
+        id="jobsheet-print"
+        className="w-[794px] bg-white text-black font-sans text-[11px] leading-snug border-2 border-black js-border"
+        style={{ fontFamily: "'Arial', sans-serif" }}
+      >
 
-        {/* Tujuan Praktik */}
-        <SectionCard title="Tujuan Praktik">
-          <p className="text-sm text-muted-foreground mb-3">
-            Setelah melaksanakan praktik ini peserta mampu:
+        {/* ══ 1. HEADER ═══════════════════════════════════════════════════ */}
+        <div className="flex border-b-2 border-black js-border">
+          {/* Logos */}
+          <div className="flex items-center justify-center gap-3 px-4 py-2 border-r-2 border-black js-border w-28">
+            <img src={logoCUI} alt="CUI" className="h-9 object-contain" />
+            <img src={logoUPI} alt="UPI" className="h-9 object-contain" />
+          </div>
+          {/* Title block */}
+          <div className="flex-1 flex flex-col items-center justify-center py-2 px-4">
+            <p className="font-black text-base tracking-wide uppercase">PT. Coppalt Utama Indomelt</p>
+            <p className="font-bold text-[10px] tracking-widest uppercase text-gray-600">Workshop Fabrikasi</p>
+          </div>
+          {/* Doc code */}
+          <div className="flex flex-col items-center justify-center px-4 border-l-2 border-black js-border w-28 text-center">
+            <p className="font-bold text-[9px] text-gray-500 uppercase">Kode Dok.</p>
+            <p className="font-black text-sm">TW-01</p>
+            <p className="text-[9px] text-gray-500">Rev. 00</p>
+          </div>
+        </div>
+
+        {/* ══ 2. JUDUL ════════════════════════════════════════════════════ */}
+        <div className="border-b-2 border-black js-border text-center py-2 bg-orange-50">
+          <p className="font-black text-[13px] tracking-wide uppercase">
+            Job Sheet Praktik Tack Weld
           </p>
-          <ol className="space-y-1.5 list-decimal list-inside text-sm text-foreground/90">
+          <p className="text-[10px] text-gray-600">Proses: Shielded Metal Arc Welding (SMAW) — Sambungan T-Joint — Posisi 1F (Flat Fillet)</p>
+        </div>
+
+        {/* ══ 3. IDENTITAS JOB ════════════════════════════════════════════ */}
+        <div className="border-b-2 border-black js-border">
+          <div className="px-3 py-1 bg-gray-100 border-b border-black/30 js-border">
+            <p className="font-black text-[10px] uppercase tracking-wider">Identitas Job</p>
+          </div>
+          <div className="grid grid-cols-4 divide-x divide-black/30">
+            {[
+              ["Material", "Mild Steel SS400"],
+              ["Ketebalan", "6 mm"],
+              ["Elektroda", "AWS E6013 Ø2,6 mm"],
+              ["Arus Las", "70–90 Ampere"],
+            ].map(([label, value]) => (
+              <div key={label} className="px-3 py-1.5">
+                <p className="text-[9px] text-gray-500 uppercase">{label}</p>
+                <p className="font-bold text-[11px]">{value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ══ 4. TUJUAN PRAKTIK ═══════════════════════════════════════════ */}
+        <div className="border-b-2 border-black js-border">
+          <div className="px-3 py-1 bg-gray-100 border-b border-black/30 js-border">
+            <p className="font-black text-[10px] uppercase tracking-wider">Tujuan Praktik</p>
+          </div>
+          <div className="px-4 py-1.5 grid grid-cols-2 gap-x-6">
             {[
               "Membaca gambar kerja.",
-              "Menyiapkan material.",
+              "Menyiapkan material sesuai spesifikasi.",
               "Melakukan penyetelan mesin SMAW.",
               "Melakukan tack weld sesuai SOP.",
               "Melakukan pemeriksaan visual hasil tack weld.",
-            ].map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ol>
-        </SectionCard>
-
-        {/* Standar Kompetensi */}
-        <SectionCard title="Standar Kompetensi" accent>
-          <p className="text-sm text-muted-foreground mb-3">
-            Peserta dinyatakan kompeten apabila mampu:
-          </p>
-          <ul className="space-y-1.5 text-sm text-foreground/90">
-            {[
-              "Menyiapkan material sesuai gambar kerja.",
-              "Menjaga kesikuan sambungan.",
-              "Melakukan tack weld sepanjang 10–20 mm.",
-              "Membersihkan slag.",
-              "Melakukan pemeriksaan visual.",
-            ].map((t) => (
-              <li key={t} className="flex items-start gap-2">
-                <span className="text-primary font-bold mt-0.5">✓</span>
+            ].map((t, i) => (
+              <div key={t} className="flex items-start gap-1">
+                <span className="font-bold shrink-0">{i + 1}.</span>
                 <span>{t}</span>
-              </li>
+              </div>
             ))}
-          </ul>
-        </SectionCard>
-      </div>
+          </div>
+        </div>
 
-      {/* ── Alat dan Bahan ─────────────────────────────────────────────── */}
-      <SectionCard title="Alat dan Bahan">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
-          {/* Peralatan */}
-          <div className="sm:col-span-2">
-            <p className="font-semibold text-foreground mb-2">Peralatan</p>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-1">
+        {/* ══ 5. GAMBAR KERJA ═════════════════════════════════════════════ */}
+        <div className="border-b-2 border-black js-border">
+          <div className="px-3 py-1 bg-gray-100 border-b border-black/30 js-border flex items-center justify-between">
+            <p className="font-black text-[10px] uppercase tracking-wider">Gambar Kerja — TW-01</p>
+            <p className="text-[9px] text-gray-500">Skala: Tidak skala — referensi fabrikasi</p>
+          </div>
+          <div className="flex justify-center items-center py-2 px-4" style={{ minHeight: "320px" }}>
+            <img
+              src={jobsheetImg}
+              alt="Gambar Kerja Tack Weld T-Joint TW-01"
+              className="max-h-[310px] object-contain"
+              style={{ maxWidth: "90%" }}
+            />
+          </div>
+        </div>
+
+        {/* ══ 6. LANGKAH KERJA ════════════════════════════════════════════ */}
+        <div className="border-b-2 border-black js-border">
+          <div className="px-3 py-1 bg-gray-100 border-b border-black/30 js-border">
+            <p className="font-black text-[10px] uppercase tracking-wider">Langkah Kerja</p>
+          </div>
+          <div className="grid grid-cols-3 divide-x divide-black/30">
+            {/* Persiapan */}
+            <div className="px-3 py-1.5">
+              <p className="font-bold text-[10px] text-orange-700 mb-1">A. Persiapan</p>
               {[
-                "Mesin Las SMAW",
-                "Holder Elektroda",
-                "Kabel Las",
-                "Klem Massa",
-                "Palu Terak",
-                "Sikat Baja",
-                "Siku Baja",
-                "Meteran Baja",
-                "C-Clamp",
-                "APD Lengkap",
-              ].map((item) => (
-                <div key={item} className="flex items-center gap-2 text-foreground/85">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                  {item}
+                "Menggunakan APD lengkap.",
+                "Membaca gambar kerja.",
+                "Menyiapkan material sesuai ukuran.",
+                "Membersihkan permukaan material.",
+                "Menyusun benda kerja sesuai gambar.",
+                "Memeriksa kesikuan (siku baja).",
+                "Menjepit menggunakan C-Clamp.",
+              ].map((t, i) => (
+                <div key={t} className="flex items-start gap-1 mb-0.5">
+                  <span className="shrink-0 text-gray-400">{i + 1}.</span>
+                  <span>{t}</span>
+                </div>
+              ))}
+            </div>
+            {/* Pengaturan + Pelaksanaan */}
+            <div className="px-3 py-1.5">
+              <p className="font-bold text-[10px] text-orange-700 mb-1">B. Pengaturan Mesin</p>
+              {[
+                "Pasang elektroda E6013 Ø2,6 mm.",
+                "Atur arus 70–90 A.",
+                "Pasang kabel massa ke benda kerja.",
+              ].map((t, i) => (
+                <div key={t} className="flex items-start gap-1 mb-0.5">
+                  <span className="shrink-0 text-gray-400">{i + 1}.</span>
+                  <span>{t}</span>
+                </div>
+              ))}
+              <p className="font-bold text-[10px] text-orange-700 mt-2 mb-1">C. Pelaksanaan Tack Weld</p>
+              {[
+                "Nyalakan mesin las.",
+                "Posisikan elektroda 70–80° terhadap benda kerja.",
+                "Tack weld pada ujung pertama (10–20 mm).",
+                "Tack weld pada ujung kedua (10–20 mm).",
+                "Tambahkan tack tengah bila diperlukan.",
+                "Bersihkan terak (palu terak + sikat baja).",
+              ].map((t, i) => (
+                <div key={t} className="flex items-start gap-1 mb-0.5">
+                  <span className="shrink-0 text-gray-400">{i + 1}.</span>
+                  <span>{t}</span>
+                </div>
+              ))}
+            </div>
+            {/* Standar Kompetensi */}
+            <div className="px-3 py-1.5">
+              <p className="font-bold text-[10px] text-orange-700 mb-1">D. Standar Kompetensi</p>
+              <p className="text-[9px] text-gray-500 mb-1">Peserta kompeten apabila:</p>
+              {[
+                "Material sesuai gambar kerja.",
+                "Kesikuan sambungan terjaga.",
+                "Panjang tack weld 10–20 mm.",
+                "Slag dibersihkan.",
+                "Pemeriksaan visual dilakukan.",
+              ].map((t) => (
+                <div key={t} className="flex items-start gap-1 mb-0.5">
+                  <span className="text-orange-600 font-bold shrink-0">✓</span>
+                  <span>{t}</span>
                 </div>
               ))}
             </div>
           </div>
-          {/* Bahan */}
-          <div>
-            <p className="font-semibold text-foreground mb-2">Bahan</p>
-            <ul className="space-y-1 text-foreground/85">
-              {[
-                "Pelat A — SS400 150 × 50 × 6 mm",
-                "Pelat B — SS400 100 × 50 × 6 mm",
-                "Elektroda AWS E6013 Ø2,6 mm",
-              ].map((b) => (
-                <li key={b} className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 mt-1.5" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
-      </SectionCard>
 
-      {/* ── K3 ─────────────────────────────────────────────────────────── */}
-      <SectionCard title="Keselamatan Kerja (K3)">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <p className="font-semibold text-sm text-foreground mb-3">Sebelum Praktik</p>
-            <div className="space-y-2">
-              {[
-                "Menggunakan APD lengkap",
-                "Memeriksa mesin las",
-                "Memastikan area kerja aman",
-                "Memeriksa kabel dan holder",
-                "Memastikan APAR tersedia",
-              ].map((item, i) => (
-                <CheckItem
-                  key={item}
-                  label={item}
-                  checked={k3Before.checked[i]}
-                  onToggle={() => k3Before.toggle(i)}
-                />
-              ))}
-            </div>
+        {/* ══ 7. CHECKLIST PEMERIKSAAN ════════════════════════════════════ */}
+        <div className="border-b-2 border-black js-border">
+          <div className="px-3 py-1 bg-gray-100 border-b border-black/30 js-border">
+            <p className="font-black text-[10px] uppercase tracking-wider">Checklist Pemeriksaan Hasil Tack Weld</p>
           </div>
-          <div>
-            <p className="font-semibold text-sm text-foreground mb-3">Selama Praktik</p>
-            <div className="space-y-2">
-              {[
-                "Tidak menyentuh elektroda tanpa APD",
-                "Menjaga area kerja tetap bersih",
-                "Mengikuti instruksi pembimbing",
-              ].map((item, i) => (
-                <CheckItem
-                  key={item}
-                  label={item}
-                  checked={k3During.checked[i]}
-                  onToggle={() => k3During.toggle(i)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </SectionCard>
-
-      {/* ── Gambar Kerja ───────────────────────────────────────────────── */}
-      <SectionCard title="Gambar Kerja — T-Joint TW-01">
-        <div className="flex justify-center">
-          <img
-            src={jobsheetImg}
-            alt="Gambar Kerja Tack Weld T-Joint TW-01"
-            className="max-w-full rounded-lg border border-border bg-white p-2"
-          />
-        </div>
-        <p className="text-xs text-center text-muted-foreground mt-3">
-          Gambar Kerja Tack Weld Sambungan T-Joint (Kode: TW-01) — acuan pelaksanaan praktik
-        </p>
-      </SectionCard>
-
-      {/* ── Langkah Kerja ──────────────────────────────────────────────── */}
-      <SectionCard title="Langkah Kerja">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-
-          {/* Persiapan */}
-          <div>
-            <p className="font-semibold text-sm text-primary mb-3">1. Persiapan</p>
-            <div className="space-y-2">
-              {[
-                "Membaca gambar kerja.",
-                "Menyiapkan material.",
-                "Membersihkan permukaan material.",
-                "Memasang benda kerja sesuai gambar.",
-                "Memeriksa kesikuan menggunakan siku baja.",
-                "Menjepit menggunakan C-Clamp.",
-              ].map((item, i) => (
-                <CheckItem
-                  key={item}
-                  label={item}
-                  checked={persiapan.checked[i]}
-                  onToggle={() => persiapan.toggle(i)}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Pengaturan Mesin */}
-          <div>
-            <p className="font-semibold text-sm text-primary mb-3">2. Pengaturan Mesin</p>
-            <div className="space-y-2">
-              {[
-                "Memasang elektroda E6013 Ø2,6 mm.",
-                "Mengatur arus 70–90 A.",
-                "Memasang kabel massa.",
-              ].map((item, i) => (
-                <CheckItem
-                  key={item}
-                  label={item}
-                  checked={mesin.checked[i]}
-                  onToggle={() => mesin.toggle(i)}
-                />
-              ))}
-
-              <p className="font-semibold text-sm text-primary mt-5 mb-3">3. Pelaksanaan Tack Weld</p>
-              <ol className="space-y-1.5 text-sm text-foreground/85 list-decimal list-inside">
-                <li>Menyalakan mesin las.</li>
-                <li>Tack weld pada ujung pertama.</li>
-                <li>Tack weld pada ujung kedua.</li>
-                <li>Panjang tack weld 10–20 mm.</li>
-                <li>Bersihkan terak (palu terak).</li>
-                <li>Bersihkan dengan sikat baja.</li>
-              </ol>
-            </div>
-          </div>
-
-          {/* Pemeriksaan */}
-          <div>
-            <p className="font-semibold text-sm text-primary mb-3">4. Pemeriksaan Visual</p>
-            <div className="space-y-2">
-              {[
-                "Posisi sesuai gambar",
-                "Sudut 90°",
-                "Tack weld rapi",
-                "Tidak retak",
-                "Tidak porositas",
-                "Layak dilanjutkan ke pengelasan penuh",
-              ].map((item, i) => (
-                <CheckItem
-                  key={item}
-                  label={item}
-                  checked={pemeriksaan.checked[i]}
-                  onToggle={() => pemeriksaan.toggle(i)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </SectionCard>
-
-      {/* ── Checklist Penilaian ────────────────────────────────────────── */}
-      <SectionCard title="Checklist Penilaian">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
+          <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-secondary/60">
-                <th className="border border-border px-3 py-2 text-left font-semibold w-8">No</th>
-                <th className="border border-border px-3 py-2 text-left font-semibold">Aspek Pemeriksaan</th>
-                <th className="border border-border px-3 py-2 text-center font-semibold w-16">Ya</th>
-                <th className="border border-border px-3 py-2 text-center font-semibold w-16">Belum</th>
+              <tr className="border-b border-black/30 js-row bg-gray-50">
+                <th className="px-2 py-1 text-center text-[9px] font-bold w-6">No</th>
+                <th className="px-2 py-1 text-left text-[9px] font-bold">Aspek Pemeriksaan</th>
+                <th className="px-2 py-1 text-center text-[9px] font-bold w-8">Ya</th>
+                <th className="px-2 py-1 text-center text-[9px] font-bold w-8">Belum</th>
               </tr>
             </thead>
             <tbody>
               {[
-                "Menggunakan APD",
-                "Membaca gambar kerja",
-                "Material sesuai ukuran",
-                "Posisi sambungan benar",
-                "Tack weld sesuai ukuran",
-                "Tack weld rapi",
-                "Tidak terdapat cacat",
-                "Area kerja bersih",
-              ].map((aspek, i) => (
-                <tr key={aspek} className="hover:bg-secondary/20 transition-colors">
-                  <td className="border border-border px-3 py-2 text-center text-muted-foreground">{i + 1}</td>
-                  <td className="border border-border px-3 py-2 text-foreground/90">{aspek}</td>
-                  <td className="border border-border px-3 py-2 text-center">
-                    <button
-                      onClick={() => penilaian.toggle(i)}
-                      className="w-5 h-5 rounded border-2 border-primary flex items-center justify-center mx-auto transition-colors"
-                      style={{ background: penilaian.checked[i] ? 'var(--color-primary)' : 'transparent' }}
-                    >
-                      {penilaian.checked[i] && <span className="text-white text-xs font-bold">✓</span>}
-                    </button>
-                  </td>
-                  <td className="border border-border px-3 py-2 text-center">
-                    <button
-                      onClick={() => penilaian.checked[i] && penilaian.toggle(i)}
-                      className="w-5 h-5 rounded border-2 border-border flex items-center justify-center mx-auto transition-colors"
-                      style={{ background: !penilaian.checked[i] ? 'rgba(var(--color-muted-foreground),0.15)' : 'transparent' }}
-                    >
-                      {!penilaian.checked[i] && <span className="text-muted-foreground text-xs font-bold">✗</span>}
-                    </button>
-                  </td>
-                </tr>
+                "Menggunakan APD secara lengkap",
+                "Material sesuai ukuran pada gambar kerja",
+                "Posisi sambungan T-Joint benar",
+                "Kesikuan sambungan 90°",
+                "Panjang tack weld 10–20 mm",
+                "Permukaan tack weld rapi (tidak retak, tidak berpori)",
+                "Slag telah dibersihkan",
+                "Area kerja bersih setelah praktik",
+              ].map((label, i) => (
+                <CheckRow key={label} no={i + 1} label={label} checked={cl[i]} onToggle={() => toggle(i)} />
               ))}
             </tbody>
           </table>
         </div>
-      </SectionCard>
 
-      {/* ── Penilaian Praktik ──────────────────────────────────────────── */}
-      <SectionCard title="Komponen Penilaian Praktik">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
-            <thead>
-              <tr className="bg-secondary/60">
-                <th className="border border-border px-4 py-2 text-left font-semibold">Komponen Penilaian</th>
-                <th className="border border-border px-4 py-2 text-center font-semibold w-20">Bobot</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ["Persiapan kerja", "20"],
-                ["Penggunaan APD", "10"],
-                ["Penyusunan benda kerja", "15"],
-                ["Pelaksanaan tack weld", "35"],
-                ["Pemeriksaan hasil", "20"],
-              ].map(([komponen, bobot]) => (
-                <tr key={komponen} className="hover:bg-secondary/20 transition-colors">
-                  <td className="border border-border px-4 py-2 text-foreground/90">{komponen}</td>
-                  <td className="border border-border px-4 py-2 text-center font-mono text-foreground">{bobot}</td>
+        {/* ══ 8. PENILAIAN + CATATAN ══════════════════════════════════════ */}
+        <div className="border-b-2 border-black js-border flex divide-x-2 divide-black js-border" style={{ minHeight: "100px" }}>
+          {/* Penilaian */}
+          <div className="w-[45%]">
+            <div className="px-3 py-1 bg-gray-100 border-b border-black/30 js-border">
+              <p className="font-black text-[10px] uppercase tracking-wider">Komponen Penilaian</p>
+            </div>
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-black/30 bg-gray-50">
+                  <th className="px-2 py-0.5 text-left text-[9px] font-bold">Komponen</th>
+                  <th className="px-2 py-0.5 text-center text-[9px] font-bold w-14">Bobot</th>
+                  <th className="px-2 py-0.5 text-center text-[9px] font-bold w-14">Nilai</th>
                 </tr>
-              ))}
-              <tr className="bg-primary/10 font-bold">
-                <td className="border border-border px-4 py-2 text-foreground">Total</td>
-                <td className="border border-border px-4 py-2 text-center font-mono text-primary">100</td>
-              </tr>
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-black/20">
+                {[
+                  ["Persiapan kerja", "20"],
+                  ["Penggunaan APD", "10"],
+                  ["Penyusunan benda kerja", "15"],
+                  ["Pelaksanaan tack weld", "35"],
+                  ["Pemeriksaan hasil", "20"],
+                ].map(([k, b]) => (
+                  <tr key={k}>
+                    <td className="px-2 py-0.5 text-[10px]">{k}</td>
+                    <td className="px-2 py-0.5 text-center text-[10px] font-mono">{b}</td>
+                    <td className="px-2 py-0.5 text-center text-[10px] text-gray-300">____</td>
+                  </tr>
+                ))}
+                <tr className="border-t-2 border-black/40 font-bold bg-orange-50">
+                  <td className="px-2 py-0.5 text-[10px] font-black">Total</td>
+                  <td className="px-2 py-0.5 text-center text-[10px] font-black">100</td>
+                  <td className="px-2 py-0.5 text-center text-[10px] text-gray-300">____</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {/* Catatan Pembimbing */}
+          <div className="flex-1">
+            <div className="px-3 py-1 bg-gray-100 border-b border-black/30 js-border">
+              <p className="font-black text-[10px] uppercase tracking-wider">Catatan Pembimbing</p>
+            </div>
+            <div className="px-3 py-2 h-full">
+              <div className="border border-dashed border-gray-300 rounded h-[74px] w-full" />
+            </div>
+          </div>
         </div>
-      </SectionCard>
 
-      {/* ── Catatan Pembimbing ─────────────────────────────────────────── */}
-      <SectionCard title="Catatan Pembimbing">
-        <div className="border border-dashed border-border rounded-lg p-4 min-h-[80px] bg-secondary/20">
-          <p className="text-xs text-muted-foreground">
-            ............................................................................................................................................................................................
-            ............................................................................................................................................................................................
-          </p>
-        </div>
-      </SectionCard>
-
-      {/* ── Pengesahan ─────────────────────────────────────────────────── */}
-      <SectionCard title="Pengesahan">
-        <div className="grid grid-cols-3 gap-4 text-sm text-center">
-          {["Peserta PKL", "Pembimbing Industri", "Instruktur"].map((role) => (
-            <div key={role} className="flex flex-col gap-1">
-              <p className="font-semibold text-foreground">{role}</p>
-              <div className="border border-dashed border-border rounded-lg h-20 bg-secondary/20" />
-              <p className="text-muted-foreground text-xs mt-1">
-                Nama : ______________
-              </p>
-              <p className="text-muted-foreground text-xs">Tanggal : ____________</p>
+        {/* ══ 9. TANDA TANGAN ═════════════════════════════════════════════ */}
+        <div className="grid grid-cols-3 divide-x-2 divide-black js-border">
+          {[
+            ["Peserta PKL", "Mengetahui"],
+            ["Pembimbing Industri", "Menyetujui"],
+            ["Instruktur", "Mengesahkan"],
+          ].map(([role, sub]) => (
+            <div key={role} className="px-3 py-1.5 text-center">
+              <p className="font-bold text-[9px] text-gray-500 uppercase">{sub}</p>
+              <p className="font-black text-[10px] mb-1">{role}</p>
+              <div className="border border-dashed border-gray-300 rounded h-12 mb-1" />
+              <div className="flex flex-col gap-0.5 text-[9px] text-left">
+                <div className="flex gap-1"><span className="text-gray-400">Nama</span><span>: ________________________</span></div>
+                <div className="flex gap-1"><span className="text-gray-400">Tgl</span><span>: ________________________</span></div>
+              </div>
             </div>
           ))}
         </div>
-      </SectionCard>
 
-      {/* ── Print hint ─────────────────────────────────────────────────── */}
-      <div className="flex justify-center">
-        <button
-          onClick={() => window.print()}
-          className="flex items-center gap-2 px-5 py-2.5 border border-border rounded-lg text-sm text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
-        >
-          <Printer className="w-4 h-4" />
-          Cetak Jobsheet
-        </button>
       </div>
+      {/* End A4 document */}
     </div>
   );
 }
