@@ -60,6 +60,16 @@ const CHECKLIST_ITEMS = [
   "Area kerja bersih",
 ];
 
+/* Inspeksi visual setelah proses tack weld selesai */
+const INSPEKSI_ITEMS = [
+  "Posisi benda kerja sesuai gambar kerja",
+  "Kesikuan sambungan 90°",
+  "Tack weld rapi dan seragam",
+  "Tidak terdapat retak (crack) pada tack weld",
+  "Tidak terdapat porositas pada tack weld",
+  "Layak dilanjutkan ke pengelasan penuh",
+];
+
 function scoreOf(cl: boolean[], komponen: typeof KOMPONEN[0]) {
   const checked = komponen.items.filter(i => cl[i]).length;
   return Math.round((checked / komponen.items.length) * komponen.bobot);
@@ -82,6 +92,13 @@ export default function Jobsheet() {
     const next = cl.map((v, idx) => idx === i ? !v : v);
     setCl(next); localStorage.setItem("js_cl3", JSON.stringify(next));
   };
+
+  const [ins, setIns] = useState<boolean[]>(load("js_ins", 6));
+  const toggleIns = (i: number) => {
+    const next = ins.map((v, idx) => idx === i ? !v : v);
+    setIns(next); localStorage.setItem("js_ins", JSON.stringify(next));
+  };
+  const insCount = ins.filter(Boolean).length;
 
   const scores = KOMPONEN.map(k => scoreOf(cl, k));
   const total  = scores.reduce((a, b) => a + b, 0);
@@ -269,6 +286,39 @@ export default function Jobsheet() {
           </div>
         </div>
 
+        {/* Inspeksi Visual Setelah Tack Weld */}
+        <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+          <div className="bg-secondary/50 px-5 py-2 border-b border-border flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span className="font-bold text-sm uppercase tracking-wide">Inspeksi Visual Setelah Tack Weld</span>
+            <span className="ml-auto text-xs text-muted-foreground">{insCount}/6 terpenuhi</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-border">
+            {INSPEKSI_ITEMS.map((label, i) => (
+              <button
+                key={label}
+                onClick={() => toggleIns(i)}
+                className="flex items-center gap-3 w-full px-5 py-2.5 text-left hover:bg-secondary/30 transition-colors group border-b border-border last:border-0 sm:last:border-0"
+              >
+                <span className="shrink-0">
+                  {ins[i]
+                    ? <CheckSquare className="w-4 h-4 text-emerald-500" />
+                    : <Square className="w-4 h-4 text-muted-foreground group-hover:text-emerald-500/60 transition-colors" />}
+                </span>
+                <span className={`text-sm transition-colors ${ins[i] ? "line-through text-muted-foreground" : "text-foreground/90"}`}>
+                  <span className="text-muted-foreground text-xs mr-1.5">{i + 1}.</span>
+                  {label}
+                </span>
+              </button>
+            ))}
+          </div>
+          {insCount === 6 && (
+            <div className="px-5 py-2 bg-emerald-500/10 border-t border-emerald-500/20 text-center">
+              <span className="text-xs font-bold text-emerald-500">✓ Semua aspek inspeksi terpenuhi — benda kerja layak dilanjutkan ke pengelasan penuh</span>
+            </div>
+          )}
+        </div>
+
         {/* Tanda Tangan */}
         <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
           <div className="bg-secondary/50 px-5 py-2 border-b border-border">
@@ -452,6 +502,37 @@ export default function Jobsheet() {
                     </td>
                     <td style={{ padding: "3px 6px", textAlign: "center" }}>
                       <div style={{ width: 14, height: 14, border: "1px solid #bbb", borderRadius: 2, margin: "0 auto", background: !cl[i] ? "#f0f0f0" : "white" }} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Inspeksi Visual */}
+          <div style={{ border: "2px solid #111", borderTop: 0 }}>
+            <div style={{ background: "#e8f5e9", padding: "3px 10px", borderBottom: "1px solid #111", fontWeight: 900, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#1b5e20" }}>Inspeksi Visual Setelah Tack Weld</div>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ background: "#f0f0f0", borderBottom: "1px solid #111" }}>
+                  <th style={{ padding: "3px 8px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 22, borderRight: "1px solid #ccc" }}>No</th>
+                  <th style={{ padding: "3px 10px", textAlign: "left", fontSize: 9, fontWeight: 700, borderRight: "1px solid #ccc" }}>Aspek Inspeksi</th>
+                  <th style={{ padding: "3px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 36, borderRight: "1px solid #ccc" }}>Ya</th>
+                  <th style={{ padding: "3px 6px", textAlign: "center", fontSize: 9, fontWeight: 700, width: 36 }}>Tidak</th>
+                </tr>
+              </thead>
+              <tbody>
+                {INSPEKSI_ITEMS.map((label, i) => (
+                  <tr key={label} style={{ background: i%2===0?"white":"#fafafa", borderBottom: "1px solid #ddd" }}>
+                    <td style={{ padding: "3px 8px", textAlign: "center", fontSize: 10, color: "#777", borderRight: "1px solid #ccc" }}>{i+1}</td>
+                    <td style={{ padding: "3px 10px", fontSize: 10, borderRight: "1px solid #ccc" }}>{label}</td>
+                    <td style={{ padding: "3px 6px", textAlign: "center", borderRight: "1px solid #ccc" }}>
+                      <div style={{ width: 14, height: 14, border: "1px solid #2e7d32", borderRadius: 2, margin: "0 auto", background: ins[i] ? "#2e7d32" : "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        {ins[i] && <span style={{ color: "white", fontSize: 9, fontWeight: 900, lineHeight: 1 }}>✓</span>}
+                      </div>
+                    </td>
+                    <td style={{ padding: "3px 6px", textAlign: "center" }}>
+                      <div style={{ width: 14, height: 14, border: "1px solid #bbb", borderRadius: 2, margin: "0 auto", background: !ins[i] ? "#f0f0f0" : "white" }} />
                     </td>
                   </tr>
                 ))}
