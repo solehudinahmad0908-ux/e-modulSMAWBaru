@@ -8,7 +8,8 @@ export type ContentItem =
   | { kind: 'gallery'; images: Array<{ file: string; caption: string; source: string }> }
   | { kind: 'table'; caption: string; cols: string[]; rows: string[][] }
   | { kind: 'infobox'; title: string; text: string }
-  | { kind: 'checklist'; title: string; items: string[]; variant: 'refleksi' | 'pemeriksaan' };
+  | { kind: 'checklist'; title: string; items: string[]; variant: 'refleksi' | 'pemeriksaan' }
+  | { kind: 'video'; file: string; intro: string[]; source: string; warning: string };
 
 export interface ModuleRichContent {
   id: number;
@@ -861,6 +862,17 @@ export const moduleRichContents: ModuleRichContent[] = [
         "Langkah 9 — Bersihkan terak menggunakan palu terak dan sikat baja.",
         "Langkah 10 — Lakukan pemeriksaan visual sebelum proses pengelasan penuh.",
       ] },
+
+      { kind: 'video',
+        file: 'smaw-1f-tack-weld.mp4',
+        intro: [
+          "Untuk memperkuat pemahaman mengenai teknik dasar tack weld, peserta disarankan menyaksikan video pembelajaran berikut. Video ini menampilkan proses pengelasan SMAW pada sambungan sudut (T-Joint) posisi 1F, mulai dari persiapan benda kerja, pengaturan parameter pengelasan, teknik memegang elektroda, sudut pengelasan, hingga proses pengelasan.",
+          "Walaupun video tersebut memperlihatkan proses pengelasan hingga selesai (final welding), pada kegiatan pembelajaran dalam e-modul ini peserta cukup mempelajari tahapan persiapan, membaca gambar kerja, penyusunan benda kerja (fit-up), serta teknik pelaksanaan tack weld sebagai kompetensi dasar sebelum melanjutkan ke proses pengelasan penuh.",
+          "Selain itu, peserta diharapkan menyesuaikan gambar kerja yang digunakan pada video dengan gambar kerja Job Sheet TW-01 yang terdapat pada e-modul ini, karena ukuran benda kerja dan spesifikasi praktik dapat berbeda, namun prinsip pelaksanaan tack weld tetap sama.",
+        ],
+        source: "Media Belajar Teknik. (2021, 29 Juli). SMAW 1F Posisi Pengelasan Fillet [Video]. YouTube. https://www.youtube.com/watch?v=4ktJr39Abos",
+        warning: "Video ini digunakan sebagai referensi tambahan untuk membantu peserta memahami teknik dasar pengelasan SMAW posisi 1F. Pada praktik dalam e-modul ini, peserta tidak diwajibkan melakukan pengelasan penuh (final welding), melainkan hanya melakukan tack weld sesuai prosedur dan gambar kerja Job Sheet TW-01 yang telah disediakan.",
+      },
 
       { kind: 'heading', text: "Hal-Hal yang Harus Diperhatikan" },
       { kind: 'para', text: "Agar diperoleh hasil tack weld yang baik, beberapa hal berikut harus diperhatikan." },

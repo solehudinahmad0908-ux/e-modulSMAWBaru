@@ -2,6 +2,7 @@ import { useParams, Link, useLocation } from "wouter";
 import { modulesData } from "@/data/modules";
 import { moduleRichContents, type ContentItem } from "@/data/moduleRichContent";
 import { docImages } from "@/assets/docImages";
+import smawVideo from "@/assets/smaw-1f-tack-weld.mp4";
 import { useProgress } from "@/contexts/ProgressContext";
 import { ChevronLeft, CheckSquare, ClipboardList } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -250,6 +251,35 @@ function RenderItem({ item, moduleId }: { item: ContentItem; moduleId: number })
           items={item.items}
           variant={item.variant}
         />
+      );
+    case "video":
+      return (
+        <div className="my-4 space-y-3">
+          {item.intro.map((p, i) => (
+            <p key={i} className="text-foreground/85 leading-relaxed text-justify">{p}</p>
+          ))}
+          <div className="rounded-xl overflow-hidden border border-border bg-black">
+            <video
+              src={smawVideo}
+              controls
+              className="w-full max-h-[480px] block"
+              preload="metadata"
+            />
+          </div>
+          {item.source && (
+            <p className="text-xs text-muted-foreground italic leading-relaxed">
+              Sumber: {item.source}
+            </p>
+          )}
+          {item.warning && (
+            <div className="flex gap-3 rounded-lg border border-yellow-500/40 bg-yellow-500/10 p-4">
+              <span className="text-yellow-400 mt-0.5 flex-shrink-0">⚠️</span>
+              <p className="text-sm text-yellow-200/90 leading-relaxed">
+                <span className="font-semibold">Perhatian: </span>{item.warning}
+              </p>
+            </div>
+          )}
+        </div>
       );
     default:
       return null;
