@@ -8,18 +8,36 @@ import jobsheetImg from "@/assets/jobsheet-image1.png";
    • Halaman 1 — Header, Identitas, Tujuan, Gambar Kerja
    • Halaman 2 — Langkah Kerja, Checklist, Penilaian, TTD              */
 const PRINT_CSS = `
+/* Layar: sembunyikan blok cetak */
+@media screen {
+  #js-print { display: none; }
+}
+
+/* Cetak / Simpan PDF */
 @media print {
   @page { size: A4 portrait; margin: 8mm 10mm; }
   html, body { margin: 0 !important; padding: 0 !important; background: white !important; }
-  body * { visibility: hidden; }
-  #js-print, #js-print * {
-    visibility: visible;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+
+  /* Sembunyikan semua konten layar */
+  body * { visibility: hidden !important; }
+
+  /* Tampilkan hanya blok cetak */
+  #js-print {
+    display: block !important;
+    visibility: visible !important;
+    position: fixed !important;
+    top: 0 !important; left: 0 !important;
+    width: 190mm !important;
+    background: white !important;
   }
-  #js-print { display: block !important; position: fixed; top: 0; left: 0; width: 190mm; }
-  .no-print { display: none !important; }
-  .page-break { page-break-after: always; break-after: page; }
+  #js-print * {
+    visibility: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .no-print  { display: none !important; }
+  .page-break { page-break-after: always !important; break-after: page !important; }
 }
 `;
 
@@ -342,7 +360,7 @@ export default function Jobsheet() {
       {/* ══════════════════════════════════════════════════════════════════
           PRINT LAYOUT — 2 HALAMAN A4 (tersembunyi di layar)
       ══════════════════════════════════════════════════════════════════ */}
-      <div id="js-print" style={{ display: "none", fontFamily: "Arial, Helvetica, sans-serif", fontSize: 11, color: "#000" }}>
+      <div id="js-print" style={{ fontFamily: "Arial, Helvetica, sans-serif", fontSize: 11, color: "#000" }}>
 
         {/* ▌HALAMAN 1 — Header · Identitas · Tujuan · Gambar Kerja ─────── */}
         <div className="page-break" style={{ width: "190mm", background: "white" }}>
