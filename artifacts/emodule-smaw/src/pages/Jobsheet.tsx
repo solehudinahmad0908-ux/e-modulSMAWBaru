@@ -32,23 +32,32 @@ function injectPrintCSS() {
 }
 
 /* ── Penilaian mapping ─────────────────────────────────────────────────── */
+// Indeks checklist → komponen penilaian
+// 0: Menggunakan APD           → Penggunaan APD (10)
+// 1: Membaca gambar kerja      → Persiapan kerja /2 (10)
+// 2: Material sesuai ukuran    → Persiapan kerja /2 (10)
+// 3: Posisi sambungan benar    → Penyusunan benda kerja (15)
+// 4: Tack weld sesuai ukuran   → Pelaksanaan tack weld /2 (18)
+// 5: Tack weld rapi            → Pelaksanaan tack weld /2 (17)
+// 6: Tidak terdapat cacat      → Pemeriksaan hasil /2 (10)
+// 7: Area kerja bersih         → Pemeriksaan hasil /2 (10)
 const KOMPONEN = [
-  { label: "Persiapan kerja",         bobot: 20, items: [1] },
-  { label: "Penggunaan APD",          bobot: 10, items: [0] },
-  { label: "Penyusunan benda kerja",  bobot: 15, items: [2, 3] },
+  { label: "Persiapan kerja",         bobot: 20, items: [1, 2] },
+  { label: "Penggunaan APD",          bobot: 10, items: [0]    },
+  { label: "Penyusunan benda kerja",  bobot: 15, items: [3]    },
   { label: "Pelaksanaan tack weld",   bobot: 35, items: [4, 5] },
   { label: "Pemeriksaan hasil",       bobot: 20, items: [6, 7] },
 ];
 
 const CHECKLIST_ITEMS = [
-  "Menggunakan APD secara lengkap",
-  "Material sesuai ukuran pada gambar kerja",
-  "Posisi sambungan T-Joint benar",
-  "Kesikuan sambungan 90°",
-  "Panjang tack weld 10–20 mm",
-  "Permukaan tack weld rapi (tidak retak, tidak berpori)",
-  "Slag telah dibersihkan",
-  "Area kerja bersih setelah praktik",
+  "Menggunakan APD",
+  "Membaca gambar kerja",
+  "Material sesuai ukuran",
+  "Posisi sambungan benar",
+  "Tack weld sesuai ukuran",
+  "Tack weld rapi",
+  "Tidak terdapat cacat",
+  "Area kerja bersih",
 ];
 
 function scoreOf(cl: boolean[], komponen: typeof KOMPONEN[0]) {
