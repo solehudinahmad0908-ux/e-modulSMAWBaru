@@ -12,6 +12,11 @@ export function Layout({ children }: { children: ReactNode }) {
   const [location] = useLocation();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  // Scroll ke atas setiap kali pindah halaman
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [location]);
+
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);

@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import {
   Printer, Loader2,
   CheckSquare, Square,
-  ClipboardList, Wrench, ShieldCheck, Star,
+  ClipboardList, Wrench, ShieldCheck, Star, ArrowRight,
 } from "lucide-react";
+import { Link } from "wouter";
 import logoCUI    from "@/assets/logo-cui-nobg.png";
 import jobsheetImg from "@/assets/jobsheet-image1.png";
 
@@ -650,6 +651,23 @@ export default function Jobsheet() {
         </div>
 
       </div>{/* end #js-print */}
+
+      {/* Navigasi ke Daftar Pustaka */}
+      <div className="mt-10 bg-card border border-border rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-sm">
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-primary uppercase tracking-widest mb-1">Langkah Selanjutnya</p>
+          <h3 className="text-lg font-bold text-foreground mb-1">Daftar Pustaka</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Seluruh kegiatan pembelajaran e-modul ini telah selesai. Berikut adalah daftar referensi yang digunakan sebagai sumber materi dalam e-modul pengelasan SMAW ini.
+          </p>
+        </div>
+        <Link
+          href="/pustaka"
+          className="shrink-0 flex items-center gap-2 px-7 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-all shadow-md hover:-translate-y-0.5"
+        >
+          Lihat Daftar Pustaka <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
 
     </div>
   );

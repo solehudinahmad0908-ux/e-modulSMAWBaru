@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-import { CheckCircle2, XCircle, Clock, FileQuestion, RotateCcw, Award, AlertTriangle } from "lucide-react";
+import { CheckCircle2, XCircle, Clock, FileQuestion, RotateCcw, Award, AlertTriangle, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -592,6 +593,20 @@ export default function Evaluasi() {
                   <p className="text-xs text-muted-foreground text-center">
                     Peserta telah menyelesaikan seluruh evaluasi e-modul Pengelasan SMAW.
                   </p>
+                </div>
+              )}
+              {passed && (
+                <div className="mt-6 w-full max-w-md bg-card border border-border rounded-xl p-5 text-left">
+                  <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Langkah Selanjutnya</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    Anda telah lulus evaluasi akhir. Langkah berikutnya adalah melaksanakan praktik tack weld sesuai <span className="text-foreground font-semibold">Job Sheet TW-01</span> yang telah disediakan.
+                  </p>
+                  <Link
+                    href="/jobsheet"
+                    className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-colors shadow-md"
+                  >
+                    Lanjut ke Job Sheet <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
               )}
             </div>

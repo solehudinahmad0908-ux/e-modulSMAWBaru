@@ -1,4 +1,5 @@
-import { Info, Target, Award, BookOpen, Settings, Building2, CheckCircle2 } from "lucide-react";
+import { Info, Target, Award, BookOpen, Settings, Building2, CheckCircle2, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 
 const deskripsi = `E-modul Pengelasan Shielded Metal Arc Welding (SMAW) disusun sebagai media pembelajaran bagi peserta Praktik Kerja Lapangan (PKL) di PT. Coppalt Utama Indomelt. Penyusunan e-modul ini bertujuan untuk menyediakan panduan belajar mandiri yang sistematis dan terstruktur bagi peserta PKL dalam mempersiapkan diri sebelum terlibat langsung dalam kegiatan produksi.
 
@@ -178,6 +179,23 @@ export default function Pendahuluan() {
           </p>
         </div>
       </Card>
+
+      {/* Navigasi ke Materi */}
+      <div className="bg-card border border-border rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-sm">
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-primary uppercase tracking-widest mb-1">Langkah Selanjutnya</p>
+          <h3 className="text-lg font-bold text-foreground mb-1">Mulai Pembelajaran</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Anda telah memahami gambaran umum e-modul ini. Ikuti setiap modul secara berurutan — selesaikan kuis dengan nilai minimal 75 untuk membuka modul berikutnya.
+          </p>
+        </div>
+        <Link
+          href="/materi"
+          className="shrink-0 flex items-center gap-2 px-7 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-all shadow-md hover:-translate-y-0.5"
+        >
+          Mulai Materi <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
     </div>
   );
 }
