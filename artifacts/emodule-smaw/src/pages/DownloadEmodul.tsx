@@ -284,10 +284,13 @@ export default function DownloadEmodul() {
       return;
     }
 
+    // base href agar semua src gambar (logo, foto, docImages) resolve dari server yang benar
+    const base = window.location.origin + "/";
     win.document.write(`<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="utf-8"/>
+  <base href="${base}"/>
   <title>E-Modul Pengelasan SMAW</title>
   <style>${POPUP_PRINT_CSS}</style>
 </head>
