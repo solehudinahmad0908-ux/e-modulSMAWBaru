@@ -1,10 +1,65 @@
 import { Link } from "wouter";
+import {
+  ShieldCheck, HardHat, Wrench, FileText,
+  Ruler, Zap, Hammer, ClipboardCheck,
+} from "lucide-react";
 import weldingHero from "@/assets/welding-hero.jpg";
 import logoCui from "@/assets/logo-cui-nobg.png";
 import logoUpi from "@/assets/logo-upi-nobg.png";
 import fotoPenyusun from "@/assets/foto-penyusun.png";
 import fotoPembimbing1 from "@/assets/foto-pembimbing1.png";
 import fotoPembimbing2 from "@/assets/foto-pembimbing2.png";
+
+const MODULES = [
+  {
+    id: 1,
+    icon: ShieldCheck,
+    title: "Keselamatan dan Kesehatan Kerja (K3)",
+    desc: "Prinsip K3, rambu bahaya, prosedur darurat, dan budaya kerja aman di lingkungan industri pengelasan.",
+  },
+  {
+    id: 2,
+    icon: HardHat,
+    title: "Alat Pelindung Diri (APD)",
+    desc: "Jenis, fungsi, cara pemakaian, dan perawatan APD yang wajib digunakan selama kegiatan pengelasan.",
+  },
+  {
+    id: 3,
+    icon: Wrench,
+    title: "Pengenalan Peralatan Kerja Pengelasan",
+    desc: "Fungsi dan penggunaan mesin las, holder, kabel las, palu terak, dan peralatan pendukung lainnya.",
+  },
+  {
+    id: 4,
+    icon: FileText,
+    title: "Membaca Gambar Kerja",
+    desc: "Cara membaca title block, pandangan gambar, dimensi, simbol las, dan gambar kerja sambungan T-Joint.",
+  },
+  {
+    id: 5,
+    icon: Ruler,
+    title: "Penggunaan Alat Ukur",
+    desc: "Penggunaan meteran, jangka sorong, dan siku baja untuk memastikan dimensi benda kerja sesuai spesifikasi.",
+  },
+  {
+    id: 6,
+    icon: Zap,
+    title: "Dasar-Dasar Pengelasan SMAW",
+    desc: "Prinsip kerja SMAW, jenis arus, klasifikasi elektroda E6013, posisi 1F, dan parameter pengelasan.",
+  },
+  {
+    id: 7,
+    icon: Hammer,
+    title: "Teknik Dasar Tack Weld",
+    desc: "Pengertian, tujuan, persiapan, dan langkah pelaksanaan tack weld pada sambungan T-Joint posisi 1F.",
+  },
+  {
+    id: 8,
+    icon: ClipboardCheck,
+    title: "Pemeriksaan Hasil Tack Weld",
+    desc: "Kriteria hasil tack weld yang baik, identifikasi cacat visual, dan prosedur inspeksi sesuai standar perusahaan.",
+  },
+];
 
 export default function Home() {
   return (
@@ -47,6 +102,47 @@ export default function Home() {
               Mulai Belajar
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* Module Overview */}
+      <div className="flex flex-col gap-5">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Alur Pembelajaran</p>
+            <h2 className="text-2xl font-extrabold text-foreground">8 Modul Pembelajaran</h2>
+          </div>
+          <Link
+            href="/materi"
+            className="text-sm font-semibold text-primary hover:underline underline-offset-4 flex-shrink-0"
+          >
+            Lihat semua →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {MODULES.map((mod) => {
+            const Icon = mod.icon;
+            return (
+              <div
+                key={mod.id}
+                className="bg-card border border-border rounded-xl p-5 flex flex-col gap-3 hover:border-primary/50 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
+                    Modul {mod.id}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-bold text-foreground text-sm leading-snug mb-1">{mod.title}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{mod.desc}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
