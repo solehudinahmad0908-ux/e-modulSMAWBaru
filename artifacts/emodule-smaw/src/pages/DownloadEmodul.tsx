@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ChevronLeft, Download, CheckCircle2, Lock, FileText, BookOpen, Printer } from "lucide-react";
 import { useProgress } from "@/contexts/ProgressContext";
@@ -247,6 +247,7 @@ function PrintItem({ item, idx }: { item: ContentItem; idx: number }) {
 export default function DownloadEmodul() {
   const { progress } = useProgress();
   const allDone = progress.completedModules.length >= 8;
+  const [generating, setGenerating] = useState(false);
 
   useEffect(() => {
     if (document.getElementById("emodul-pdf-css")) return;
@@ -256,6 +257,32 @@ export default function DownloadEmodul() {
     document.head.appendChild(s);
     return () => { document.getElementById("emodul-pdf-css")?.remove(); };
   }, []);
+
+  const downloadPDF = async () => {
+    const el = document.getElementById("emodul-pdf");
+    if (!el) return;
+    setGenerating(true);
+    try {
+      el.style.display = "block";
+      el.style.position = "static";
+      const html2pdf = (await import("html2pdf.js")).default;
+      await html2pdf()
+        .set({
+          margin: [18, 20, 18, 20],
+          filename: "EModul-Pengelasan-SMAW.pdf",
+          image: { type: "jpeg", quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true, logging: false, imageTimeout: 20000 },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+          pagebreak: { mode: ["css", "legacy"], avoid: "img" },
+        })
+        .from(el)
+        .save();
+    } finally {
+      el.style.display = "";
+      el.style.position = "";
+      setGenerating(false);
+    }
+  };
 
   return (
     <>
@@ -335,14 +362,19 @@ export default function DownloadEmodul() {
             </div>
           )}
           <button
-            onClick={() => window.print()}
-            className="w-full flex items-center justify-center gap-3 py-4 bg-primary text-primary-foreground rounded-xl font-bold text-base hover:bg-primary/90 transition-all shadow-md hover:-translate-y-0.5 hover:shadow-primary/25"
+            onClick={downloadPDF}
+            disabled={generating}
+            className="w-full flex items-center justify-center gap-3 py-4 bg-primary text-primary-foreground rounded-xl font-bold text-base hover:bg-primary/90 disabled:opacity-60 transition-all shadow-md hover:-translate-y-0.5 hover:shadow-primary/25"
           >
             <Download className="w-5 h-5" />
-            {allDone ? "Unduh E-Modul PDF (Semua Modul Selesai)" : "Unduh E-Modul PDF"}
+            {generating
+              ? "Membuat PDF… (mohon tunggu)"
+              : allDone
+              ? "Unduh E-Modul PDF (Semua Modul Selesai)"
+              : "Unduh E-Modul PDF"}
           </button>
           <p className="text-xs text-muted-foreground text-center mt-3">
-            Gunakan browser dialog "Save as PDF" pada dialog cetak yang muncul untuk menyimpan file PDF.
+            File PDF akan otomatis tersimpan ke komputer Anda.
           </p>
         </div>
       </div>
