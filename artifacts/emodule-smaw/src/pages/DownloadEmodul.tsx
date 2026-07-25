@@ -57,6 +57,23 @@ const PRASYARAT_ITEMS = [
   "Memiliki pengetahuan dasar mengenai proses manufaktur atau pengelasan yang diperoleh selama pembelajaran di sekolah atau perguruan tinggi.",
 ];
 
+const PUSTAKA = [
+  { cite: "American Welding Society. (2020).", title: "AWS A2.4: Standard symbols for welding, brazing, and nondestructive examination.", publisher: "American Welding Society." },
+  { cite: "American Welding Society. (2020).", title: "Welding handbook.", publisher: "American Welding Society." },
+  { cite: "Cary, H. B., & Helzer, S. C. (2020).", title: "Modern welding technology (13th ed.).", publisher: "Pearson." },
+  { cite: "ESAB. (2021).", title: "Covered electrodes catalog.", publisher: "ESAB." },
+  { cite: "Giesecke, F. E., Mitchell, A., Spencer, H. C., Hill, I. L., Dygdon, J. T., Novak, J. E., & Lockhart, S. (2021).", title: "Technical drawing with engineering graphics.", publisher: "Pearson." },
+  { cite: "Jeffus, L. (2022).", title: "Welding: Principles and applications (9th ed.).", publisher: "Cengage Learning." },
+  { cite: "Lincoln Electric. (2022).", title: "Procedure handbook of arc welding.", publisher: "Lincoln Electric Company." },
+  { cite: "Lincoln Electric. (2022).", title: "SMAW equipment guide.", publisher: "Lincoln Electric Company." },
+  { cite: "Mitutoyo Corporation. (2021).", title: "Vernier caliper user's guide.", publisher: "Mitutoyo Corporation." },
+  { cite: "Stanley Tools. (2022).", title: "Tape measure product guide.", publisher: "Stanley Black & Decker." },
+  { cite: "Starrett Company. (2021).", title: "Precision steel rules catalog.", publisher: "L.S. Starrett Company." },
+  { cite: "Starrett Company. (2021).", title: "Squares and combination squares catalog.", publisher: "L.S. Starrett Company." },
+  { cite: "Tarwaka. (2017).", title: "Keselamatan dan kesehatan kerja: Manajemen dan implementasi K3 di tempat kerja.", publisher: "Harapan Press." },
+  { cite: "Welding Safety UK. (2021).", title: "Personal protective equipment (PPE) for welding.", publisher: "" },
+];
+
 const PROFIL = {
   sejarah:
     "PT. Coppalt Utama Indomelt merupakan perusahaan manufaktur yang bergerak di bidang pengecoran logam (metal casting), permesinan (machining), serta pembuatan mold and dies. Perusahaan didirikan pada tahun 1998 oleh para insinyur berpengalaman di bidang pengecoran logam dan terus berkembang menjadi salah satu perusahaan foundry terkemuka di Indonesia.",
@@ -493,6 +510,24 @@ export default function DownloadEmodul() {
             </div>
           );
         })}
+
+        {/* ── DAFTAR PUSTAKA ────────────────────────────────────────────── */}
+        <div className="pdf-page-break">
+          <h2 style={{ ...S.h2, fontSize: '16pt' }}>DAFTAR PUSTAKA</h2>
+          <ol style={{ ...S.ul, listStyleType: 'decimal', paddingLeft: '22px' }}>
+            {PUSTAKA.map((ref, i) => (
+              <li key={i} style={{ ...S.li, marginBottom: '8px', textAlign: 'justify' }}>
+                <span style={{ fontWeight: 'bold' }}>{ref.cite}</span>{' '}
+                <span style={{ fontStyle: 'italic' }}>{ref.title}</span>
+                {ref.publisher && <span> {ref.publisher}</span>}
+              </li>
+            ))}
+          </ol>
+          <p style={{ ...S.p, marginTop: '20px', fontStyle: 'italic', color: '#555', fontSize: '10pt' }}>
+            Seluruh referensi di atas digunakan sebagai landasan teoritis dan sumber gambar dalam pengembangan
+            E-Modul Pengelasan SMAW standar kompetensi PT. Coppalt Utama Indomelt (CUI).
+          </p>
+        </div>
 
         {/* ── FOOTER note ──────────────────────────────────────────────────── */}
         <div style={{ marginTop: '30px', paddingTop: '12px', borderTop: '1px solid #ddd', textAlign: 'center', fontSize: '9pt', color: '#888' }}>
