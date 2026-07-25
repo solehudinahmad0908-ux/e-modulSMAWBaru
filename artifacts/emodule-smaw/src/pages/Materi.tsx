@@ -1,7 +1,7 @@
 import { useProgress } from "@/contexts/ProgressContext";
 import { modulesData } from "@/data/modules";
-import { useLocation } from "wouter";
-import { Lock, Unlock, CheckCircle2, PlayCircle } from "lucide-react";
+import { useLocation, Link } from "wouter";
+import { Lock, CheckCircle2, PlayCircle, FileDown, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Materi() {
@@ -91,6 +91,28 @@ export default function Materi() {
           );
         })}
       </div>
+
+      {/* Download banner — muncul hanya setelah semua 8 modul selesai */}
+      {progress.completedModules.length === 8 && (
+        <div className="bg-card border-2 border-primary/40 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 shadow-md mt-2">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0">
+            <Star className="w-6 h-6 text-primary fill-primary/20" />
+          </div>
+          <div className="flex-1 text-center sm:text-left">
+            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-0.5">Selamat! Semua Modul Selesai</p>
+            <h3 className="text-lg font-extrabold text-foreground">Unduh E-Modul Pengelasan SMAW</h3>
+            <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+              Dokumen PDF lengkap berisi Pendahuluan dan seluruh 8 modul materi — siap untuk disimpan dan dijadikan referensi.
+            </p>
+          </div>
+          <Link
+            href="/download-emodul"
+            className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-colors shadow-md flex-shrink-0 whitespace-nowrap"
+          >
+            <FileDown className="w-4 h-4" /> Unduh PDF
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
