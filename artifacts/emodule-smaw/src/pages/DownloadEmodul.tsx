@@ -152,7 +152,7 @@ const S = {
 
 // ── Content item renderer ─────────────────────────────────────────────────────
 
-function PrintItem({ item, idx }: { item: ContentItem; idx: number }) {
+function PrintItem({ item, idx, moduleId }: { item: ContentItem; idx: number; moduleId: number }) {
   switch (item.kind) {
     case 'heading':
       return <h3 style={S.h3}>{item.text}</h3>;
@@ -230,17 +230,33 @@ function PrintItem({ item, idx }: { item: ContentItem; idx: number }) {
         </div>
       );
 
-    case 'checklist':
+    case 'checklist': {
+      const storageKey = `smaw_checklist_m${moduleId}_${item.title.replace(/\s+/g, '_')}`;
+      let checked: boolean[] = new Array(item.items.length).fill(false);
+      try {
+        const saved = localStorage.getItem(storageKey);
+        if (saved) checked = JSON.parse(saved);
+      } catch { /* pakai default false */ }
+      const doneCount = checked.filter(Boolean).length;
       return (
         <div style={S.checklist} className="pdf-avoid">
-          <p style={S.checklistTitle}>{item.title}</p>
-          <ul style={S.ul}>
+          <p style={{ ...S.checklistTitle, display: 'flex', justifyContent: 'space-between' }}>
+            <span>{item.title}</span>
+            <span style={{ fontSize: '10pt', color: '#555', fontWeight: 'normal' }}>{doneCount}/{item.items.length}</span>
+          </p>
+          <ul style={{ ...S.ul, listStyleType: 'none', paddingLeft: '4px' }}>
             {item.items.map((t, i) => (
-              <li key={i} style={{ ...S.li, listStyleType: 'circle' }}>☐ {t}</li>
+              <li key={i} style={{ ...S.li, display: 'flex', alignItems: 'flex-start', gap: '6px', marginBottom: '4px' }}>
+                <span style={{ flexShrink: 0, fontSize: '12pt', color: checked[i] ? '#2a7a2a' : '#aaa' }}>
+                  {checked[i] ? '☑' : '☐'}
+                </span>
+                <span style={{ color: checked[i] ? '#1a1a1a' : '#555', textDecoration: checked[i] ? 'none' : 'none' }}>{t}</span>
+              </li>
             ))}
           </ul>
         </div>
       );
+    }
 
     case 'video':
       return (
@@ -508,7 +524,7 @@ export default function DownloadEmodul() {
 
               {/* Content items */}
               {mod.items.map((item, idx) => (
-                <PrintItem key={idx} item={item} idx={idx} />
+                <PrintItem key={idx} item={item} idx={idx} moduleId={mod.id} />
               ))}
             </div>
           );
