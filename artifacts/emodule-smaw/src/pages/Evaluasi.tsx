@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { CheckCircle2, XCircle, Clock, FileQuestion, RotateCcw, Award, AlertTriangle, ArrowRight } from "lucide-react";
+import { CheckCircle2, XCircle, Clock, FileQuestion, RotateCcw, AlertTriangle, ArrowRight, CheckCircle, ChevronLeft } from "lucide-react";
 import { Link } from "wouter";
 import { useProgress } from "@/contexts/ProgressContext";
 
@@ -429,84 +429,73 @@ export default function Evaluasi() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const grade = gradeLabel(score);
   const passed = score >= PASS;
 
   return (
     <div className="flex flex-col gap-6 max-w-3xl mx-auto w-full pb-12">
-      {/* Page header */}
-      <div className="flex flex-col gap-1">
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground">Evaluasi Akhir</h1>
-        <p className="text-muted-foreground text-base">
-          Pengelasan SMAW — Standar Kompetensi PT. Coppalt Utama Indomelt
-        </p>
-      </div>
+      {/* Back link */}
+      <Link
+        href="/materi"
+        className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary w-fit transition-colors text-sm font-medium"
+      >
+        <ChevronLeft className="w-4 h-4" /> Kembali ke Materi
+      </Link>
 
-      <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
-        {/* Card header */}
-        <div className="px-8 pt-8 pb-5 border-b border-border">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold tracking-widest uppercase">
-              Evaluasi Modul
-            </span>
-          </div>
-          <h2 className="text-xl font-extrabold text-foreground mb-3">
-            Evaluasi Keseluruhan Materi
-          </h2>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-            <span className="flex items-center gap-1.5">
-              <FileQuestion className="w-4 h-4" />
-              {TOTAL} soal pilihan ganda
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" />
-              Nilai minimal lulus:{" "}
-              <span className="text-primary font-semibold ml-1">{PASS}</span>
-            </span>
-            {!hasSubmitted && (
-              <span className="ml-auto font-medium text-foreground">
-                Terjawab:{" "}
-                <span className={answeredCount === TOTAL ? "text-green-500" : "text-primary"}>
-                  {answeredCount}
-                </span>
-                /{TOTAL}
-              </span>
-            )}
-          </div>
+      <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-2">
+          <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold tracking-widest uppercase">
+            Evaluasi Akhir
+          </span>
+        </div>
+        <h1 className="text-xl md:text-2xl font-extrabold text-foreground mb-1">
+          Evaluasi Keseluruhan Materi Pengelasan SMAW
+        </h1>
 
-          {/* Petunjuk */}
+        {/* Meta bar */}
+        <div className="flex flex-wrap items-center gap-4 mt-3 pb-5 border-b border-border text-sm text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <FileQuestion className="w-4 h-4" />
+            {TOTAL} soal pilihan ganda
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Clock className="w-4 h-4" />
+            Nilai minimal lulus: <span className="text-primary font-semibold ml-1">{PASS}</span>
+          </span>
           {!hasSubmitted && (
-            <div className="mt-4 flex gap-2 rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-primary">
-              <span className="font-semibold flex-shrink-0">Petunjuk:</span>
-              <span>Pilihlah satu jawaban yang paling tepat untuk setiap soal.</span>
-            </div>
+            <span className="ml-auto font-medium text-foreground">
+              Terjawab:{" "}
+              <span className={answeredCount === TOTAL ? "text-green-500" : "text-primary"}>
+                {answeredCount}
+              </span>
+              /{TOTAL}
+            </span>
           )}
         </div>
 
-        {/* Body */}
         {!hasSubmitted ? (
-          <form onSubmit={handleSubmit} className="px-8 pb-8">
+          <form onSubmit={handleSubmit} className="mt-7 space-y-10">
             {SECTIONS.map((section, si) => (
-              <div key={section.label} className={si > 0 ? "mt-10" : "mt-8"}>
-                {/* Section header */}
+              <div key={section.label} className={si > 0 ? "pt-8 border-t border-border" : ""}>
+                {/* Section divider */}
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground text-sm font-extrabold flex-shrink-0">
+                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground text-sm font-extrabold flex-shrink-0">
                     {section.label}
                   </span>
-                  <h3 className="text-base font-bold text-foreground">{section.title}</h3>
+                  <h2 className="text-base font-bold text-foreground">{section.title}</h2>
                   <div className="flex-1 h-px bg-border" />
                 </div>
 
                 <div className="space-y-8">
                   {section.questions.map((q) => (
-                    <div key={q.id} className="space-y-3">
-                      <p className="font-semibold text-base text-foreground leading-relaxed flex gap-2">
-                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary/10 text-primary text-sm font-bold flex-shrink-0 mt-0.5">
+                    <div key={q.id} className="space-y-4">
+                      <h3 className="font-semibold text-base text-foreground leading-relaxed flex gap-2">
+                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary/10 text-primary text-sm font-bold mr-1 flex-shrink-0 mt-0.5">
                           {q.id}
                         </span>
-                        <span>{q.text}</span>
-                      </p>
-                      <div className="space-y-2 pl-9">
+                        {q.text}
+                      </h3>
+                      <div className="space-y-2.5 pl-9">
                         {q.options.map(opt => {
                           const isSelected = selectedAnswers[q.id] === opt.key;
                           return (
@@ -543,27 +532,25 @@ export default function Evaluasi() {
             ))}
 
             {/* Submit */}
-            <div className="pt-8 border-t border-border mt-10">
+            <div className="pt-6 border-t border-border">
               {answeredCount < TOTAL && (
                 <p className="text-center text-sm text-muted-foreground mb-4">
-                  Masih ada{" "}
-                  <span className="text-primary font-semibold">{TOTAL - answeredCount} soal</span>{" "}
-                  yang belum dijawab.
+                  Masih ada <span className="text-primary font-semibold">{TOTAL - answeredCount} soal</span> yang belum dijawab.
                 </p>
               )}
               <button
                 type="submit"
-                className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-bold text-base hover:bg-primary/90 transition-colors shadow-md"
+                className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-bold text-base hover:bg-primary/90 transition-colors shadow-md disabled:opacity-50"
               >
                 Kumpulkan Jawaban
               </button>
             </div>
           </form>
         ) : (
-          <div ref={resultRef} className="px-8 pb-8">
+          <div ref={resultRef} className="mt-8">
             {/* Score card */}
             <div
-              className={`flex flex-col items-center text-center py-10 px-6 rounded-2xl border mt-8 mb-10 ${
+              className={`flex flex-col items-center text-center py-10 px-6 rounded-2xl border mb-8 ${
                 passed
                   ? "bg-green-500/5 border-green-500/30"
                   : "bg-destructive/5 border-destructive/30"
@@ -571,102 +558,101 @@ export default function Evaluasi() {
             >
               <div
                 className={`w-24 h-24 rounded-full flex items-center justify-center mb-5 ${
-                  passed ? "bg-green-500/15" : "bg-destructive/15"
+                  passed
+                    ? "bg-green-500/20 border-2 border-green-500/50"
+                    : "bg-destructive/20 border-2 border-destructive/50"
                 }`}
               >
                 {passed ? (
-                  <CheckCircle2 className="w-12 h-12 text-green-500" />
+                  <CheckCircle className="w-12 h-12 text-green-500" />
                 ) : (
                   <AlertTriangle className="w-12 h-12 text-destructive" />
                 )}
               </div>
-              <p className="text-5xl font-extrabold text-foreground mb-1">{score}</p>
-              <p className={`text-lg font-bold mb-1 ${grade.color}`}>{grade.text}</p>
-              <p className="text-muted-foreground text-sm mb-1">
-                {correctCount} benar dari {TOTAL} soal
-              </p>
-              <p className={`text-sm font-semibold mt-3 ${passed ? "text-green-400" : "text-destructive"}`}>
-                {passed ? "✓ Lulus — Nilai memenuhi standar kompetensi" : "✗ Belum lulus — Nilai di bawah standar minimal (75)"}
-              </p>
 
-              {passed && (
-                <div className="mt-6 w-full max-w-sm p-5 bg-background border-2 border-primary border-dashed rounded-xl flex flex-col items-center gap-3">
-                  <Award className="w-10 h-10 text-primary" />
-                  <p className="font-bold text-foreground">Evaluasi Akhir Selesai</p>
-                  <p className="text-xs text-muted-foreground text-center">
-                    Peserta telah menyelesaikan seluruh evaluasi e-modul Pengelasan SMAW.
-                  </p>
-                </div>
-              )}
-              {passed && (
-                <div className="mt-6 w-full max-w-md bg-card border border-border rounded-xl p-5 text-left">
-                  <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Langkah Selanjutnya</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                    Anda telah lulus evaluasi akhir. Langkah berikutnya adalah melaksanakan praktik tack weld sesuai <span className="text-foreground font-semibold">Job Sheet TW-01</span> yang telah disediakan.
-                  </p>
-                  <Link
-                    href="/jobsheet"
-                    className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-colors shadow-md"
-                  >
-                    Lanjut ke Job Sheet <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              )}
+              <h2 className="text-3xl font-extrabold text-foreground mb-1">
+                {passed ? "Selamat, Anda Lulus!" : "Belum Lulus"}
+              </h2>
+              <div className="flex items-baseline gap-1 mt-1 mb-3">
+                <span className={`text-5xl font-extrabold ${passed ? "text-green-500" : "text-destructive"}`}>
+                  {score}
+                </span>
+                <span className="text-muted-foreground text-lg">/ 100</span>
+              </div>
+
+              <div className="flex gap-6 text-sm mb-4">
+                <span className="flex items-center gap-1.5 text-green-500 font-medium">
+                  <CheckCircle2 className="w-4 h-4" /> {correctCount} benar
+                </span>
+                <span className="flex items-center gap-1.5 text-destructive font-medium">
+                  <XCircle className="w-4 h-4" /> {TOTAL - correctCount} salah
+                </span>
+              </div>
+
+              <p className="text-foreground/75 max-w-sm text-sm">
+                {passed
+                  ? "Anda telah menguasai keseluruhan materi Pengelasan SMAW. Lanjutkan ke Job Sheet Praktik."
+                  : "Nilai minimum kelulusan adalah 75. Pelajari kembali materi dan coba lagi."}
+              </p>
             </div>
 
             {/* Answer review */}
+            <h3 className="text-base font-bold text-foreground mb-4">Pembahasan Jawaban</h3>
+
             {SECTIONS.map((section, si) => (
-              <div key={section.label} className={si > 0 ? "mt-10" : ""}>
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground text-sm font-extrabold flex-shrink-0">
+              <div key={section.label} className={si > 0 ? "mt-8 pt-6 border-t border-border" : ""}>
+                {/* Section label */}
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-primary text-primary-foreground text-xs font-extrabold flex-shrink-0">
                     {section.label}
                   </span>
-                  <h3 className="text-base font-bold text-foreground">{section.title}</h3>
+                  <h4 className="text-sm font-bold text-foreground">{section.title}</h4>
                   <div className="flex-1 h-px bg-border" />
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {section.questions.map((q) => {
-                    const userAns = selectedAnswers[q.id];
-                    const isCorrect = userAns === q.answer;
+                    const selected = selectedAnswers[q.id];
+                    const isCorrect = selected === q.answer;
                     return (
                       <div
                         key={q.id}
-                        className={`rounded-xl border p-4 ${
-                          isCorrect
-                            ? "border-green-500/30 bg-green-500/5"
-                            : "border-destructive/30 bg-destructive/5"
+                        className={`rounded-xl border p-5 ${
+                          isCorrect ? "border-green-500/30 bg-green-500/5" : "border-destructive/30 bg-destructive/5"
                         }`}
                       >
-                        <p className="font-semibold text-sm text-foreground leading-relaxed flex gap-2 mb-3">
-                          <span
-                            className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold flex-shrink-0 mt-0.5 ${
-                              isCorrect
-                                ? "bg-green-500/20 text-green-400"
-                                : "bg-destructive/20 text-destructive"
-                            }`}
-                          >
-                            {q.id}
-                          </span>
-                          <span>{q.text}</span>
-                        </p>
+                        <div className="flex items-start gap-3 mb-4">
+                          {isCorrect ? (
+                            <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                          ) : (
+                            <XCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                          )}
+                          <p className="font-semibold text-foreground leading-snug text-sm">
+                            <span className="mr-1 text-muted-foreground">{q.id}.</span>
+                            {q.text}
+                          </p>
+                        </div>
                         <div className="space-y-1.5 pl-8">
                           {q.options.map(opt => {
-                            const isUserChoice = opt.key === userAns;
-                            const isRight = opt.key === q.answer;
-                            let cls = "flex items-start gap-2 px-3 py-2 rounded-lg text-sm ";
-                            if (isRight) cls += "bg-green-500/15 border border-green-500/40 text-green-300";
-                            else if (isUserChoice && !isRight) cls += "bg-destructive/15 border border-destructive/40 text-destructive";
-                            else cls += "text-muted-foreground";
+                            const isAnswer = opt.key === q.answer;
+                            const isUserPick = opt.key === selected;
                             return (
-                              <div key={opt.key} className={cls}>
+                              <div
+                                key={opt.key}
+                                className={`flex items-start gap-2 px-3 py-2 rounded-lg text-sm ${
+                                  isAnswer
+                                    ? "bg-green-500/15 text-green-400 font-semibold"
+                                    : isUserPick && !isCorrect
+                                    ? "bg-destructive/15 text-destructive line-through"
+                                    : "text-muted-foreground"
+                                }`}
+                              >
                                 <span className="font-bold flex-shrink-0">{opt.key}.</span>
-                                <span className="flex-1">{opt.text}</span>
-                                {isRight && (
-                                  <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                                )}
-                                {isUserChoice && !isRight && (
-                                  <XCircle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
+                                <span>{opt.text}</span>
+                                {isAnswer && (
+                                  <span className="ml-auto text-xs bg-green-500/20 text-green-500 px-2 py-0.5 rounded-full flex-shrink-0 whitespace-nowrap">
+                                    Jawaban Benar
+                                  </span>
                                 )}
                               </div>
                             );
@@ -679,14 +665,28 @@ export default function Evaluasi() {
               </div>
             ))}
 
-            {/* Retry */}
-            <div className="mt-10 pt-8 border-t border-border">
+            {/* Action buttons */}
+            <div className="flex flex-wrap gap-3 mt-8 pt-6 border-t border-border">
               <button
                 onClick={handleRetry}
-                className="w-full flex items-center justify-center gap-2 py-4 rounded-xl border-2 border-primary text-primary font-bold text-base hover:bg-primary/10 transition-colors"
+                className="flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-xl font-medium hover:bg-secondary/70 transition-colors"
               >
-                <RotateCcw className="w-5 h-5" /> Ulangi Evaluasi
+                <RotateCcw className="w-4 h-4" /> Coba Lagi
               </button>
+              <Link
+                href="/materi"
+                className="px-6 py-3 bg-secondary text-secondary-foreground rounded-xl font-medium hover:bg-secondary/70 transition-colors inline-block"
+              >
+                Daftar Materi
+              </Link>
+              {passed && (
+                <Link
+                  href="/jobsheet"
+                  className="ml-auto flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-colors shadow-md inline-flex"
+                >
+                  Lanjut ke Job Sheet <ArrowRight className="w-4 h-4" />
+                </Link>
+              )}
             </div>
           </div>
         )}
