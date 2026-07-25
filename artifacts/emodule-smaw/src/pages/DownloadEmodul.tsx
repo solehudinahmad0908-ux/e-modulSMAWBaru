@@ -76,41 +76,36 @@ const PROFIL = {
 
 // ── Print CSS ─────────────────────────────────────────────────────────────────
 
-const PRINT_CSS = `
-@media screen {
-  #emodul-pdf { display: none; }
-}
-@media print {
+// CSS diinjeksi ke popup window saat print
+const POPUP_PRINT_CSS = `
   @page { size: A4 portrait; margin: 20mm 22mm; }
+  * { box-sizing: border-box; }
   html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-    background: white !important;
-  }
-  body * { visibility: hidden !important; }
-  #emodul-pdf {
-    display: block !important;
-    visibility: visible !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    background: white !important;
-    color: #1a1a1a !important;
+    margin: 0; padding: 0;
+    background: white;
     font-family: 'Times New Roman', Times, serif;
     font-size: 11pt;
+    color: #1a1a1a;
     line-height: 1.65;
   }
-  #emodul-pdf * { visibility: visible !important; }
-  .pdf-cover { page-break-after: always !important; }
-  .pdf-page-break { page-break-before: always !important; }
-  .pdf-avoid { page-break-inside: avoid !important; }
-  img {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+  img { max-width: 100%; height: auto; }
+  .pdf-cover  { page-break-after : always; break-after : page; }
+  .pdf-page-break { page-break-before: always; break-before: page; }
+  .pdf-avoid  { page-break-inside: avoid; break-inside: avoid; }
+  @media print {
+    @page { size: A4 portrait; margin: 20mm 22mm; }
+    .pdf-cover  { page-break-after : always; break-after : page; }
+    .pdf-page-break { page-break-before: always; break-before: page; }
+    .pdf-avoid  { page-break-inside: avoid; break-inside: avoid; }
+    img {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
   }
-}
 `;
+
+// Di layar: sembunyikan div PDF sepenuhnya
+const SCREEN_CSS = `#emodul-pdf { display: none; }`;
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 
@@ -249,39 +244,58 @@ export default function DownloadEmodul() {
   const allDone = progress.completedModules.length >= 8;
   const [generating, setGenerating] = useState(false);
 
+  // Injeksi CSS layar: sembunyikan div PDF di tampilan normal
   useEffect(() => {
-    if (document.getElementById("emodul-pdf-css")) return;
+    if (document.getElementById("emodul-screen-css")) return;
     const s = document.createElement("style");
-    s.id = "emodul-pdf-css";
-    s.textContent = PRINT_CSS;
+    s.id = "emodul-screen-css";
+    s.textContent = SCREEN_CSS;
     document.head.appendChild(s);
-    return () => { document.getElementById("emodul-pdf-css")?.remove(); };
+    return () => { document.getElementById("emodul-screen-css")?.remove(); };
   }, []);
 
-  const downloadPDF = async () => {
+  const downloadPDF = () => {
     const el = document.getElementById("emodul-pdf");
     if (!el) return;
     setGenerating(true);
-    try {
-      el.style.display = "block";
-      el.style.position = "static";
-      const html2pdf = (await import("html2pdf.js")).default;
-      await html2pdf()
-        .set({
-          margin: [18, 20, 18, 20],
-          filename: "EModul-Pengelasan-SMAW.pdf",
-          image: { type: "jpeg", quality: 0.95 },
-          html2canvas: { scale: 2, useCORS: true, logging: false, imageTimeout: 20000 },
-          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-          pagebreak: { mode: ["css", "legacy"], avoid: "img" },
-        })
-        .from(el)
-        .save();
-    } finally {
-      el.style.display = "";
-      el.style.position = "";
+
+    // Buka popup window bersih — bebas dari dark theme dan konflik CSS React
+    const win = window.open("", "_blank", "width=900,height=700");
+    if (!win) {
+      alert("Popup diblokir. Izinkan popup untuk halaman ini lalu coba lagi.");
       setGenerating(false);
+      return;
     }
+
+    win.document.write(`<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <title>E-Modul Pengelasan SMAW</title>
+  <style>${POPUP_PRINT_CSS}</style>
+</head>
+<body>${el.innerHTML}</body>
+</html>`);
+    win.document.close();
+
+    // Tunggu semua gambar selesai dimuat, baru print
+    const images = Array.from(win.document.images);
+    const waitAll = images.map(
+      (img) =>
+        new Promise<void>((resolve) => {
+          if (img.complete) { resolve(); return; }
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+        })
+    );
+
+    Promise.all(waitAll).then(() => {
+      setTimeout(() => {
+        win.focus();
+        win.print();
+        setGenerating(false);
+      }, 500);
+    });
   };
 
   return (
