@@ -16,6 +16,7 @@ import QuizPage from '@/pages/QuizPage';
 import Evaluasi from '@/pages/Evaluasi';
 import Jobsheet from '@/pages/Jobsheet';
 import Pustaka from '@/pages/Pustaka';
+import ProfilPeserta from '@/pages/ProfilPeserta';
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ function Router() {
       <Route path="/evaluasi" component={Evaluasi} />
       <Route path="/jobsheet" component={Jobsheet} />
       <Route path="/pustaka" component={Pustaka} />
+      <Route path="/profil" component={ProfilPeserta} />
       <Route component={NotFound} />
     </Switch>
   );

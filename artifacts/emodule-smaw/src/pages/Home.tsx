@@ -1,4 +1,7 @@
-import { Link } from "wouter";
+import { useState } from "react";
+import { useLocation } from "wouter";
+import { useProgress } from "@/contexts/ProgressContext";
+import { NameModal } from "@/components/NameModal";
 import weldingHero from "@/assets/welding-hero.jpg";
 import logoCui from "@/assets/logo-cui-nobg.png";
 import logoUpi from "@/assets/logo-upi-nobg.png";
@@ -14,8 +17,33 @@ const STATS = [
 ];
 
 export default function Home() {
+  const { progress, setParticipantName } = useProgress();
+  const [, navigate] = useLocation();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleMulaiBelajar = () => {
+    if (!progress.participantName) {
+      setShowModal(true);
+    } else {
+      navigate("/pendahuluan");
+    }
+  };
+
+  const handleNameConfirm = (name: string) => {
+    setParticipantName(name);
+    setShowModal(false);
+    navigate("/pendahuluan");
+  };
+
   return (
     <div className="flex flex-col gap-8 flex-1">
+      {showModal && (
+        <NameModal
+          onConfirm={handleNameConfirm}
+          onClose={() => setShowModal(false)}
+        />
+      )}
+
       {/* Hero Banner */}
       <div className="relative overflow-hidden rounded-2xl border border-border shadow-xl min-h-[480px] flex items-center justify-center p-8">
         <div className="absolute inset-0 z-0">
@@ -50,9 +78,12 @@ export default function Home() {
             Standar Kompetensi PT Coppal Utama Indomelt (CUI)
           </p>
           <div className="mt-4 flex gap-4">
-            <Link href="/pendahuluan" className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-bold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/25 hover:-translate-y-1 inline-block">
+            <button
+              onClick={handleMulaiBelajar}
+              className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-bold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/25 hover:-translate-y-1"
+            >
               Mulai Belajar
-            </Link>
+            </button>
           </div>
         </div>
       </div>

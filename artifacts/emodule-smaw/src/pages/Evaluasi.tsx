@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { CheckCircle2, XCircle, Clock, FileQuestion, RotateCcw, Award, AlertTriangle, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
+import { useProgress } from "@/contexts/ProgressContext";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -397,6 +398,7 @@ function gradeLabel(score: number) {
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function Evaluasi() {
+  const { completeEvaluasi } = useProgress();
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [score, setScore] = useState(0);
@@ -415,6 +417,7 @@ export default function Evaluasi() {
     setCorrectCount(correct);
     setScore(s);
     setHasSubmitted(true);
+    completeEvaluasi(s);
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
   };
 

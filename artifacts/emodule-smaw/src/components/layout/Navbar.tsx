@@ -1,7 +1,7 @@
 import { useSidebar } from "@/contexts/SidebarContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useTheme } from "@/components/theme-provider";
-import { Menu, Moon, Sun, Search, User, Flame } from "lucide-react";
+import { Menu, Moon, Sun, Search, User } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useLocation } from "wouter";
 
@@ -9,7 +9,7 @@ export function Navbar() {
   const { toggleSidebar, setIsOpen } = useSidebar();
   const { progress } = useProgress();
   const { theme, setTheme } = useTheme();
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
 
   // Simple breadcrumb logic based on path
   const getBreadcrumbs = () => {
@@ -55,9 +55,19 @@ export function Navbar() {
           {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
         </button>
 
-        <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center overflow-hidden border border-border">
-          <User className="w-5 h-5 text-muted-foreground" />
-        </div>
+        <button
+          onClick={() => navigate("/profil")}
+          title={progress.participantName || "Profil Peserta"}
+          className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center overflow-hidden border border-border hover:border-primary hover:bg-primary/10 transition-colors group relative"
+        >
+          {progress.participantName ? (
+            <span className="text-sm font-extrabold text-primary group-hover:scale-110 transition-transform">
+              {progress.participantName.charAt(0).toUpperCase()}
+            </span>
+          ) : (
+            <User className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+          )}
+        </button>
       </div>
     </header>
   );
