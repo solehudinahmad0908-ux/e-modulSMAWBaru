@@ -81,21 +81,34 @@ const PRINT_CSS = `
   #emodul-pdf { display: none; }
 }
 @media print {
-  @page { size: A4 portrait; margin: 15mm 20mm; }
-  html, body { margin: 0 !important; padding: 0 !important; background: white !important; }
+  @page { size: A4 portrait; margin: 20mm 22mm; }
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
   body * { visibility: hidden !important; }
   #emodul-pdf {
     display: block !important;
     visibility: visible !important;
-    position: fixed !important;
-    top: 0 !important; left: 0 !important;
-    width: 170mm !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     background: white !important;
     color: #1a1a1a !important;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    line-height: 1.65;
   }
   #emodul-pdf * { visibility: visible !important; }
+  .pdf-cover { page-break-after: always !important; }
   .pdf-page-break { page-break-before: always !important; }
   .pdf-avoid { page-break-inside: avoid !important; }
+  img {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
 `;
 
@@ -338,7 +351,7 @@ export default function DownloadEmodul() {
       <div id="emodul-pdf" style={{ ...S.body, background: 'white', padding: 0 }}>
 
         {/* ── COVER PAGE ────────────────────────────────────────────────────── */}
-        <div style={{ minHeight: '277mm', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '20mm 0', pageBreakAfter: 'always' }}>
+        <div className="pdf-cover" style={{ minHeight: '277mm', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '20mm 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', marginBottom: '28px' }}>
             <img src={logoCui} alt="Logo CUI" style={{ height: '80px', objectFit: 'contain' }} />
             <div style={{ width: '1px', height: '60px', background: '#ccc' }} />
@@ -369,7 +382,7 @@ export default function DownloadEmodul() {
         </div>
 
         {/* ── PENDAHULUAN ───────────────────────────────────────────────────── */}
-        <div className="pdf-page-break" style={{ pageBreakBefore: 'always' }}>
+        <div className="pdf-page-break">
           <h2 style={{ ...S.h2, fontSize: '16pt' }}>PENDAHULUAN</h2>
 
           <h3 style={S.h3}>A. Deskripsi E-Modul</h3>
@@ -418,7 +431,7 @@ export default function DownloadEmodul() {
           const modData = modulesData.find(m => m.id === mod.id);
           if (!modData) return null;
           return (
-            <div key={mod.id} className="pdf-page-break" style={{ pageBreakBefore: 'always' }}>
+            <div key={mod.id} className="pdf-page-break">
               {/* Module header */}
               <div style={{ marginBottom: '16px', paddingBottom: '12px', borderBottom: '2px solid #c45c00' }}>
                 <span style={S.sectionLabel}>MODUL {mod.id}</span>
