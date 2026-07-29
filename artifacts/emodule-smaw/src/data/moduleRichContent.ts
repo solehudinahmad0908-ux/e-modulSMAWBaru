@@ -23,7 +23,7 @@ export const moduleRichContents: ModuleRichContent[] = [
   {
     id: 1,
     items: [
-      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'heading', text: "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta Praktik Kerja Lapangan (PKL) diharapkan mampu:" },
       { kind: 'bullets', items: [
         "Menjelaskan pengertian Keselamatan dan Kesehatan Kerja (K3).",
@@ -146,7 +146,7 @@ export const moduleRichContents: ModuleRichContent[] = [
   {
     id: 2,
     items: [
-      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'heading', text: "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
       { kind: 'bullets', items: [
         "Menjelaskan pengertian Alat Pelindung Diri (APD).",
@@ -309,7 +309,7 @@ export const moduleRichContents: ModuleRichContent[] = [
   {
     id: 3,
     items: [
-      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'heading', text: "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
       { kind: 'bullets', items: [
         "Menjelaskan fungsi peralatan kerja pada proses pengelasan SMAW.",
@@ -440,7 +440,7 @@ export const moduleRichContents: ModuleRichContent[] = [
   {
     id: 4,
     items: [
-      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'heading', text: "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
       { kind: 'bullets', items: [
         "Menjelaskan pengertian gambar kerja.",
@@ -539,7 +539,7 @@ export const moduleRichContents: ModuleRichContent[] = [
   {
     id: 5,
     items: [
-      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'heading', text: "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
       { kind: 'bullets', items: [
         "Menjelaskan fungsi alat ukur dalam proses fabrikasi dan pengelasan.",
@@ -666,7 +666,7 @@ export const moduleRichContents: ModuleRichContent[] = [
   {
     id: 6,
     items: [
-      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'heading', text: "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
       { kind: 'bullets', items: [
         "Menjelaskan pengertian dan prinsip kerja pengelasan SMAW.",
@@ -784,7 +784,7 @@ export const moduleRichContents: ModuleRichContent[] = [
   {
     id: 7,
     items: [
-      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'heading', text: "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
       { kind: 'bullets', items: [
         "Menjelaskan pengertian tack weld.",
@@ -924,7 +924,7 @@ export const moduleRichContents: ModuleRichContent[] = [
   {
     id: 8,
     items: [
-      { kind: 'heading', text: "Tujuan Pembelajaran" },
+      { kind: 'heading', text: "KKTP (Kriteria Ketercapaian Tujuan Pembelajaran)" },
       { kind: 'para', text: "Setelah mempelajari materi ini, peserta diharapkan mampu:" },
       { kind: 'bullets', items: [
         "Menjelaskan pengertian pemeriksaan hasil tack weld.",
