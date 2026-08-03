@@ -128,7 +128,7 @@ export default function Home() {
             <h3 className="font-bold text-foreground text-lg">Pembimbing I</h3>
             <p className="text-primary font-medium mt-1">Dr. H. Purnawan, S.Pd., M.T.</p>
             <p className="text-sm text-muted-foreground">Dosen Pembimbing I</p>
-            <span className="inline-block mt-1 px-3 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-semibold border border-primary/20">Ahli Media</span>
+            <span className="inline-block mt-1 px-3 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-semibold border border-primary/20">Ahli Vokasi</span>
           </div>
         </div>
 
