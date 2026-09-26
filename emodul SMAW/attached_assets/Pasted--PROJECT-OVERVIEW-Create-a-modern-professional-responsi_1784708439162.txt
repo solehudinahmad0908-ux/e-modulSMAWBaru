@@ -1,0 +1,477 @@
+# PROJECT OVERVIEW
+
+Create a modern, professional, responsive web-based Interactive E-Module titled:
+
+"E-Modul Pengelasan SMAW"
+Standar Kompetensi PT Coppal Utama Indomelt (CUI)
+
+This project is intended as an interactive learning module similar to a modern Learning Management System (LMS). At this stage, DO NOT create the learning content. Only build the complete application framework with placeholders that can easily be edited later.
+
+The application must have a clean code structure, reusable components, and be easy to maintain.
+
+==================================================
+DESIGN REQUIREMENTS
+==================================================
+
+Design Style:
+- Modern
+- Professional
+- Industrial
+- Elegant
+- Responsive
+
+Primary Colors:
+- Metallic Black (#1E1E1E)
+- Orange (#F57C00)
+- White
+
+Provide two appearance modes:
+- Dark Mode (Default)
+- Light Mode
+
+Include:
+- Smooth animations
+- Rounded cards
+- Soft shadows
+- Hover effects
+- Professional typography
+- Modern icons (Lucide or Font Awesome)
+- Responsive layout for Desktop, Tablet and Mobile
+
+==================================================
+APPLICATION LAYOUT
+==================================================
+
+Use a modern LMS layout consisting of:
+
+- Left Sidebar
+- Top Navigation Bar
+- Main Content Area
+- Footer
+
+Sidebar can be collapsed.
+
+==================================================
+TOP NAVBAR
+==================================================
+
+Navbar contains:
+
+- Application Logo
+- Application Title
+- Breadcrumb Navigation
+- Learning Progress
+- Search Button (placeholder)
+- Light/Dark Mode Toggle
+- User Profile Icon (placeholder)
+
+==================================================
+SIDEBAR MENU
+==================================================
+
+Create the following navigation menu:
+
+🏠 Home
+
+📖 Pendahuluan
+
+📚 Materi
+
+📝 Evaluasi
+
+📄 Jobsheet
+
+📚 Daftar Pustaka
+
+Use modern icons.
+
+==================================================
+HOME PAGE
+==================================================
+
+Create a beautiful landing page.
+
+Include:
+
+Large Hero Banner
+
+Title:
+
+E-Modul Pengelasan SMAW
+
+Subtitle:
+
+Standar Kompetensi PT Coppal Utama Indomelt (CUI)
+
+Industrial welding illustration placeholder.
+
+Below it create three modern cards:
+
+Card 1
+
+Identitas Penyusun
+
+Placeholder text
+
+Card 2
+
+Pembimbing I
+
+Placeholder text
+
+Card 3
+
+Pembimbing II
+
+Placeholder text
+
+Add one large button
+
+"Mulai Belajar"
+
+This button navigates to Pendahuluan.
+
+==================================================
+PENDAHULUAN PAGE
+==================================================
+
+Create separate cards for:
+
+1. Deskripsi E-Modul
+
+2. Tujuan Pembelajaran
+
+3. Capaian Pembelajaran
+
+4. Petunjuk Penggunaan E-Modul
+
+5. Prasyarat Pembelajaran
+
+6. Profil Perusahaan
+
+All content must use placeholder text.
+
+==================================================
+MATERI PAGE
+==================================================
+
+This is the main learning section.
+
+Create a Learning Path interface.
+
+There are 8 learning modules.
+
+Module 1
+Keselamatan dan Kesehatan Kerja (K3)
+
+Module 2
+Alat Pelindung Diri (APD)
+
+Module 3
+Pengenalan Peralatan Kerja Pengelasan
+
+Module 4
+Membaca Gambar Kerja
+
+Module 5
+Penggunaan Alat Ukur
+
+Module 6
+Dasar-Dasar Pengelasan SMAW
+
+Module 7
+Teknik Dasar Tack Weld
+
+Module 8
+Pemeriksaan Hasil Tack Weld
+
+Display these modules as modern cards.
+
+Each card shows:
+
+- Module Number
+- Module Title
+- Completion Status
+- Progress Indicator
+
+==================================================
+MODULE PAGE STRUCTURE
+==================================================
+
+Every module opens its own page.
+
+Each page contains:
+
+Module Title
+
+Learning Material Placeholder
+
+Image Placeholder
+
+Video Placeholder
+
+PDF Placeholder
+
+Important Notes
+
+Summary
+
+Everything must be editable later.
+
+==================================================
+MODULE QUIZ
+==================================================
+
+Every module has its own quiz.
+
+Do NOT create questions yet.
+
+Only prepare the quiz framework.
+
+Include:
+
+Quiz Title
+
+Question Area Placeholder
+
+Answer Options Placeholder
+
+Submit Button
+
+Score Area
+
+Result Message
+
+==================================================
+LEARNING LOCK SYSTEM
+==================================================
+
+Implement a sequential learning system.
+
+Students MUST complete the quiz before unlocking the next module.
+
+Example:
+
+Module 1 ✔
+
+Module 2 ✔
+
+Module 3 🔒
+
+Locked modules cannot be opened.
+
+Only unlock after previous quiz passes.
+
+Passing score:
+75
+
+If score is below 75
+
+Display:
+
+"You must pass this evaluation before continuing."
+
+Add Retry button.
+
+==================================================
+PROGRESS SYSTEM
+==================================================
+
+Create a learning progress tracker.
+
+Show:
+
+Overall Progress
+
+Example:
+
+45%
+
+Display:
+
+Progress Bar
+
+Completed Modules
+
+Locked Modules
+
+Current Module
+
+Store progress using browser Local Storage for now.
+
+==================================================
+FINAL EVALUATION PAGE
+==================================================
+
+Prepare the overall evaluation page.
+
+Include:
+
+Title
+
+Instructions
+
+Question Area Placeholder
+
+Submit Button
+
+Score Result
+
+Certificate Placeholder
+
+No questions yet.
+
+==================================================
+JOBSHEET PAGE
+==================================================
+
+Only prepare the layout.
+
+Include:
+
+Title
+
+Description
+
+Upload Placeholder
+
+Jobsheet List Placeholder
+
+Download Button Placeholder
+
+Everything will be uploaded later.
+
+==================================================
+REFERENCES PAGE
+==================================================
+
+Create:
+
+Title
+
+Reference List Placeholder
+
+PDF Placeholder
+
+Everything editable later.
+
+==================================================
+FOOTER
+==================================================
+
+Create a modern footer.
+
+Display:
+
+© 2026
+
+E-Modul Pengelasan SMAW
+
+Standar Kompetensi PT Coppal Utama Indomelt (CUI)
+
+==================================================
+EXTRA FEATURES
+==================================================
+
+Implement:
+
+✔ Responsive Layout
+
+✔ Smooth Page Transition
+
+✔ Scroll To Top Button
+
+✔ Sidebar Collapse
+
+✔ Theme Switcher
+
+✔ Loading Animation
+
+✔ Breadcrumb Navigation
+
+✔ Learning Progress
+
+✔ Locked Modules
+
+✔ Progress Bar
+
+✔ Notification Popup
+
+✔ Local Storage Progress
+
+✔ Search Placeholder
+
+✔ Modern Cards
+
+✔ Mobile Friendly
+
+==================================================
+FOLDER STRUCTURE
+==================================================
+
+Organize the project professionally.
+
+/
+│
+├── assets/
+│     ├── images/
+│     ├── icons/
+│     ├── videos/
+│     └── pdf/
+│
+├── css/
+│     ├── style.css
+│     ├── dark.css
+│     ├── light.css
+│     ├── responsive.css
+│
+├── js/
+│     ├── app.js
+│     ├── theme.js
+│     ├── progress.js
+│     ├── quiz.js
+│     ├── storage.js
+│     └── navigation.js
+│
+├── pages/
+│     ├── home.html
+│     ├── pendahuluan.html
+│     ├── materi.html
+│     ├── evaluasi.html
+│     ├── jobsheet.html
+│     ├── pustaka.html
+│     └── modules/
+│            ├── module1.html
+│            ├── module2.html
+│            ├── module3.html
+│            ├── module4.html
+│            ├── module5.html
+│            ├── module6.html
+│            ├── module7.html
+│            └── module8.html
+│
+├── components/
+│     ├── navbar.html
+│     ├── sidebar.html
+│     ├── footer.html
+│     └── progress.html
+│
+├── data/
+│
+└── index.html
+
+==================================================
+IMPORTANT
+==================================================
+
+DO NOT create the learning materials.
+
+DO NOT create quiz questions.
+
+DO NOT create jobsheets.
+
+DO NOT create references.
+
+Everything must use placeholders because I will upload the content later.
+
+Focus on building a polished, modern, interactive, professional e-learning application framework that looks comparable to a premium LMS. Write clean, modular code with comments so it is easy to extend in future.
